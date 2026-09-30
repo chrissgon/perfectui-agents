@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Settings</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css"
+    />
+    <script type="module">
+      import "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/js/index.js";
+    </script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color-scheme: light dark;
+        }
+        h1 {
+            margin-bottom: 2rem;
+            font-size: 1.875rem;
+            font-weight: 700;
+        }
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-section {
+            border-bottom: 1px solid var(--pui-border);
+            padding-bottom: 1.5rem;
+        }
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+        .form-actions {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+        .setting-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+        }
+        .setting-label {
+            flex: 1;
+            font-weight: 500;
+        }
+        .setting-label h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .setting-label p {
+            margin: 0.25rem 0 0 0;
+            color: var(--pui-text-muted);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notification Settings</h1>
+    
+    <div class="settings-form">
+        <div class="form-section">
+            <h2 style="margin-top: 0; margin-bottom: 1rem;">Notification Channels</h2>
+            
+            <div class="setting-item">
+                <div class="setting-label">
+                    <h3>Email Notifications</h3>
+                    <p>Receive notifications via email</p>
+                </div>
+                <label>
+                    <input type="checkbox" class="pui-switch" checked />
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-label">
+                    <h3>Push Notifications</h3>
+                    <p>Receive notifications on your devices</p>
+                </div>
+                <label>
+                    <input type="checkbox" class="pui-switch" checked />
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-label">
+                    <h3>SMS Notifications</h3>
+                    <p>Receive notifications via text message</p>
+                </div>
+                <label>
+                    <input type="checkbox" class="pui-switch" />
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <label class="pui-field-group">
+                <span>Digest Frequency</span>
+                <select class="pui-input">
+                    <option value="daily">Daily Digest</option>
+                    <option value="weekly" selected>Weekly Digest</option>
+                    <option value="monthly">Monthly Digest</option>
+                    <option value="none">No Digest</option>
+                </select>
+                <small>How often you receive summary notifications</small>
+            </label>
+        </div>
+        
+        <div class="form-section">
+            <label class="pui-field-group">
+                <span>Terms & Conditions</span>
+                <label style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" class="pui-checkbox" />
+                    I accept the terms and conditions
+                </label>
+                <small>You must accept the terms to save your settings</small>
+            </label>
+        </div>
+        
+        <div class="form-actions">
+            <button class="pui-btn pui-outline pui-surface">Cancel</button>
+            <button class="pui-btn pui-solid pui-theme">Save Settings</button>
+        </div>
+    </div>
+</body>
+</html>

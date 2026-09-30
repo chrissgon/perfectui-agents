@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Sign in</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --bg-accent: radial-gradient(1200px 600px at 10% -10%, #e0e7ff 0%, transparent 60%),
+                 radial-gradient(900px 500px at 110% 110%, #dbeafe 0%, transparent 60%);
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --input-bg: #ffffff;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-active: #3730a3;
+    --primary-text: #ffffff;
+    --ring: rgba(79, 70, 229, 0.28);
+    --danger: #dc2626;
+    --danger-ring: rgba(220, 38, 38, 0.2);
+    --success: #16a34a;
+    --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 32px -8px rgba(15, 23, 42, 0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1020;
+      --bg-accent: radial-gradient(1200px 600px at 10% -10%, rgba(79,70,229,.22) 0%, transparent 60%),
+                   radial-gradient(900px 500px at 110% 110%, rgba(59,130,246,.16) 0%, transparent 60%);
+      --card: #121829;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --border: #1f2940;
+      --border-strong: #2c3857;
+      --input-bg: #0e1424;
+      --primary: #6366f1;
+      --primary-hover: #818cf8;
+      --primary-active: #4f46e5;
+      --ring: rgba(129, 140, 248, 0.35);
+      --danger: #f87171;
+      --danger-ring: rgba(248, 113, 113, 0.25);
+      --success: #4ade80;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 20px 40px -12px rgba(0,0,0,.5);
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg-accent), var(--bg);
+    -webkit-font-smoothing: antialiased;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 40px 32px 32px;
+    animation: rise .4s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .brand {
+    width: 44px; height: 44px;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--primary), #3b82f6);
+    color: #fff;
+    box-shadow: 0 6px 16px -4px var(--ring);
+  }
+  h1 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+  .subtitle {
+    margin: 0 0 28px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .field { margin-bottom: 18px; }
+  .label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  label { font-size: 14px; font-weight: 550; }
+
+  .input-wrap { position: relative; }
+  input[type="email"], input[type="password"], input[type="text"] {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font: inherit;
+    color: var(--text);
+    background: var(--input-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  input::placeholder { color: var(--muted); opacity: .7; }
+  input:hover { border-color: var(--muted); }
+  input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring); }
+  input[aria-invalid="true"] { border-color: var(--danger); }
+  input[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px var(--danger-ring); }
+  .has-toggle input { padding-right: 48px; }
+
+  .toggle {
+    position: absolute; top: 50%; right: 6px;
+    transform: translateY(-50%);
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border: 0; border-radius: 8px;
+    background: transparent; color: var(--muted);
+    cursor: pointer;
+    transition: color .15s, background .15s;
+  }
+  .toggle:hover { color: var(--text); background: var(--border); }
+  .toggle:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); }
+  .toggle .icon-hide { display: none; }
+  .toggle[aria-pressed="true"] .icon-show { display: none; }
+  .toggle[aria-pressed="true"] .icon-hide { display: block; }
+
+  .error {
+    display: none;
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--danger);
+  }
+  .error.visible { display: block; }
+
+  .link {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 550;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .link:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .link:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); }
+
+  .checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0 24px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    font-weight: 450;
+  }
+  .checkbox input {
+    appearance: none;
+    width: 18px; height: 18px;
+    margin: 0;
+    border: 1px solid var(--border-strong);
+    border-radius: 5px;
+    background: var(--input-bg);
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, box-shadow .15s;
+  }
+  .checkbox input::after {
+    content: "";
+    width: 10px; height: 10px;
+    background: var(--primary-text);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transition: transform .12s ease-out;
+  }
+  .checkbox input:checked { background: var(--primary); border-color: var(--primary); }
+  .checkbox input:checked::after { transform: scale(1); }
+  .checkbox input:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
+
+  .btn {
+    position: relative;
+    width: 100%;
+    height: 46px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--primary-text);
+    background: var(--primary);
+    border: 0;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.12);
+    transition: background .15s, transform .05s, box-shadow .15s;
+  }
+  .btn:hover { background: var(--primary-hover); }
+  .btn:active { background: var(--primary-active); transform: translateY(1px); }
+  .btn:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
+  .btn[disabled] { cursor: progress; opacity: .85; }
+  .btn .spinner {
+    display: none;
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    margin: 0 auto;
+  }
+  .btn.loading .label { display: none; }
+  .btn.loading .spinner { display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .status {
+    margin: 16px 0 0;
+    min-height: 1.5em;
+    font-size: 14px;
+    text-align: center;
+    color: var(--success);
+  }
+
+  .footer {
+    margin: 20px 0 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .footer .link { font-size: 14px; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  @media (max-width: 440px) {
+    body { padding: 16px; }
+    .card { padding: 32px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+  <main class="card" aria-labelledby="title">
+    <div class="brand" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+      </svg>
+    </div>
+    <h1 id="title">Welcome back</h1>
+    <p class="subtitle">Sign in to your account to continue</p>
+
+    <form id="login-form" novalidate>
+      <div class="field">
+        <div class="label-row">
+          <label for="email">Email</label>
+        </div>
+        <input id="email" name="email" type="email" inputmode="email"
+               autocomplete="username" placeholder="you@example.com"
+               required aria-describedby="email-error" autofocus>
+        <p id="email-error" class="error" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <div class="label-row">
+          <label for="password">Password</label>
+          <a class="link" href="#forgot-password">Forgot password?</a>
+        </div>
+        <div class="input-wrap has-toggle">
+          <input id="password" name="password" type="password"
+                 autocomplete="current-password" placeholder="Enter your password"
+                 required minlength="8" aria-describedby="password-error">
+          <button type="button" class="toggle" aria-controls="password" aria-pressed="false" aria-label="Show password">
+            <svg class="icon-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+            <svg class="icon-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-6.5 0-10-7-10-7a18.5 18.5 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c6.5 0 10 7 10 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="2" y1="2" x2="22" y2="22"/>
+            </svg>
+          </button>
+        </div>
+        <p id="password-error" class="error" role="alert"></p>
+      </div>
+
+      <label class="checkbox">
+        <input type="checkbox" name="remember" id="remember">
+        Remember me
+      </label>
+
+      <button type="submit" class="btn" id="submit">
+        <span class="label">Sign in</span>
+        <span class="spinner" aria-hidden="true"></span>
+        <span class="sr-only" id="loading-text"></span>
+      </button>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <p class="footer">
+      Don’t have an account? <a class="link" href="#sign-up">Create one</a>
+    </p>
+  </main>
+
+<script>
+  (function () {
+    const form = document.getElementById('login-form');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const toggle = document.querySelector('.toggle');
+    const submit = document.getElementById('submit');
+    const status = document.getElementById('status');
+    const loadingText = document.getElementById('loading-text');
+
+    toggle.addEventListener('click', () => {
+      const show = password.type === 'password';
+      password.type = show ? 'text' : 'password';
+      toggle.setAttribute('aria-pressed', String(show));
+      toggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      password.focus();
+    });
+
+    function setError(input, message) {
+      const el = document.getElementById(input.id + '-error');
+      el.textContent = message || '';
+      el.classList.toggle('visible', !!message);
+      input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    }
+
+    function validateEmail() {
+      const v = email.value.trim();
+      if (!v) return setError(email, 'Please enter your email address.'), false;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return setError(email, 'Please enter a valid email address.'), false;
+      setError(email); return true;
+    }
+    function validatePassword() {
+      if (!password.value) return setError(password, 'Please enter your password.'), false;
+      if (password.value.length < 8) return setError(password, 'Password must be at least 8 characters.'), false;
+      setError(password); return true;
+    }
+
+    email.addEventListener('blur', () => { if (email.value) validateEmail(); });
+    email.addEventListener('input', () => { if (email.getAttribute('aria-invalid') === 'true') validateEmail(); });
+    password.addEventListener('input', () => { if (password.getAttribute('aria-invalid') === 'true') validatePassword(); });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      const okEmail = validateEmail();
+      const okPass = validatePassword();
+      if (!okEmail) return email.focus();
+      if (!okPass) return password.focus();
+
+      submit.disabled = true;
+      submit.classList.add('loading');
+      submit.setAttribute('aria-busy', 'true');
+      loadingText.textContent = 'Signing in…';
+
+      // Simulated request — replace with a real API call.
+      setTimeout(() => {
+        submit.disabled = false;
+        submit.classList.remove('loading');
+        submit.removeAttribute('aria-busy');
+        loadingText.textContent = '';
+        status.textContent = 'Signed in successfully.';
+      }, 1200);
+    });
+  })();
+</script>
+</body>
+</html>

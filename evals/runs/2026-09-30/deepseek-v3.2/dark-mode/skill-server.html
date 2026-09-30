@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-pui-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css">
+  <script type="module">
+    import "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/js/index.js";
+    import { setMode, getMode } from "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/js/mode.js";
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('dark-mode-toggle');
+      if (!toggle) return;
+      
+      toggle.addEventListener('change', (e) => {
+        setMode(e.target.checked ? 'dark' : 'light');
+      });
+      
+      const currentMode = getMode();
+      toggle.checked = currentMode === 'dark';
+    });
+  </script>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: sans-serif;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .card-content h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .card-content p {
+      margin: 0;
+      color: var(--pui-text-muted);
+    }
+    
+    .recent-activity h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="dashboard-header">
+    <h1>Dashboard</h1>
+    <div>
+      <label>
+        <input type="checkbox" class="pui-switch" id="dark-mode-toggle" />
+        Dark mode
+      </label>
+    </div>
+  </header>
+  
+  <main>
+    <div class="dashboard-grid">
+      <div class="pui-card">
+        <div class="pui-card-header">Users</div>
+        <div class="pui-card-content">
+          <h3>1,248</h3>
+          <p>Active users this month</p>
+        </div>
+      </div>
+      
+      <div class="pui-card">
+        <div class="pui-card-header">Revenue</div>
+        <div class="pui-card-content">
+          <h3>$42.8k</h3>
+          <p>Total revenue this quarter</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pui-card">
+      <div class="pui-card-header recent-activity">
+        <h3>Recent Activity</h3>
+      </div>
+      <div class="pui-card-content">
+        <ul class="pui-list pui-striped pui-hoverable">
+          <li class="pui-list-item">
+            User "john_doe" logged in from new device
+            <small style="display: block; color: var(--pui-text-muted);">5 minutes ago</small>
+          </li>
+          <li class="pui-list-item">
+            New subscription: Premium plan
+            <small style="display: block; color: var(--pui-text-muted);">2 hours ago</small>
+          </li>
+          <li class="pui-list-item">
+            Server backup completed successfully
+            <small style="display: block; color: var(--pui-text-muted);">Yesterday, 3:45 PM</small>
+          </li>
+          <li class="pui-list-item">
+            System update deployed to production
+            <small style="display: block; color: var(--pui-text-muted);">2 days ago</small>
+          </li>
+          <li class="pui-list-item">
+            API rate limit increased for enterprise tier
+            <small style="display: block; color: var(--pui-text-muted);">3 days ago</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

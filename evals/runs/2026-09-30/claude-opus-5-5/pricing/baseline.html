@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing — Choose your plan</title>
+<style>
+  :root {
+    --bg: #f7f7fb;
+    --surface: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --accent: #5b5bf0;
+    --accent-2: #8b5cf6;
+    --accent-soft: #eef0ff;
+    --check: #10b981;
+    --radius: 20px;
+    --shadow: 0 1px 2px rgba(15,23,42,.04), 0 8px 24px rgba(15,23,42,.06);
+    --shadow-hi: 0 2px 4px rgba(91,91,240,.08), 0 24px 48px rgba(91,91,240,.22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0d14;
+      --surface: #131722;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #242a38;
+      --accent-soft: #1d1f3a;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --shadow-hi: 0 2px 4px rgba(0,0,0,.3), 0 24px 48px rgba(91,91,240,.28);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background:
+      radial-gradient(1200px 500px at 50% -10%, rgba(91,91,240,.12), transparent 70%),
+      var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  main { max-width: 1120px; margin: 0 auto; padding: 88px 24px 96px; }
+
+  header { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--accent);
+    background: var(--accent-soft); padding: 6px 12px; border-radius: 999px; margin-bottom: 18px;
+  }
+  h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.1; letter-spacing: -.02em; font-weight: 800; }
+  header p { margin-top: 16px; font-size: 18px; color: var(--muted); }
+
+  /* Billing toggle */
+  .billing {
+    display: inline-flex; margin-top: 32px; padding: 4px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .billing button {
+    font: inherit; font-size: 14px; font-weight: 600; border: 0; cursor: pointer;
+    padding: 8px 18px; border-radius: 999px; background: transparent; color: var(--muted);
+    transition: background .2s, color .2s;
+  }
+  .billing button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+  .billing .save { font-size: 12px; color: var(--check); margin-left: 6px; }
+  .billing button[aria-pressed="true"] .save { color: #6ee7b7; }
+
+  /* Cards */
+  .plans {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch;
+  }
+  .card {
+    position: relative; display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 32px; box-shadow: var(--shadow);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover { transform: translateY(-4px); }
+  .card.featured {
+    border: 2px solid transparent;
+    background:
+      linear-gradient(var(--surface), var(--surface)) padding-box,
+      linear-gradient(135deg, var(--accent), var(--accent-2)) border-box;
+    box-shadow: var(--shadow-hi);
+    transform: scale(1.04);
+    z-index: 1;
+  }
+  .card.featured:hover { transform: scale(1.04) translateY(-4px); }
+  .badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px; white-space: nowrap;
+    box-shadow: 0 6px 16px rgba(91,91,240,.35);
+  }
+  .card h2 { font-size: 20px; font-weight: 700; }
+  .tagline { color: var(--muted); font-size: 15px; margin-top: 6px; min-height: 45px; }
+
+  .price { display: flex; align-items: baseline; gap: 6px; margin: 24px 0 4px; }
+  .amount { font-size: 48px; font-weight: 800; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .period { color: var(--muted); font-size: 15px; }
+  .note { font-size: 13px; color: var(--muted); min-height: 20px; }
+
+  .cta {
+    display: block; text-align: center; text-decoration: none; margin: 24px 0 28px;
+    font-weight: 600; font-size: 15px; padding: 13px 20px; border-radius: 12px;
+    border: 1px solid var(--border); color: var(--text); background: transparent;
+    transition: background .2s, border-color .2s, transform .1s, box-shadow .2s;
+  }
+  .cta:hover { background: var(--accent-soft); border-color: var(--accent); }
+  .cta:active { transform: translateY(1px); }
+  .featured .cta {
+    border: 0; color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 8px 20px rgba(91,91,240,.35);
+  }
+  .featured .cta:hover { box-shadow: 0 10px 26px rgba(91,91,240,.5); filter: brightness(1.05); }
+  .cta:focus-visible, .billing button:focus-visible {
+    outline: 3px solid var(--accent); outline-offset: 3px;
+  }
+
+  .features-label { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 14px; }
+  .features { list-style: none; display: grid; gap: 12px; border-top: 1px solid var(--border); padding-top: 24px; }
+  .features li { display: flex; gap: 12px; font-size: 15px; align-items: flex-start; }
+  .features svg { flex: none; width: 20px; height: 20px; margin-top: 1px; }
+  .features .yes svg { color: var(--check); }
+  .features .no { color: var(--muted); }
+  .features .no span { text-decoration: line-through; text-decoration-color: rgba(100,116,139,.4); }
+  .features .no svg { color: var(--border); }
+
+  footer { text-align: center; margin-top: 56px; color: var(--muted); font-size: 14px; }
+  footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .plans { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; gap: 32px; }
+    .card.featured, .card.featured:hover { transform: none; }
+    .tagline { min-height: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="eyebrow">Pricing</span>
+    <h1>Simple pricing that grows with you</h1>
+    <p>Start free, upgrade when you're ready. No hidden fees, cancel anytime.</p>
+    <div class="billing" role="group" aria-label="Billing period">
+      <button type="button" data-billing="monthly" aria-pressed="true">Monthly</button>
+      <button type="button" data-billing="yearly" aria-pressed="false">Yearly<span class="save">−20%</span></button>
+    </div>
+  </header>
+
+  <section class="plans" aria-label="Plans">
+    <!-- Free -->
+    <article class="card" aria-labelledby="free-title">
+      <h2 id="free-title">Free</h2>
+      <p class="tagline">For individuals exploring the basics.</p>
+      <div class="price">
+        <span class="amount" data-monthly="0" data-yearly="0">$0</span>
+        <span class="period">/ month</span>
+      </div>
+      <p class="note">Free forever</p>
+      <a href="#" class="cta">Get started</a>
+      <ul class="features">
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Up to 3 projects</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>1 GB storage</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Basic analytics</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Community support</span></li>
+        <li class="no"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4 10a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z" clip-rule="evenodd"/></svg><span>Custom domains</span><span class="sr-only" hidden> (not included)</span></li>
+        <li class="no"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4 10a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z" clip-rule="evenodd"/></svg><span>Priority support</span></li>
+      </ul>
+    </article>
+
+    <!-- Pro (highlighted) -->
+    <article class="card featured" aria-labelledby="pro-title">
+      <span class="badge">Most popular</span>
+      <h2 id="pro-title">Pro</h2>
+      <p class="tagline">For professionals who need more power and flexibility.</p>
+      <div class="price">
+        <span class="amount" data-monthly="19" data-yearly="15">$19</span>
+        <span class="period">/ month</span>
+      </div>
+      <p class="note" data-monthly-note="Billed monthly" data-yearly-note="$180 billed yearly">Billed monthly</p>
+      <a href="#" class="cta">Start 14-day free trial</a>
+      <ul class="features">
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Unlimited projects</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>100 GB storage</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Advanced analytics</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Custom domains</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Priority email support</span></li>
+        <li class="no"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4 10a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z" clip-rule="evenodd"/></svg><span>Team collaboration</span></li>
+      </ul>
+    </article>
+
+    <!-- Team -->
+    <article class="card" aria-labelledby="team-title">
+      <h2 id="team-title">Team</h2>
+      <p class="tagline">For growing teams that collaborate at scale.</p>
+      <div class="price">
+        <span class="amount" data-monthly="49" data-yearly="39">$49</span>
+        <span class="period">/ user / month</span>
+      </div>
+      <p class="note" data-monthly-note="Billed monthly" data-yearly-note="$468 per user, billed yearly">Billed monthly</p>
+      <a href="#" class="cta">Contact sales</a>
+      <ul class="features">
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Everything in Pro</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>1 TB shared storage</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Team collaboration &amp; roles</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>SSO &amp; audit logs</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>Dedicated account manager</span></li>
+        <li class="yes"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd"/></svg><span>24/7 priority support</span></li>
+      </ul>
+    </article>
+  </section>
+
+  <footer>
+    <p>Need something custom? <a href="#">Talk to our team →</a></p>
+  </footer>
+</main>
+
+<script>
+  const buttons = document.querySelectorAll('.billing button');
+  buttons.forEach(btn => btn.addEventListener('click', () => {
+    const mode = btn.dataset.billing;
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    document.querySelectorAll('.amount').forEach(el => {
+      el.textContent = '$' + el.dataset[mode];
+    });
+    document.querySelectorAll('.note[data-monthly-note]').forEach(el => {
+      el.textContent = el.dataset[mode + 'Note'];
+    });
+  }));
+</script>
+</body>
+</html>

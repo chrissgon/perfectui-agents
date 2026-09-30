@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Dark Mode</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border-radius:10px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4pxス 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+        
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+        
+        .container {
+            max-width:說 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo .icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .theme-toggle .icon {
+            font-size: 1.25rem;
+        }
+        
+        .dashboard-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .dashboard-subtitle {
+            color: var(--text-secondary);
+            margin-bottom:， 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .card-icon.users {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+        
+        .card-icon.revenue {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .card-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-change {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .card-change.positive {
+            color: var(--success);
+        }
+        
+        .card-change.negative {
+            color: var(--danger);
+        }
+        
+        .activity-section {
+            margin-top: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .activity-list {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        
+        .activity-item:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .activity-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .activity-time {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="icon">D</div>
+                DashboardPro
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <span class="icon" id="themeIcon">🌙</span>
+                <span id="themeText">Light Mode</span>
+            </button>
+        </header>
+        
+        <main>
+            <h1 class="dashboard-title">Dashboard Overview</h1>
+            <p class="dashboard-subtitle">Welcome back! Here's what's happening today.</p>
+            
+            <div class="stats-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Active Users</h3>
+                        <div class="card-icon users">👥</div>
+                    </div>
+                    <div class="card-value">12,847</div>
+                    <div class="card-change positive">↑ 12.5% from last month</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Monthly Revenue</h3>
+                        <div class="card-icon revenue">💰</div>
+                    </div>
+                    <div class="card-value">$284,592</div>
+                    <div class="card-change positive">↑ 8.2% from last month</div>
+                </div>
+            </div>
+            
+            <div class="activity-section">
+                <h2 class="section-title">Recent Activity</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(99, 102, 241, 0.1); color: var(--primary);">🔄</div>
+                        <div class="activity-content">
+                            <div class="activity-title">System Update Completed</div>
+                            <div class="activity-description">Version 2.3.1 deployed successfully</div>
+                        </div>
+                        <div class="activity-time">10 min ago</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">📊</div>
+                        <div class="activity-content">
+                            <div class="activity-title">New Analytics Report</div>
+                            <div class="activity-description">Q3 performance report generated</div>
+                        </div>
+                        <div class="activity-time">1 hour ago</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">👤</div>
+                        <div class="activity-content">
+                            <div class="activity-title">User Registration</div>
+                            <div class="activity-description">15 new users registered today</div>
+                        </div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">⚠️</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Security Alert</div>
+                            <div class="activity-description">Unusual login attempt detected</div>
+                        </div>
+                        <div class="activity-time">4 hours ago</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(99, 102, 241, 0.1); color: var(--primary);">📈</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Performance Boost</div>
+                            <div class="activity-description">Database optimization completed</div>
+                        </div>
+                        <div class="activity-time">6 hours ago</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>© 2025 DashboardPro. All rights reserved. | Last updated: Today</p>
+        </footer>
+    </div>
+    
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Dark Mode';
+            }
+            
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        
+        if (savedTheme === 'dark') {
+            themeIcon.textContent = '🌙';
+            themeText.textContent = 'Light Mode';
+        } else {
+            themeIcon.textContent = '☀️';
+            themeText.textContent = 'Dark Mode';
+        }
+    </script>
+</body>
+</html>

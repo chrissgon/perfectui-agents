@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aurora Website · Project</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css"
+    />
+    <script type="module">
+      import "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/js/index.js";
+    </script>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        background: var(--pui-bg);
+        color: var(--pui-text);
+      }
+      .page {
+        max-width: 48rem;
+        margin: 0 auto;
+        padding: calc(var(--pui-space) * 10) calc(var(--pui-space) * 5);
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--pui-space) * 6);
+      }
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: calc(var(--pui-space) * 4);
+      }
+      .page-header h1 {
+        margin: 0 0 calc(var(--pui-space) * 1);
+        font-size: 1.75rem;
+      }
+      .muted {
+        margin: 0;
+        color: var(--pui-text-muted);
+      }
+      .overview {
+        width: 100%;
+      }
+      .overview th {
+        text-align: left;
+        width: 35%;
+      }
+      .danger {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: calc(var(--pui-space) * 4);
+        flex-wrap: wrap;
+      }
+      .danger strong {
+        display: block;
+        margin-bottom: calc(var(--pui-space) * 1);
+      }
+      .modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--pui-space) * 5);
+      }
+      .modal-body p {
+        margin: 0;
+      }
+      .modal-actions {
+        justify-content: flex-end;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <div>
+          <h1>Aurora Website</h1>
+          <p class="muted">Marketing site redesign · Created March 12, 2026</p>
+        </div>
+        <span class="pui-chip pui-soft pui-success">Active</span>
+      </header>
+
+      <div class="pui-card">
+        <div class="pui-card-header">Overview</div>
+        <div class="pui-card-content">
+          <table class="pui-table overview">
+            <tbody>
+              <tr>
+                <th>Owner</th>
+                <td>Design team</td>
+              </tr>
+              <tr>
+                <th>Members</th>
+                <td>8</td>
+              </tr>
+              <tr>
+                <th>Repository</th>
+                <td>aurora/website</td>
+              </tr>
+              <tr>
+                <th>Last deployment</th>
+                <td>September 29, 2026</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pui-card">
+        <div class="pui-card-header">Danger zone</div>
+        <div class="pui-card-content danger">
+          <div>
+            <strong>Delete this project</strong>
+            <p class="muted">
+              Removes the project, its deployments and all of its data.
+            </p>
+          </div>
+          <button
+            class="pui-btn pui-outline pui-error"
+            commandfor="confirm-delete"
+            command="show-modal"
+          >
+            Delete project
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <dialog
+      class="pui-modal"
+      id="confirm-delete"
+      closedby="any"
+      aria-labelledby="confirm-delete-title"
+      aria-describedby="confirm-delete-desc"
+    >
+      <div class="pui-card">
+        <div class="pui-card-header" id="confirm-delete-title">
+          Delete project
+        </div>
+        <div class="pui-card-content modal-body">
+          <p id="confirm-delete-desc">
+            Are you sure you want to delete <strong>Aurora Website</strong>?
+            This action cannot be undone. The project, its deployments and all
+            of its data will be permanently removed.
+          </p>
+          <div class="pui-group-row modal-actions">
+            <button
+              class="pui-btn pui-outline pui-surface"
+              commandfor="confirm-delete"
+              command="close"
+              autofocus
+            >
+              Cancel
+            </button>
+            <button
+              class="pui-btn pui-solid pui-error"
+              commandfor="confirm-delete"
+              command="close"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>

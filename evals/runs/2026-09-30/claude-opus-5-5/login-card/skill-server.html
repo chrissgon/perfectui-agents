@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--pui-bg);
+      color: var(--pui-text);
+    }
+    .login {
+      width: 100%;
+      max-width: 24rem;
+    }
+    .login-form {
+      gap: calc(var(--pui-space) * 4);
+    }
+    .login-form .pui-input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .login-options {
+      justify-content: space-between;
+      align-items: center;
+    }
+    .login-remember {
+      display: inline-flex;
+      align-items: center;
+      gap: calc(var(--pui-space) * 2);
+      font-size: var(--pui-font-size);
+      cursor: pointer;
+    }
+    .login-submit {
+      width: 100%;
+    }
+    .login-intro {
+      margin: 0 0 calc(var(--pui-space) * 4);
+      color: var(--pui-text-muted);
+      font-size: var(--pui-font-size);
+    }
+  </style>
+</head>
+<body>
+  <main class="login">
+    <div class="pui-card">
+      <div class="pui-card-header">Sign in</div>
+      <div class="pui-card-content">
+        <p class="login-intro">Welcome back. Enter your details to continue.</p>
+        <form class="pui-group-col login-form" action="#" method="post">
+          <label class="pui-field-group">
+            <span>Email</span>
+            <input
+              class="pui-input"
+              type="email"
+              name="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+          </label>
+
+          <label class="pui-field-group">
+            <span>Password</span>
+            <input
+              class="pui-input"
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              placeholder="••••••••"
+              required
+            />
+          </label>
+
+          <div class="pui-group-row login-options">
+            <label class="login-remember">
+              <input type="checkbox" class="pui-checkbox" name="remember" />
+              Remember me
+            </label>
+            <a class="pui-btn pui-link pui-theme" href="#">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="pui-btn pui-solid pui-theme login-submit">
+            Sign in
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

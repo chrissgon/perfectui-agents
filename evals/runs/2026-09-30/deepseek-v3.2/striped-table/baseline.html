@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@perfectui/perfectui-css@latest/dist/perfectui.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #6d28d9 0%, #4c1d95 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.025em;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin: 0.5rem 0 0 0;
+        }
+        
+        .table-container {
+            padding: 2rem;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        
+        thead {
+            background: #f9fafb;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+        
+        tbody tr:nth-child(odd) {
+            background-color: #fafafa;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        
+        tbody tr:hover {
+            background-color: #f0f9ff;
+            transition: background-color 0.2s ease;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            color: #1f2937;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .badge-active {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .badge-invited {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .email-cell {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .email-cell:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        .footer {
+            padding: 1.5rem 2rem;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .container {
+                border-radius: 12px;
+            }
+            
+            .header {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .table-container {
+                padding: 1rem;
+            }
+            
+            th, td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Team Members</h1>
+            <p>Manage your team members and their permissions</p>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Alex Morgan</strong></td>
+                        <td>Frontend Developer</td>
+                        <td class="email-cell">alex.morgan@company.com</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sarah Chen</strong></td>
+                        <td>Product Manager</td>
+                        <td class="email-cell">sarah.chen@company.com</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Michael Rodriguez</strong></td>
+                        <td>Backend Engineer</td>
+                        <td class="email-cell">michael.rodriguez@company.com</td>
+                        <td><span class="badge badge-invited">Invited</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>James Wilson</strong></td>
+                        <td>DevOps Engineer</td>
+                        <td class="email-cell">james.wilson@company.com</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lisa Thompson</strong></td>
+                        <td>UX Designer</td>
+                        <td class="email-cell">lisa.thompson@company.com</td>
+                        <td><span class="badge badge-invited">Invited</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>David Kim</strong></td>
+                        <td>Full Stack Developer</td>
+                        <td class="email-cell">david.kim@company.com</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Emma Davis</strong></td>
+                        <td>QA Engineer</td>
+                        <td class="email-cell">emma.davis@company.com</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Robert Johnson</strong></td>
+                        <td>Team Lead</td>
+                        <td class="email-cell">robert.johnson@company.com</td>
+                        <td><span class="badge badge-invited">Invited</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>Showing 8 team members • 5 Active • 3 Invited</p>
+        </div>
+    </div>
+</body>
+</html>

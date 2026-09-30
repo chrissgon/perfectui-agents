@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-pui-mode="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--pui-bg);
+      color: var(--pui-text);
+    }
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      border-bottom: var(--pui-border-width) solid var(--pui-border);
+    }
+    .app-header h1 { margin: 0; font-size: 1.25rem; }
+    .mode-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--pui-font-size);
+      cursor: pointer;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      display: grid;
+      gap: 1.5rem;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .stat-value {
+      display: block;
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-note { color: var(--pui-text-muted); font-size: var(--pui-font-size); margin-left: 0.25rem; }
+    .activity { list-style: none; margin: 0; padding: 0; }
+    .activity .pui-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .activity-main { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+    .activity time { color: var(--pui-text-muted); font-size: var(--pui-font-size); white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Dashboard</h1>
+    <label class="mode-label">
+      <input type="checkbox" class="pui-switch" id="mode-toggle" checked />
+      Dark mode
+    </label>
+  </header>
+
+  <main>
+    <section class="stats">
+      <div class="pui-card">
+        <div class="pui-card-header">Active users</div>
+        <div class="pui-card-content">
+          <span class="stat-value">1,284</span>
+          <span class="pui-chip pui-soft pui-success">+12%</span>
+          <span class="stat-note">vs. last week</span>
+        </div>
+      </div>
+      <div class="pui-card">
+        <div class="pui-card-header">Revenue</div>
+        <div class="pui-card-content">
+          <span class="stat-value">$48,920</span>
+          <span class="pui-chip pui-soft pui-error">−3%</span>
+          <span class="stat-note">vs. last week</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="pui-card">
+      <div class="pui-card-header">Recent activity</div>
+      <ul class="pui-list pui-hoverable activity">
+        <li class="pui-list-item">
+          <span class="activity-main">
+            <span class="pui-badge pui-soft pui-success">Signup</span>
+            Maria Lopez created an account
+          </span>
+          <time datetime="PT5M">5 min ago</time>
+        </li>
+        <li class="pui-list-item">
+          <span class="activity-main">
+            <span class="pui-badge pui-soft pui-theme">Order</span>
+            Order #10423 was placed
+          </span>
+          <time datetime="PT22M">22 min ago</time>
+        </li>
+        <li class="pui-list-item">
+          <span class="activity-main">
+            <span class="pui-badge pui-soft pui-warn">Refund</span>
+            Refund requested for order #10387
+          </span>
+          <time datetime="PT1H">1 h ago</time>
+        </li>
+        <li class="pui-list-item">
+          <span class="activity-main">
+            <span class="pui-badge pui-soft pui-error">Alert</span>
+            Payment failed for invoice #2291
+          </span>
+          <time datetime="PT3H">3 h ago</time>
+        </li>
+        <li class="pui-list-item">
+          <span class="activity-main">
+            <span class="pui-badge pui-soft pui-muted">Update</span>
+            Team settings were changed
+          </span>
+          <time datetime="P1D">Yesterday</time>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const toggle = document.getElementById("mode-toggle");
+    toggle.addEventListener("change", () => {
+      document.documentElement.setAttribute("data-pui-mode", toggle.checked ? "dark" : "light");
+    });
+  </script>
+</body>
+</html>
