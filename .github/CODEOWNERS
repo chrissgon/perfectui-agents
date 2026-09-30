@@ -1,0 +1,9 @@
+# Files that define the repository's rules and its checks: changes need the owner's review.
+/AGENTS.md                  @chrissgon
+/.github/                   @chrissgon
+/.githooks/                 @chrissgon
+/scripts/secret-scan/       @chrissgon
+/.secret-scan-allow         @chrissgon
+/package.json               @chrissgon
+/tsconfig*.json             @chrissgon
+/vitest.config.ts           @chrissgon

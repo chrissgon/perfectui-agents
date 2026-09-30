@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Pre-commit checks: the same as the CI workflow (.github/workflows/checks.yml), except the install.
+# Enable them once per clone: git config core.hooksPath .githooks
+# 1. The secret scan of the working tree (scripts/secret-scan/secret_scan.py).
+# 2. Types, tests and the build.
+# Skipping the hook (git commit --no-verify) is the user's decision, never an agent's.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+python3 scripts/secret-scan/secret_scan.py || { echo "pre-commit: a secret or credential file was found (listed above). Remove it; a planted test value is allowed by a line in .secret-scan-allow with its reason." >&2; exit 1; }
+npm run --silent typecheck
+npm test --silent
+npm run --silent build

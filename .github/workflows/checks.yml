@@ -1,0 +1,52 @@
+# The project's checks and a secret scan, on every push to main and every pull request.
+# The same checks run in the pre-commit hook (.githooks/pre-commit). Actions are pinned to a commit
+# (a tag can be moved); Dependabot proposes updates. Read-only permissions.
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  secrets:
+    name: secrets
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # the history scan reads every commit
+          persist-credentials: false
+      - name: Secrets in the working tree
+        run: python3 scripts/secret-scan/secret_scan.py
+      - name: Secrets in history
+        run: python3 scripts/secret-scan/secret_scan.py --history
+
+  build:
+    name: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Types
+        run: npm run typecheck
+      - name: Tests (offline)
+        run: npm test
+      - name: Build
+        run: npm run build
