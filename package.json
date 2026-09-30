@@ -6,6 +6,20 @@
   "type": "module",
   "private": true,
   "author": "Christopher Gonçalves",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "perfectui",
+    "css",
+    "agents"
+  ],
+  "bin": {
+    "perfectui-mcp": "dist/server.js"
+  },
+  "files": [
+    "dist",
+    "data"
+  ],
   "engines": {
     "node": ">=20"
   },
@@ -27,8 +41,5 @@
     "tsx": "4.23.15",
     "typescript": "7.0.2",
     "vitest": "5.0.2"
-  },
-  "bin": {
-    "perfectui-mcp": "dist/server.js"
   }
 }
