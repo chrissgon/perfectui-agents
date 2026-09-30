@@ -20,4 +20,7 @@ A read-only MCP server over the documentation and stylesheet of Perfect UI 1.0.0
 - Tool inputs are strict zod objects (unknown keys are rejected) and every tool declares an output schema.
 - Tests never use the network: the library reader takes an injectable download function and fixtures live in `tests/fixtures/`.
 - Code, comments, commits and documentation in English. Conventional Commits, signed.
-- Local only for now: no remote, no push, no npm publish (`"private": true` stays until the publication task is approved).
+- Public repository `chrissgon/perfectui-agents`. `main` is protected: every change goes through a branch and a pull request, merged by squash only when the required checks `secrets` and `build` are green, with signed commits. No force push, no rule changes, no bypass.
+- No `npm publish`: `"private": true` stays in `package.json` until the owner approves the publication task.
+- Enable the pre-commit hook once per clone: `git config core.hooksPath .githooks`. It runs the secret scan, types, tests and the build, the same checks as CI. Never skip it.
+- Credentials never enter the repository; `.env` and `.env.*` are git-ignored. Report vulnerabilities as described in `SECURITY.md`.
