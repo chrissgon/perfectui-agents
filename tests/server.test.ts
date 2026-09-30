@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import type { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { loadCorpus } from "../src/corpus.js";
-import { buildServer } from "../src/server.js";
+import { buildServer } from "../src/index.js";
 import { call, connect, text } from "./helpers/connect.js";
 
 // T-pua-8 (AC-1, AC-2): the assembled server, as a client sees it.
@@ -33,7 +33,7 @@ describe("buildServer", () => {
     expect(client.getInstructions()).toBe(
       "Read-only. Answers only about Perfect UI 1.0.0; never invent classes: call check_markup before returning markup.",
     );
-    expect(client.getServerVersion()).toMatchObject({ name: "perfectui", version: "0.1.0" });
+    expect(client.getServerVersion()).toMatchObject({ name: "perfectui", version: "0.2.0" });
   });
 
   it("serves get_component and check_markup together", async () => {

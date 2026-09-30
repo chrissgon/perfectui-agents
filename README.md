@@ -1,4 +1,4 @@
-# perfectui-agents
+# perfectui-mcp
 
 A read-only [MCP](https://modelcontextprotocol.io) server that gives coding agents the real classes, markup and install instructions of [Perfect UI](https://perfectui.dev) 1.0.0, so they stop inventing `pui-*` classes.
 
@@ -72,7 +72,7 @@ VS Code (`.vscode/mcp.json` in a workspace):
 }
 ```
 
-To pin a version, write it in the package name: `@chrissgon/perfectui-mcp@0.1.0`.
+To pin a version, write it in the package name: `@chrissgon/perfectui-mcp@0.2.0`.
 
 To try it without a client, use the MCP Inspector's command-line mode. Leave `-y` out of the server command here: with it, Inspector 2.8.0 fails to start the server (npx still installs the package without asking, because its input is not a terminal).
 
@@ -81,11 +81,37 @@ npx -y @modelcontextprotocol/inspector --cli npx @chrissgon/perfectui-mcp --meth
 npx -y @modelcontextprotocol/inspector --cli npx @chrissgon/perfectui-mcp --method tools/call --tool-name get_component --tool-arg name=button
 ```
 
+## Use it as a library
+
+From 0.2.0 the package also has a library entry, so a host can serve the same five tools over another transport. `buildServer(corpus)` returns a new `McpServer` (from `@modelcontextprotocol/sdk`) that is not connected yet; `loadCorpus()` reads and validates the bundled corpus. Importing the entry starts nothing. Types ship with the package.
+
+```ts
+import { buildServer, loadCorpus } from "@chrissgon/perfectui-mcp";
+import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
+
+const corpus = loadCorpus(); // once per process
+
+// Stateless Streamable HTTP: a new server and transport for every request.
+export async function handle(request: Request): Promise<Response> {
+  const server = buildServer(corpus);
+  const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
+  await server.connect(transport);
+  try {
+    return await transport.handleRequest(request);
+  } finally {
+    await transport.close();
+    await server.close();
+  }
+}
+```
+
+The entry also exports `TOOL_NAMES`, `instructions`, `PACKAGE_VERSION`, `CORPUS_VERSION` and the corpus types. The package reads `data/corpus-1.0.0.json` and its own `package.json` from files next to its code, so keep it external when you bundle (installed in `node_modules`, not inlined). The bin is unchanged: `npx -y @chrissgon/perfectui-mcp` is still the stdio server.
+
 ## Run it from a checkout
 
 ```bash
-git clone https://github.com/chrissgon/perfectui-agents.git
-cd perfectui-agents
+git clone https://github.com/chrissgon/perfectui-mcp.git
+cd perfectui-mcp
 npm ci
 npm run build
 ```
@@ -97,7 +123,7 @@ Then point the client at the built file, with your checkout's absolute path:
   "mcpServers": {
     "perfectui": {
       "command": "node",
-      "args": ["/absolute/path/to/perfectui-agents/dist/server.js"]
+      "args": ["/absolute/path/to/perfectui-mcp/dist/server.js"]
     }
   }
 }
