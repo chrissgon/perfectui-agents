@@ -17,6 +17,7 @@ A read-only MCP server over the documentation and stylesheet of Perfect UI 1.0.0
 ## Rules
 
 - Every tool is read-only: `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false`. No tool writes, sends, executes or reaches the network.
+- Two entries: the bin `dist/server.js` (stdio) and the library entry `dist/index.js` (`exports["."]`, with types), which exports `buildServer` and `loadCorpus` and starts nothing when imported. `tests/package.test.ts` packs the package and imports it by name.
 - The server reads only `data/corpus-<version>.json`. Every fact about Perfect UI comes from the library's documents at the pinned tag or from the published package; nothing is written by hand into the corpus.
 - Tool inputs are strict zod objects (unknown keys are rejected) and every tool declares an output schema.
 - Tests never use the network: the library reader takes an injectable download function and fixtures live in `tests/fixtures/`.

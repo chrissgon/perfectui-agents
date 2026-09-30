@@ -1,7 +1,7 @@
 {
   "name": "@chrissgon/perfectui-mcp",
-  "version": "0.1.0",
-  "description": "A read-only MCP server that answers questions about Perfect UI 1.0.0 from its own documentation and stylesheet.",
+  "version": "0.2.0",
+  "description": "A read-only MCP server that answers questions about Perfect UI 1.0.0 from its own documentation and stylesheet, as a stdio bin and as a library for other transports.",
   "license": "MIT",
   "type": "module",
   "author": "Christopher Gonçalves",
@@ -24,7 +24,13 @@
   "bin": {
     "perfectui-mcp": "dist/server.js"
   },
+  "types": "./dist/index.d.ts",
   "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
