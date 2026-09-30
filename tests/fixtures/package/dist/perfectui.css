@@ -1,0 +1,9 @@
+/* A fixture trimmed from the package's dist/perfectui.css at 1.0.0. */
+:root{--pui-radius:.5rem}
+.pui-btn{display:inline-flex}.pui-btn:hover:not(:disabled){opacity:.9}
+.pui-solid.pui-theme,.pui-soft.pui-theme{color:var(--pui-on-theme)}
+.pui-outline{border:1px solid}.pui-surface{color:inherit}
+.pui-modal::backdrop{background:#0006}.pui-modal[open]{display:grid}
+.pui-card>.pui-card-header{font-weight:600}
+@media (min-width:640px){.pui-group-row{display:flex}}
+.pui-bottom{inset-block-start:100%}

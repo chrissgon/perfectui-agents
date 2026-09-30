@@ -1,0 +1,10 @@
+{
+  "name": "@chrissgon/perfectui",
+  "version": "1.0.0",
+  "exports": {
+    ".": { "import": "./dist/js/index.js" },
+    "./perfectui.css": "./dist/perfectui.css",
+    "./core.css": "./dist/css/core.css",
+    "./components/*.css": "./dist/css/components/*.css"
+  }
+}
