@@ -74,7 +74,9 @@ describe("suggestions", () => {
   });
 
   it("gives no suggestion when nothing is within 3 edits", () => {
-    expect(first('<div class="pui-zzzzzzzzzz">')).toMatchObject({ suggestion: null, reason: expect.stringContaining("no class is within 3 edits") });
+    const finding = first('<div class="pui-zzzzzzzzzz">');
+    expect(finding).not.toHaveProperty("suggestion");
+    expect(finding?.reason).toContain("no class is within 3 edits");
   });
 });
 

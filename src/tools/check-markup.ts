@@ -15,7 +15,8 @@ const MAX_DISTANCE = 3;
 export interface Finding {
   class: string;
   line: number;
-  suggestion: string | null;
+  /** Absent when no class is close enough (an optional field is more portable than a nullable one). */
+  suggestion?: string;
   reason: string;
 }
 
@@ -63,7 +64,7 @@ export function createChecker(corpus: Corpus): (html: string) => CheckResult {
     if (entry && own) return { suggestion: own, reason: `${unknown}; the ${entry.title} document (get_component ${entry.slug}) uses ${own}` };
     const close = nearest(name, corpus.classes, MAX_DISTANCE);
     if (close) return { suggestion: close, reason: `${unknown}; the closest class is ${close}` };
-    return { suggestion: null, reason: `${unknown}, and no class is within ${MAX_DISTANCE} edits; see list_components` };
+    return { reason: `${unknown}, and no class is within ${MAX_DISTANCE} edits; see list_components` };
   };
 
   return (html) => {
@@ -74,7 +75,7 @@ export function createChecker(corpus: Corpus): (html: string) => CheckResult {
 }
 
 const FindingSchema = z
-  .object({ class: z.string(), line: z.number().int(), suggestion: z.string().nullable(), reason: z.string() })
+  .object({ class: z.string(), line: z.number().int(), suggestion: z.string().optional(), reason: z.string() })
   .strict();
 
 export function registerCheckMarkup(server: McpServer, corpus: Corpus): void {
