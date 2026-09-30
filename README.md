@@ -76,6 +76,7 @@ The library is read from `PERFECTUI_SOURCE` (a local checkout, as it is on disk)
 | Build `dist/` | `npm run build` |
 | Rebuild the corpus | `npm run corpus` |
 | Start on stdio | `npm start` |
+| Count invented classes in saved eval outputs (`evals/cases.json`) | `npx tsx scripts/eval-markup.ts --runs evals/runs/<date>/<model>` |
 
 The tests call every tool through the MCP SDK client over an in-memory transport, so they exercise the same schemas, validation and errors a real client sees. Design notes on the transport are in `docs/spikes/stdio.md`.
 

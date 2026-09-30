@@ -1,0 +1,41 @@
+{
+  "library": "@chrissgon/perfectui@1.0.0",
+  "instructions": "Answer with one complete, self-contained HTML file and nothing else.",
+  "output": "evals/runs/<date>/<model>/<case>/<variant>.html; count with: npx tsx scripts/eval-markup.ts --runs evals/runs/<date>/<model>",
+  "variants": [
+    {
+      "id": "baseline",
+      "description": "The prompt alone: no build-with-perfectui skill, no perfectui MCP server."
+    },
+    {
+      "id": "skill-server",
+      "description": "The build-with-perfectui skill at 1.0.0 (perfectui, branch feat/skill-1.0.0) and this server (node dist/server.js) connected."
+    }
+  ],
+  "cases": [
+    {
+      "id": "login-card",
+      "prompt": "Build a login page with Perfect UI: a centered card with an email field, a password field, a \"Remember me\" checkbox, a primary \"Sign in\" button and a \"Forgot password?\" link."
+    },
+    {
+      "id": "striped-table",
+      "prompt": "Using Perfect UI, make a page that lists eight team members in a table with alternating row colours: name, role, email and a status badge that says Active or Invited."
+    },
+    {
+      "id": "confirm-modal",
+      "prompt": "With Perfect UI, make a project page with a \"Delete project\" button that opens a confirmation modal: a warning that it cannot be undone, a Cancel button and a red Delete button."
+    },
+    {
+      "id": "settings-form",
+      "prompt": "Create a notification settings form with Perfect UI: switches for email, push and SMS notifications, a select for the digest frequency, a checkbox to accept the terms and a Save button."
+    },
+    {
+      "id": "pricing",
+      "prompt": "Build a pricing page with Perfect UI: three plans (Free, Pro and Team) side by side as cards, each with a price, a list of features and a call-to-action button, with the Pro plan highlighted."
+    },
+    {
+      "id": "dark-mode",
+      "prompt": "Make a small dashboard page with Perfect UI that opens in dark mode and has a toggle to switch between light and dark: a header, two cards with a number each and a list of recent activity."
+    }
+  ]
+}
