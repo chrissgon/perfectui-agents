@@ -74,11 +74,11 @@ VS Code (`.vscode/mcp.json` in a workspace):
 
 To pin a version, write it in the package name: `@chrissgon/perfectui-mcp@0.1.0`.
 
-To try it without a client, use the MCP Inspector's command-line mode:
+To try it without a client, use the MCP Inspector's command-line mode. Leave `-y` out of the server command here: with it, Inspector 2.8.0 fails to start the server (npx still installs the package without asking, because its input is not a terminal).
 
 ```bash
-npx -y @modelcontextprotocol/inspector --cli npx -y @chrissgon/perfectui-mcp --method tools/list
-npx -y @modelcontextprotocol/inspector --cli npx -y @chrissgon/perfectui-mcp --method tools/call --tool-name get_component --tool-arg name=button
+npx -y @modelcontextprotocol/inspector --cli npx @chrissgon/perfectui-mcp --method tools/list
+npx -y @modelcontextprotocol/inspector --cli npx @chrissgon/perfectui-mcp --method tools/call --tool-name get_component --tool-arg name=button
 ```
 
 ## Run it from a checkout
