@@ -1,4 +1,4 @@
-# perfectui-agents
+# perfectui-mcp
 
 A read-only [MCP](https://modelcontextprotocol.io) server that gives coding agents the real classes, markup and install instructions of [Perfect UI](https://perfectui.dev) 1.0.0, so they stop inventing `pui-*` classes.
 
@@ -110,8 +110,8 @@ The entry also exports `TOOL_NAMES`, `instructions`, `PACKAGE_VERSION`, `CORPUS_
 ## Run it from a checkout
 
 ```bash
-git clone https://github.com/chrissgon/perfectui-agents.git
-cd perfectui-agents
+git clone https://github.com/chrissgon/perfectui-mcp.git
+cd perfectui-mcp
 npm ci
 npm run build
 ```
@@ -123,7 +123,7 @@ Then point the client at the built file, with your checkout's absolute path:
   "mcpServers": {
     "perfectui": {
       "command": "node",
-      "args": ["/absolute/path/to/perfectui-agents/dist/server.js"]
+      "args": ["/absolute/path/to/perfectui-mcp/dist/server.js"]
     }
   }
 }

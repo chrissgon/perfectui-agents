@@ -7,11 +7,11 @@
   "author": "Christopher Gonçalves",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrissgon/perfectui-agents.git"
+    "url": "git+https://github.com/chrissgon/perfectui-mcp.git"
   },
-  "homepage": "https://github.com/chrissgon/perfectui-agents#readme",
+  "homepage": "https://github.com/chrissgon/perfectui-mcp#readme",
   "bugs": {
-    "url": "https://github.com/chrissgon/perfectui-agents/issues"
+    "url": "https://github.com/chrissgon/perfectui-mcp/issues"
   },
   "keywords": [
     "mcp",
