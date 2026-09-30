@@ -34,6 +34,24 @@ export const EntrySchema = z
   })
   .strict();
 
+export const MigrationSchema = z
+  .object({
+    file: z.string().describe("the migration guide in the library repository"),
+    from: z.string().describe("the version the guide migrates from"),
+    classes: z
+      .array(
+        z
+          .object({
+            from: z.string().describe("an old class; one * stands for a word, as in the guide's style-*-secondary"),
+            to: z.string().describe("the new classes, space-separated; <style> takes the word * matched"),
+            line: z.number().int().describe("line of the guide that states it"),
+          })
+          .strict(),
+      )
+      .describe("the class renames the guide states, in the guide's order"),
+  })
+  .strict();
+
 export const CorpusSchema = z
   .object({
     version: z.string(),
@@ -47,11 +65,14 @@ export const CorpusSchema = z
     install: InstallSchema,
     components: z.array(EntrySchema).min(1),
     classes: z.array(z.string()).min(1).describe("every .pui-* selector of dist/perfectui.css"),
+    migration: MigrationSchema,
   })
   .strict();
 
 export type Install = z.infer<typeof InstallSchema>;
 export type Entry = z.infer<typeof EntrySchema>;
+export type Migration = z.infer<typeof MigrationSchema>;
+export type ClassMigration = Migration["classes"][number];
 export type Corpus = z.infer<typeof CorpusSchema>;
 
 /** Reads and validates a corpus file; a malformed file fails here, not inside a tool. */

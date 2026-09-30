@@ -1,7 +1,8 @@
 /**
  * check_markup (T-pua-7): every `pui-*` class in the given HTML that Perfect UI's stylesheet does
- * not define, with its line and the closest real class. It reads the text only: nothing is parsed
- * as a document, executed or fetched.
+ * not define, with its line and the closest real class; and (T-pua-10) every class of the previous
+ * major that the migration guide renames, with the replacement the guide gives. It reads the text
+ * only: nothing is parsed as a document, executed or fetched.
  */
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
@@ -14,6 +15,8 @@ const MAX_DISTANCE = 3;
 
 export interface Finding {
   class: string;
+  /** `unknown`: a pui-* class the stylesheet does not define; `legacy`: a class the migration guide renames. */
+  kind: "unknown" | "legacy";
   line: number;
   /** Absent when no class is close enough (an optional field is more portable than a nullable one). */
   suggestion?: string;
@@ -67,15 +70,55 @@ export function createChecker(corpus: Corpus): (html: string) => CheckResult {
     return { reason: `${unknown}, and no class is within ${MAX_DISTANCE} edits; see list_components` };
   };
 
+  const legacy = createLegacyLookup(corpus, known);
+
   return (html) => {
-    const tokens = classTokens(html).filter((t) => isPuiClass(t.name));
-    const findings = tokens.filter((t) => !known.has(t.name)).map((t) => ({ class: t.name, line: t.line, ...suggest(t.name) }));
-    return { version: corpus.version, checked: tokens.length, valid: findings.length === 0, findings };
+    const tokens = classTokens(html);
+    const findings: Finding[] = [];
+    let checked = 0;
+    for (const t of tokens) {
+      if (isPuiClass(t.name)) {
+        checked++;
+        if (!known.has(t.name)) findings.push({ class: t.name, kind: "unknown", line: t.line, ...suggest(t.name) });
+        continue;
+      }
+      const renamed = legacy(t.name);
+      if (renamed) {
+        const reason = `${t.name} is a class of Perfect UI ${corpus.migration.from}; ${corpus.migration.file} (line ${renamed.line}) replaces it with ${renamed.to}`;
+        findings.push({ class: t.name, kind: "legacy", line: t.line, suggestion: renamed.to, reason });
+      }
+    }
+    return { version: corpus.version, checked, valid: findings.length === 0, findings };
   };
 }
 
+/**
+ * The replacement the migration guide gives for an old class, or undefined. A guide pattern such
+ * as `style-*-secondary` → `pui-<style> pui-muted` applies only when the word `*` matched makes
+ * real classes (`style-soft-secondary` → `pui-soft pui-muted`; `style-shiny-secondary` → nothing).
+ */
+function createLegacyLookup(corpus: Corpus, known: Set<string>): (name: string) => { to: string; line: number } | undefined {
+  const exact = new Map(corpus.migration.classes.filter((m) => !m.from.includes("*")).map((m) => [m.from, m]));
+  const patterns = corpus.migration.classes
+    .filter((m) => m.from.includes("*"))
+    .map((m) => ({ ...m, match: new RegExp(`^${m.from.split("*").map(escapeRegExp).join("([a-z0-9]+)")}$`) }));
+  return (name) => {
+    const found = exact.get(name);
+    if (found) return found;
+    for (const pattern of patterns) {
+      const word = pattern.match.exec(name)?.[1];
+      if (!word) continue;
+      const to = pattern.to.replace(/<[a-z]+>/g, word);
+      if (to.split(" ").every((c) => known.has(c))) return { to, line: pattern.line };
+    }
+    return undefined;
+  };
+}
+
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 const FindingSchema = z
-  .object({ class: z.string(), line: z.number().int(), suggestion: z.string().optional(), reason: z.string() })
+  .object({ class: z.string(), kind: z.enum(["unknown", "legacy"]), line: z.number().int(), suggestion: z.string().optional(), reason: z.string() })
   .strict();
 
 export function registerCheckMarkup(server: McpServer, corpus: Corpus): void {
@@ -85,7 +128,8 @@ export function registerCheckMarkup(server: McpServer, corpus: Corpus): void {
     {
       title: "Check markup",
       description:
-        `Lists every pui-* class in the HTML that Perfect UI ${corpus.version} does not define, with its line and the closest real class. ` +
+        `Lists every pui-* class in the HTML that Perfect UI ${corpus.version} does not define (kind "unknown"), with its line and the closest real class, ` +
+        `and every Perfect UI ${corpus.migration.from} class that the migration guide renames (kind "legacy"), with the guide's replacement. ` +
         "Reads class and className attributes only; other classes (your own, Tailwind) are ignored. Call it on any markup before returning it.",
       inputSchema: z
         .object({ html: z.string().min(1).max(MAX_HTML).describe(`HTML, JSX or a template, up to ${MAX_HTML} characters`) })

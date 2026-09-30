@@ -14,7 +14,7 @@ Everything the server answers comes from one file, `data/corpus-1.0.0.json`, gen
 | `list_components` | none | Every document in the documentation's order (components, forms, layout, customization, guides): slug, title, section and a one-line description. |
 | `get_component` | `name`: a slug from `list_components`, for example `button` | The document's full Markdown, its HTML examples and the `pui-*` classes they use. |
 | `search_docs` | `query` (1 to 200 characters), `limit` (1 to 10, default 5) | The best matching sections: slug, heading, snippet and score. Prefix matching and one typo from four characters. |
-| `check_markup` | `html` (up to 100,000 characters) | Every `pui-*` class in `class` or `className` attributes that Perfect UI 1.0.0 does not define, with its line and the closest real class. |
+| `check_markup` | `html` (up to 100,000 characters) | Every `pui-*` class in `class` or `className` attributes that Perfect UI 1.0.0 does not define (`kind: "unknown"`), with its line and the closest real class; and every Perfect UI 0.23.0 class that the migration guide renames (`kind: "legacy"`), with the guide's replacement. |
 
 Every tool declares `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true` and `openWorldHint: false`, rejects unknown arguments, and returns structured content that matches its output schema.
 
@@ -62,6 +62,7 @@ npx @modelcontextprotocol/inspector --cli node dist/server.js --method tools/cal
 
 - **Documents:** one entry per link in the summary of the library's `docs/README.md` at the `v1.0.0` tag (28 documents, including the migration guide). Each entry keeps the document's Markdown as written, its ```` ```html ```` blocks as examples, and the `pui-*` classes those examples use.
 - **Classes:** every `.pui-*` selector in `dist/perfectui.css` of the published package (51 classes). The package's npm integrity hash is recorded in the corpus.
+- **Class renames:** the tables, diff blocks and "survive as" sentence of the library's `MIGRATION.md` (38 renames from 0.23.0, each checked against the stylesheet). The guide starts at 0.23.0, so classes of older releases (0.7.x, for example) are not recognised; names the guide gives no `pui-*` class for (`dark`, `dropdown-trigger`, `field-group-error`) and the removed utilities are not reported.
 - **Install instructions:** read from the installation document and pinned to the package version; every CDN file and import is checked against the package's files and `exports` before it is written.
 
 The library is read from `PERFECTUI_SOURCE` (a local checkout, as it is on disk) when set, else from `.cache/library/v1.0.0/`, else from one download of the tag's archive from GitHub. The package comes from `.cache/package/1.0.0/`, else from `npm pack`. Only this build step uses the network; the server does not.

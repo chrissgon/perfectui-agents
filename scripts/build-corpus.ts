@@ -2,7 +2,8 @@
  * Writes `data/corpus-<version>.json` (T-pua-4) from two sources only:
  *
  * - the library's documents at a tag: one entry per link of the summary in `docs/README.md`;
- * - the published package's `dist/perfectui.css`: the set of `.pui-*` classes.
+ * - the published package's `dist/perfectui.css`: the set of `.pui-*` classes;
+ * - the library's `MIGRATION.md`: the class renames it states (T-pua-10).
  *
  * `parseSummary` and `kebab` are adapted from perfectui-doc's `shared/library-docs.ts`
  * (MIT, copyright Christopher Gonçalves, https://github.com/chrissgon/perfectui-doc), so the
@@ -13,8 +14,8 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
-import { CorpusSchema, type Corpus, type Entry, type Install } from "../src/corpus.js";
-import { puiClasses } from "../src/markup.js";
+import { CorpusSchema, type ClassMigration, type Corpus, type Entry, type Install } from "../src/corpus.js";
+import { classTokens, isPuiClass, puiClasses } from "../src/markup.js";
 import { DEFAULT_REF, DEFAULT_VERSION, PACKAGE_NAME, readPackInfo, resolveLibrary, resolvePackage } from "./fetch-library.js";
 
 const REPOSITORY = "https://github.com/chrissgon/perfectui";
@@ -149,6 +150,117 @@ export function cssClasses(css: string): string[] {
   return [...new Set([...code.matchAll(/\.(pui-[a-zA-Z0-9_-]+)/g)].map((m) => m[1]!))].sort();
 }
 
+const VERSION_HEADER = /^`\d+\.\d+\.\d+`$/;
+const OLD_NAME = /^[a-z][a-z0-9*-]*$/;
+const codeSpans = (text: string) => [...text.matchAll(/`([^`]+)`/g)].map((m) => m[1]!);
+const LIST = "(?:`[^`]+`(?:,\\s*|,?\\s+and\\s+))*`[^`]+`";
+const SURVIVE = new RegExp(`(${LIST})\\s+survive\\s+as\\s+(${LIST})`, "g");
+
+export interface ParsedMigrations {
+  from: string;
+  classes: ClassMigration[];
+  /** Old names the guide shows but gives no pui-* class for (a state that became an attribute, a removed trigger). */
+  unmapped: { name: string; line: number }[];
+}
+
+/**
+ * The class renames the migration guide states, and only those, in the guide's order:
+ *
+ * - tables whose header is two versions (`0.23.0` | `1.0.0`): each old name becomes `pui-<name>`
+ *   when the new side lists it, else the new side when both sides hold one code span;
+ * - diff blocks: an old class on a `-` line becomes `pui-<name>` when a `+` line of the block has it;
+ * - "`a`, `b` and `c` survive as `pui-x` and `pui-y`": each old name becomes the class it ends with.
+ *
+ * Tables headed otherwise ("Removed | What to do instead") are not renames and are skipped.
+ */
+export function parseMigrations(markdown: string, file = "MIGRATION.md"): ParsedMigrations {
+  const lines = markdown.replace(/\r\n/g, "\n").split("\n");
+  const from = lines.map((l) => /^<!--\s*site:\s*from:\s*(\S+)\s*-->$/.exec(l.trim())?.[1]).find(Boolean);
+  if (!from) throw new Error(`${file}: no "<!-- site: from: <version> -->" line`);
+
+  const classes: ClassMigration[] = [];
+  const byName = new Map<string, ClassMigration>();
+  const mentioned = new Map<string, number>();
+  const add = (name: string, to: string, line: number) => {
+    const earlier = byName.get(name);
+    if (earlier && earlier.to !== to) throw new Error(`${file}:${line}: ${name} becomes ${to} here but ${earlier.to} on line ${earlier.line}`);
+    if (earlier) return;
+    const migration = { from: name, to, line };
+    byName.set(name, migration);
+    classes.push(migration);
+  };
+  const mention = (name: string, line: number) => {
+    if (!mentioned.has(name)) mentioned.set(name, line);
+  };
+
+  let fence: { marker: string; diff: boolean; removed: { name: string; line: number }[]; added: Set<string> } | null = null;
+  let table: "renames" | "other" | null = null;
+  let paragraph: { text: string; line: number } | null = null;
+  const endParagraph = () => {
+    if (!paragraph) return;
+    for (const match of paragraph.text.matchAll(SURVIVE)) {
+      const targets = codeSpans(match[2]!).filter(isPuiClass);
+      for (const name of codeSpans(match[1]!)) {
+        const target = targets.find((t) => name.endsWith(`-${t.slice("pui-".length)}`));
+        if (target) add(name, target, paragraph.line);
+        else mention(name, paragraph.line);
+      }
+    }
+    paragraph = null;
+  };
+
+  lines.forEach((raw, index) => {
+    const line = index + 1;
+    const text = raw.trim();
+    if (fence) {
+      if (text === fence.marker) {
+        for (const { name, line: at } of fence.removed) {
+          if (fence.added.has(`pui-${name}`)) add(name, `pui-${name}`, at);
+          else mention(name, at);
+        }
+        fence = null;
+      } else if (fence.diff && raw.startsWith("-")) {
+        for (const token of classTokens(raw.slice(1))) if (!isPuiClass(token.name)) fence.removed.push({ name: token.name, line });
+      } else if (fence.diff && raw.startsWith("+")) {
+        for (const token of classTokens(raw.slice(1))) fence.added.add(token.name);
+      }
+      return;
+    }
+    const open = /^(```+|~~~+)\s*([\w-]*)/.exec(text);
+    if (open) {
+      endParagraph();
+      table = null;
+      fence = { marker: open[1]!, diff: open[2] === "diff", removed: [], added: new Set() };
+      return;
+    }
+    if (text.startsWith("|")) {
+      endParagraph();
+      const cells = text.split("|").slice(1, -1).map((c) => c.trim());
+      if (table === null) {
+        table = cells.length === 2 && cells.every((c) => VERSION_HEADER.test(c)) ? "renames" : "other";
+      } else if (table === "renames" && !/^[\s|:-]+$/.test(text)) {
+        const old = codeSpans(cells[0] ?? "").filter((n) => OLD_NAME.test(n));
+        const next = codeSpans(cells[1] ?? "");
+        const nextClasses = next.flatMap((span) => span.split(/\s+/));
+        for (const name of old) {
+          if (nextClasses.includes(`pui-${name}`)) add(name, `pui-${name}`, line);
+          else if (old.length === 1 && next.length === 1 && next[0]!.split(/\s+/).every(isPuiClass)) add(name, next[0]!, line);
+          else mention(name, line);
+        }
+      }
+      return;
+    }
+    table = null;
+    if (!text) endParagraph();
+    else if (paragraph) paragraph.text += ` ${text}`;
+    else paragraph = { text, line };
+  });
+  endParagraph();
+
+  const unmapped = [...mentioned].filter(([name]) => !byName.has(name)).map(([name, line]) => ({ name, line }));
+  return { from, classes, unmapped };
+}
+
 interface Manifest {
   name: string;
   version: string;
@@ -246,12 +358,25 @@ export function buildCorpus({ library, packageDir, libraryLabel, integrity }: Bu
     .filter((name) => name.endsWith(".md") && name !== "README.md" && !listed.has(`docs/${name}`))
     .map((name) => `docs/${name} is not in the summary of docs/README.md, so it is not in the corpus`);
 
+  const classes = cssClasses(readFileSync(join(packageDir, "dist/perfectui.css"), "utf8"));
+  const guide = parseMigrations(readFileSync(join(library, "MIGRATION.md"), "utf8"));
+  const known = new Set(classes);
+  for (const migration of guide.classes) {
+    for (const target of migration.to.split(" ").filter((c) => !c.includes("<"))) {
+      if (!known.has(target)) throw new Error(`MIGRATION.md:${migration.line}: ${migration.from} becomes ${target}, which dist/perfectui.css does not define`);
+    }
+  }
+  for (const { name, line } of guide.unmapped) {
+    warnings.push(`MIGRATION.md:${line}: ${name} has no pui-* replacement in the guide, so check_markup does not report it`);
+  }
+
   const corpus: Corpus = {
     version: manifest.version,
     source: { library: libraryLabel, package: `${manifest.name}@${manifest.version}`, ...(integrity ? { integrity } : {}) },
     install,
     components,
-    classes: cssClasses(readFileSync(join(packageDir, "dist/perfectui.css"), "utf8")),
+    classes,
+    migration: { file: "MIGRATION.md", from: guide.from, classes: guide.classes },
   };
   return { corpus: CorpusSchema.parse(corpus), warnings };
 }

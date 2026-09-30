@@ -2,8 +2,9 @@
 :root{--pui-radius:.5rem}
 .pui-btn{display:inline-flex}.pui-btn:hover:not(:disabled){opacity:.9}
 .pui-solid.pui-theme,.pui-soft.pui-theme{color:var(--pui-on-theme)}
-.pui-outline{border:1px solid}.pui-surface{color:inherit}
+.pui-outline{border:1px solid}.pui-surface{color:inherit}.pui-muted{color:gray}
 .pui-modal::backdrop{background:#0006}.pui-modal[open]{display:grid}
-.pui-card>.pui-card-header{font-weight:600}
+.pui-card>.pui-card-header{font-weight:600}.pui-card>.pui-card-content{padding:1rem}
+.pui-striped>:nth-child(2n){background:#eee}.pui-hoverable>:hover{background:#eee}
 @media (min-width:640px){.pui-group-row{display:flex}}
 .pui-bottom{inset-block-start:100%}

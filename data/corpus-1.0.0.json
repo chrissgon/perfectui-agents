@@ -687,5 +687,201 @@
     "pui-tooltip",
     "pui-top",
     "pui-warn"
-  ]
+  ],
+  "migration": {
+    "file": "MIGRATION.md",
+    "from": "0.23.0",
+    "classes": [
+      {
+        "from": "btn",
+        "to": "pui-btn",
+        "line": 55
+      },
+      {
+        "from": "style-solid-primary",
+        "to": "pui-solid pui-theme",
+        "line": 67
+      },
+      {
+        "from": "style-soft-success",
+        "to": "pui-soft pui-success",
+        "line": 68
+      },
+      {
+        "from": "style-outline-error",
+        "to": "pui-outline pui-error",
+        "line": 69
+      },
+      {
+        "from": "style-link-warn",
+        "to": "pui-link pui-warn",
+        "line": 70
+      },
+      {
+        "from": "style-*-secondary",
+        "to": "pui-<style> pui-muted",
+        "line": 71
+      },
+      {
+        "from": "style-white",
+        "to": "pui-solid pui-surface",
+        "line": 72
+      },
+      {
+        "from": "style-black",
+        "to": "pui-solid pui-inverse",
+        "line": 73
+      },
+      {
+        "from": "badge",
+        "to": "pui-badge",
+        "line": 83
+      },
+      {
+        "from": "card",
+        "to": "pui-card",
+        "line": 84
+      },
+      {
+        "from": "card-header",
+        "to": "pui-card-header",
+        "line": 84
+      },
+      {
+        "from": "card-content",
+        "to": "pui-card-content",
+        "line": 84
+      },
+      {
+        "from": "list",
+        "to": "pui-list",
+        "line": 85
+      },
+      {
+        "from": "list-item",
+        "to": "pui-list-item",
+        "line": 85
+      },
+      {
+        "from": "table",
+        "to": "pui-table",
+        "line": 86
+      },
+      {
+        "from": "timeline",
+        "to": "pui-timeline",
+        "line": 87
+      },
+      {
+        "from": "checkpoint",
+        "to": "pui-checkpoint",
+        "line": 87
+      },
+      {
+        "from": "group-row",
+        "to": "pui-group-row",
+        "line": 88
+      },
+      {
+        "from": "group-col",
+        "to": "pui-group-col",
+        "line": 88
+      },
+      {
+        "from": "float",
+        "to": "pui-float",
+        "line": 89
+      },
+      {
+        "from": "input",
+        "to": "pui-input",
+        "line": 90
+      },
+      {
+        "from": "addon",
+        "to": "pui-addon",
+        "line": 90
+      },
+      {
+        "from": "input-group",
+        "to": "pui-input-group",
+        "line": 90
+      },
+      {
+        "from": "checkbox",
+        "to": "pui-checkbox",
+        "line": 91
+      },
+      {
+        "from": "radio",
+        "to": "pui-radio",
+        "line": 91
+      },
+      {
+        "from": "switch",
+        "to": "pui-switch",
+        "line": 91
+      },
+      {
+        "from": "rounded",
+        "to": "pui-rounded",
+        "line": 92
+      },
+      {
+        "from": "rounded-full",
+        "to": "pui-rounded-full",
+        "line": 92
+      },
+      {
+        "from": "modal",
+        "to": "pui-modal",
+        "line": 98
+      },
+      {
+        "from": "dropdown",
+        "to": "pui-dropdown",
+        "line": 114
+      },
+      {
+        "from": "tooltip",
+        "to": "pui-tooltip",
+        "line": 124
+      },
+      {
+        "from": "accordion",
+        "to": "pui-accordion",
+        "line": 134
+      },
+      {
+        "from": "accordion-item",
+        "to": "pui-accordion-item",
+        "line": 135
+      },
+      {
+        "from": "field-group",
+        "to": "pui-field-group",
+        "line": 154
+      },
+      {
+        "from": "table-striped",
+        "to": "pui-striped",
+        "line": 214
+      },
+      {
+        "from": "table-hoverable",
+        "to": "pui-hoverable",
+        "line": 214
+      },
+      {
+        "from": "list-striped",
+        "to": "pui-striped",
+        "line": 214
+      },
+      {
+        "from": "list-hoverable",
+        "to": "pui-hoverable",
+        "line": 214
+      }
+    ]
+  }
 }
