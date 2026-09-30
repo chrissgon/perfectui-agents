@@ -4,17 +4,28 @@
   "description": "A read-only MCP server that answers questions about Perfect UI 1.0.0 from its own documentation and stylesheet.",
   "license": "MIT",
   "type": "module",
-  "private": true,
   "author": "Christopher Gonçalves",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrissgon/perfectui-agents.git"
+  },
+  "homepage": "https://github.com/chrissgon/perfectui-agents#readme",
+  "bugs": {
+    "url": "https://github.com/chrissgon/perfectui-agents/issues"
+  },
   "keywords": [
     "mcp",
     "model-context-protocol",
+    "mcp-server",
     "perfectui",
     "css",
     "agents"
   ],
   "bin": {
     "perfectui-mcp": "dist/server.js"
+  },
+  "exports": {
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
@@ -28,7 +39,8 @@
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.scripts.json",
     "corpus": "tsx scripts/build-corpus.ts",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "prepack": "npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.31.0",
@@ -41,5 +53,8 @@
     "tsx": "4.23.15",
     "typescript": "7.0.2",
     "vitest": "5.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
