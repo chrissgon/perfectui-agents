@@ -4,7 +4,7 @@ A read-only [MCP](https://modelcontextprotocol.io) server that gives coding agen
 
 Everything the server answers comes from one file, `data/corpus-1.0.0.json`, generated from the library's documents at the `v1.0.0` tag and from the stylesheet of the published `@chrissgon/perfectui@1.0.0` package. The server never writes, runs or downloads anything, and it makes no network requests.
 
-> **Status:** local development. The package (`@chrissgon/perfectui-mcp`) is not on npm yet, so run it from a checkout as described below.
+The npm package is [`@chrissgon/perfectui-mcp`](https://www.npmjs.com/package/@chrissgon/perfectui-mcp).
 
 ## Tools
 
@@ -25,18 +25,72 @@ check_markup { "html": "<button class=\"pui-button\">Save</button>" }
 → line 1: pui-button → pui-btn (pui-button is not a class of Perfect UI 1.0.0; the Button document (get_component button) uses pui-btn)
 ```
 
-## Run it locally
+## Install
 
-Requirements: Node.js 20 or later (developed on Node.js 24) and npm.
+Requirements: Node.js 20 or later and npm (the server is developed and tested on Node.js 24).
+
+The server speaks MCP over stdio. An MCP client starts it with `npx`, which downloads the package on first use:
 
 ```bash
-git clone <this repository> perfectui-agents
+npx -y @chrissgon/perfectui-mcp
+```
+
+Run on its own, it waits for a client on stdin and prints one status line to stderr.
+
+### Client configuration
+
+Many clients take a server as a `command` and its `args` inside an `mcpServers` object like the one below; check where your client keeps it:
+
+```json
+{
+  "mcpServers": {
+    "perfectui": {
+      "command": "npx",
+      "args": ["-y", "@chrissgon/perfectui-mcp"]
+    }
+  }
+}
+```
+
+Claude Code:
+
+```bash
+claude mcp add perfectui -- npx -y @chrissgon/perfectui-mcp
+```
+
+VS Code (`.vscode/mcp.json` in a workspace):
+
+```json
+{
+  "servers": {
+    "perfectui": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@chrissgon/perfectui-mcp"]
+    }
+  }
+}
+```
+
+To pin a version, write it in the package name: `@chrissgon/perfectui-mcp@0.1.0`.
+
+To try it without a client, use the MCP Inspector's command-line mode. Leave `-y` out of the server command here: with it, Inspector 2.8.0 fails to start the server (npx still installs the package without asking, because its input is not a terminal).
+
+```bash
+npx -y @modelcontextprotocol/inspector --cli npx @chrissgon/perfectui-mcp --method tools/list
+npx -y @modelcontextprotocol/inspector --cli npx @chrissgon/perfectui-mcp --method tools/call --tool-name get_component --tool-arg name=button
+```
+
+## Run it from a checkout
+
+```bash
+git clone https://github.com/chrissgon/perfectui-agents.git
 cd perfectui-agents
-npm install
+npm ci
 npm run build
 ```
 
-Then add the server to any MCP client that runs local servers over stdio. The server entry is a `command` and its `args`; many clients take it inside an `mcpServers` object like the one below, but check where your client keeps it. Replace the path with your checkout's absolute path:
+Then point the client at the built file, with your checkout's absolute path:
 
 ```json
 {
@@ -49,11 +103,8 @@ Then add the server to any MCP client that runs local servers over stdio. The se
 }
 ```
 
-To try it without a client, use the MCP Inspector's command-line mode:
-
 ```bash
 npx @modelcontextprotocol/inspector --cli node dist/server.js --method tools/list
-npx @modelcontextprotocol/inspector --cli node dist/server.js --method tools/call --tool-name get_component --tool-arg name=button
 ```
 
 ## Where the data comes from
@@ -76,9 +127,14 @@ The library is read from `PERFECTUI_SOURCE` (a local checkout, as it is on disk)
 | Build `dist/` | `npm run build` |
 | Rebuild the corpus | `npm run corpus` |
 | Start on stdio | `npm start` |
+| List what the package ships | `npm pack --dry-run` |
 | Count invented classes in saved eval outputs (`evals/cases.json`) | `npx tsx scripts/eval-markup.ts --runs evals/runs/<date>/<model>` |
 
 The tests call every tool through the MCP SDK client over an in-memory transport, so they exercise the same schemas, validation and errors a real client sees. Design notes on the transport are in `docs/spikes/stdio.md`.
+
+## Releases
+
+A release is a tag `v<version>` that matches `package.json`, pushed by the owner. `.github/workflows/publish.yml` then checks that the tag is on `main`, runs the same checks as CI, publishes to npm with [trusted publishing](https://docs.npmjs.com/trusted-publishers) (no npm token is stored; npm attaches provenance) and creates the GitHub release. A version with a prerelease suffix (`1.0.0-beta.0`) is published under the `next` dist-tag, never `latest`.
 
 ## License
 
