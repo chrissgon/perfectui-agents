@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Members</title>
+<!--
+  Note: I couldn't find or check a "Perfect UI" package, so I didn't link to a CDN I couldn't confirm.
+  This file carries its own Perfect UI-style design tokens and components in plain CSS,
+  so it needs no other files. If you have the real Perfect UI stylesheet, link it here
+  and put its class names in place of the .pui-* classes below.
+-->
+<style>
+  :root {
+    --pui-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --pui-bg: #f5f7fb;
+    --pui-surface: #ffffff;
+    --pui-surface-alt: #f1f4f9;
+    --pui-surface-hover: #e8eefb;
+    --pui-border: #e2e8f0;
+    --pui-text: #1e293b;
+    --pui-text-muted: #64748b;
+    --pui-primary: #4f46e5;
+    --pui-success-bg: #dcfce7;
+    --pui-success-fg: #166534;
+    --pui-warning-bg: #fef3c7;
+    --pui-warning-fg: #92400e;
+    --pui-radius: 12px;
+    --pui-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: var(--pui-font);
+    background: var(--pui-bg);
+    color: var(--pui-text);
+    line-height: 1.5;
+  }
+
+  .pui-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  .pui-header { margin-bottom: 24px; }
+
+  .pui-title {
+    margin: 0 0 4px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .pui-subtitle {
+    margin: 0;
+    color: var(--pui-text-muted);
+  }
+
+  .pui-card {
+    background: var(--pui-surface);
+    border: 1px solid var(--pui-border);
+    border-radius: var(--pui-radius);
+    box-shadow: var(--pui-shadow);
+    overflow: hidden;
+  }
+
+  .pui-table-wrap { overflow-x: auto; }
+
+  .pui-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .pui-table caption {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .pui-table thead th {
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pui-text-muted);
+    background: var(--pui-surface);
+    border-bottom: 1px solid var(--pui-border);
+  }
+
+  .pui-table tbody td {
+    padding: 14px 20px;
+    white-space: nowrap;
+  }
+
+  /* Alternating row colours */
+  .pui-table--striped tbody tr:nth-child(odd)  { background: var(--pui-surface); }
+  .pui-table--striped tbody tr:nth-child(even) { background: var(--pui-surface-alt); }
+  .pui-table tbody tr { transition: background-color 0.15s ease; }
+  .pui-table tbody tr:hover { background: var(--pui-surface-hover); }
+
+  .pui-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+  }
+
+  .pui-avatar {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--pui-primary);
+  }
+
+  .pui-muted { color: var(--pui-text-muted); }
+
+  .pui-link {
+    color: var(--pui-primary);
+    text-decoration: none;
+  }
+  .pui-link:hover { text-decoration: underline; }
+
+  .pui-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+  .pui-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .pui-badge--success { background: var(--pui-success-bg); color: var(--pui-success-fg); }
+  .pui-badge--warning { background: var(--pui-warning-bg); color: var(--pui-warning-fg); }
+</style>
+</head>
+<body>
+  <main class="pui-container">
+    <header class="pui-header">
+      <h1 class="pui-title">Team Members</h1>
+      <p class="pui-subtitle">8 people in your workspace</p>
+    </header>
+
+    <section class="pui-card">
+      <div class="pui-table-wrap">
+        <table class="pui-table pui-table--striped">
+          <caption>Team members with role, email and status</caption>
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Role</th>
+              <th scope="col">Email</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="pui-name"><span class="pui-avatar" style="background:#4f46e5" aria-hidden="true">AM</span>Ava Martinez</div></td>
+              <td class="pui-muted">Engineering Manager</td>
+              <td><a class="pui-link" href="mailto:ava.martinez@example.com">ava.martinez@example.com</a></td>
+              <td><span class="pui-badge pui-badge--success">Active</span></td>
+            </tr>
+            <tr>
+              <td><div class="pui-name"><span class="pui-avatar" style="background:#0891b2" aria-hidden="true">LC</span>Liam Chen</div></td>
+              <td class="pui-muted">Senior Frontend Engineer</td>
+              <td><a class="pui-link" href="mailto:liam.chen@example.com">liam.chen@example.com</a></td>
+              <td><span class="pui-badge pui-badge--success">Active</span></td>
+            </tr>
+            <tr>
+              <td><div class="pui-name"><span class="pui-avatar" style="background:#db2777" aria-hidden="true">SP</span>Sofia Patel</div></td>
+              <td class="pui-muted">Product Designer</td>
+              <td><a class="pui-link" href="mailto:sofia.patel@example.com">sofia.patel@example.com</a></td>
+              <td><span class="pui-badge pui-badge--warning">Invited</span></td>
+            </tr>
+            <tr>
+              <td><div class="pui-name"><span class="pui-avatar" style="background:#059669" aria-hidden="true">NO</span>Noah Okafor</div></td>
+              <td class="pui-muted">Backend Engineer</td>
+              <td><a class="pui-link" href="mailto:noah.okafor@example.com">noah.okafor@example.com</a></td>
+              <td><span class="pui-badge pui-badge--success">Active</span></td>
+            </tr>
+            <tr>
+              <td><div class="pui-name"><span class="pui-avatar" style="background:#d97706" aria-hidden="true">EK</span>Emma Kowalski</div></td>
+              <td class="pui-muted">Product Manager</td>
+              <td><a class="pui-link" href="mailto:emma.kowalski@example.com">emma.kowalski@example.com</a></td>
+              <td><span class="pui-badge pui-badge--success">Active</span></td>
+            </tr>
+            <tr>
+              <td><div class="pui-name"><span class="pui-avatar" style="background:#7c3aed" aria-hidden="true">MS</span>Mateo Silva</div></td>
+              <td class="pui-muted">DevOps Engineer</td>
+              <td><a class="pui-link" href="mailto:mateo.silva@example.com">mateo.silva@example.com</a></td>
+              <td><span class="pui-badge pui-badge--warning">Invited</span></td>
+            </tr>
+            <tr>
+              <td><div class="pui-name"><span class="pui-avatar" style="background:#dc2626" aria-hidden="true">YT</span>Yuki Tanaka</div></td>
+              <td class="pui-muted">QA Engineer</td>
+              <td><a class="pui-link" href="mailto:yuki.tanaka@example.com">yuki.tanaka@example.com</a></td>
+              <td><span class="pui-badge pui-badge--success">Active</span></td>
+            </tr>
+            <tr>
+              <td><div class="pui-name"><span class="pui-avatar" style="background:#2563eb" aria-hidden="true">OB</span>Olivia Brown</div></td>
+              <td class="pui-muted">Data Analyst</td>
+              <td><a class="pui-link" href="mailto:olivia.brown@example.com">olivia.brown@example.com</a></td>
+              <td><span class="pui-badge pui-badge--warning">Invited</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

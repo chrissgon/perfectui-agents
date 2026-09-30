@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--pui-bg);
+      color: var(--pui-text);
+      line-height: 1.5;
+    }
+    main {
+      max-width: 68rem;
+      margin: 0 auto;
+      padding: 4rem 1.25rem;
+    }
+    .intro {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .intro h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .intro p {
+      margin: 0;
+      color: var(--pui-text-muted);
+      font-size: 1.125rem;
+    }
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+    @media (max-width: 860px) {
+      .plans { grid-template-columns: 1fr; max-width: 26rem; margin: 0 auto; }
+    }
+    .plan {
+      display: flex;
+      flex-direction: column;
+    }
+    .plan .pui-card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 1.75rem;
+    }
+    .plan-name {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .plan-name h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .plan-desc {
+      margin: 0;
+      color: var(--pui-text-muted);
+    }
+    .price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      margin: 0;
+    }
+    .price strong {
+      font-size: 2.75rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .price span {
+      color: var(--pui-text-muted);
+    }
+    .features {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.75rem;
+      flex: 1;
+    }
+    .features li {
+      display: flex;
+      gap: 0.625rem;
+      align-items: flex-start;
+    }
+    .features li::before {
+      content: "✓";
+      color: var(--pui-theme);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .plan .pui-btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .featured {
+      border-width: 2px;
+    }
+    @media (min-width: 861px) {
+      .featured { transform: translateY(-0.75rem); }
+    }
+    .note {
+      text-align: center;
+      color: var(--pui-text-muted);
+      margin-top: 2.5rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <h1>Simple, transparent pricing</h1>
+      <p>Start for free. Upgrade when you're ready.</p>
+    </header>
+
+    <section class="plans" aria-label="Plans">
+      <article class="pui-card plan">
+        <div class="pui-card-content">
+          <div class="plan-name"><h2>Free</h2></div>
+          <p class="plan-desc">For individuals trying things out.</p>
+          <p class="price"><strong>$0</strong><span>/ month</span></p>
+          <ul class="features">
+            <li>Up to 3 projects</li>
+            <li>1 GB storage</li>
+            <li>Basic analytics</li>
+            <li>Community support</li>
+          </ul>
+          <a class="pui-btn pui-outline pui-surface" href="#">Get started</a>
+        </div>
+      </article>
+
+      <article class="pui-card pui-outline pui-theme plan featured" aria-label="Pro, most popular">
+        <div class="pui-card-content">
+          <div class="plan-name">
+            <h2>Pro</h2>
+            <span class="pui-chip pui-solid pui-theme pui-rounded-full">Most popular</span>
+          </div>
+          <p class="plan-desc">For professionals who need more power.</p>
+          <p class="price"><strong>$19</strong><span>/ month</span></p>
+          <ul class="features">
+            <li>Unlimited projects</li>
+            <li>100 GB storage</li>
+            <li>Advanced analytics</li>
+            <li>Custom domains</li>
+            <li>Priority email support</li>
+          </ul>
+          <a class="pui-btn pui-solid pui-theme" href="#">Start 14-day trial</a>
+        </div>
+      </article>
+
+      <article class="pui-card plan">
+        <div class="pui-card-content">
+          <div class="plan-name"><h2>Team</h2></div>
+          <p class="plan-desc">For teams that collaborate at scale.</p>
+          <p class="price"><strong>$49</strong><span>/ user / month</span></p>
+          <ul class="features">
+            <li>Everything in Pro</li>
+            <li>1 TB shared storage</li>
+            <li>Roles &amp; permissions</li>
+            <li>SSO &amp; audit logs</li>
+            <li>Dedicated account manager</li>
+          </ul>
+          <a class="pui-btn pui-outline pui-surface" href="#">Contact sales</a>
+        </div>
+      </article>
+    </section>
+
+    <p class="note">All prices in USD. Cancel anytime.</p>
+  </main>
+</body>
+</html>

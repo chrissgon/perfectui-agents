@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notification settings</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        background: var(--pui-bg);
+        color: var(--pui-text);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      }
+      .settings {
+        width: 100%;
+        max-width: 28rem;
+      }
+      .settings form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .settings fieldset {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .settings legend {
+        padding: 0;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      .settings .hint {
+        margin: 0;
+        color: var(--pui-text-muted);
+        font-size: 0.8125rem;
+      }
+      .settings label.row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
+      .settings .actions {
+        justify-content: flex-end;
+      }
+      .settings .status {
+        margin: 0;
+        min-height: 1.25rem;
+        color: var(--pui-text-muted);
+        font-size: 0.8125rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="settings">
+      <div class="pui-card">
+        <div class="pui-card-header">Notification settings</div>
+        <div class="pui-card-content">
+          <form id="notification-form">
+            <fieldset>
+              <legend>Channels</legend>
+              <label class="row">
+                <input type="checkbox" class="pui-switch" name="email" checked />
+                Email notifications
+              </label>
+              <label class="row">
+                <input type="checkbox" class="pui-switch" name="push" checked />
+                Push notifications
+              </label>
+              <label class="row">
+                <input type="checkbox" class="pui-switch" name="sms" />
+                SMS notifications
+              </label>
+            </fieldset>
+
+            <label class="pui-field-group">
+              <span>Digest frequency</span>
+              <select class="pui-input" name="digest" aria-describedby="digest-help">
+                <option value="never">Never</option>
+                <option value="daily">Daily</option>
+                <option value="weekly" selected>Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+              <small id="digest-help">A summary of activity you may have missed.</small>
+            </label>
+
+            <label class="row">
+              <input type="checkbox" class="pui-checkbox" name="terms" required />
+              I accept the terms and conditions
+            </label>
+
+            <div class="pui-group-row actions">
+              <button type="reset" class="pui-btn pui-outline pui-surface">Reset</button>
+              <button type="submit" class="pui-btn pui-solid pui-theme">Save</button>
+            </div>
+
+            <p class="status" id="status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const form = document.getElementById("notification-form");
+      const status = document.getElementById("status");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const channels = ["email", "push", "sms"].filter((c) => data.has(c));
+        const digest = form.digest.options[form.digest.selectedIndex].text;
+        status.textContent =
+          "Saved: " +
+          (channels.length ? channels.join(", ") : "no channels") +
+          " · " +
+          digest +
+          " digest.";
+      });
+
+      form.addEventListener("reset", () => {
+        status.textContent = "";
+      });
+    </script>
+  </body>
+</html>

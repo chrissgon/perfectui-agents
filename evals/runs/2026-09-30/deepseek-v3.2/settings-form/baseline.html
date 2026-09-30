@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 28px 32px;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(255,255,255,0.1), transparent);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-content {
+            padding: 32px;
+        }
+
+        .notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .notification-info p {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .3s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #6366f1;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .form-group {
+            margin: 24px 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .select-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .select-wrapper select {
+            width: 100%;
+            padding: 14px 16px;
+            padding-right: 48px;
+            font-size: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background-color: white;
+            appearance: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            color: #1f2937;
+        }
+
+        .select-wrapper select:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .select-wrapper::after {
+            content: "";
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid #6b7280;
+            border-bottom: 2px solid #6b7280;
+            transform: translateY(-50%) rotate(45deg);
+            pointer-events: none;
+        }
+
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 28px 0;
+            padding: 16px;
+            background-color: #f9fafb;
+            border-radius: 10px;
+        }
+
+        .checkbox-wrapper {
+            position: relative;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .checkbox-wrapper input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .checkmark {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: white;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        input:checked ~ .checkmark {
+            background-color: #6366f1;
+            border-color: #6366f1;
+        }
+
+        input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .terms-text {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        .terms-text a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        .save-button {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 8px;
+        }
+
+        .save-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .save-button:active {
+            transform: translateY(0);
+        }
+
+        .save-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 12px;
+            }
+            
+            .header {
+                padding: 24px;
+            }
+            
+            .form-content {
+                padding: 24px;
+            }
+            
+            .notification-item {
+                padding: 16px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Notification Settings</h1>
+            <p>Manage how you receive updates and alerts</p>
+        </div>
+        
+        <div class="form-content">
+            <div class="notification-item">
+                <div class="notification-info">
+                    <h3>Email Notifications</h3>
+                    <p>Receive notifications via email</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="emailToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            
+            <div class="notification-item">
+                <div class="notification-info">
+                    <h3>Push Notifications</h3>
+                    <p>Get browser push notifications</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="pushToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            
+            <div class="notification-item">
+                <div class="notification-info">
+                    <h3>SMS Notifications</h3>
+                    <p>Receive text message alerts</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="smsToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label for="digestFrequency">Digest Frequency</label>
+                <div class="select-wrapper">
+                    <select id="digestFrequency">
+                        <option value="daily">Daily</option>
+                        <option value="weekly" selected>Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="never">Never</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="terms-group">
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="termsCheckbox">
+                    <span class="checkmark"></span>
+                </div>
+                <div class="terms-text">
+                    I accept the <a href="#" target="_blank">Terms & Conditions</a> and acknowledge that I have read the <a href="#" target="_blank">Privacy Policy</a>. I understand that I can change my notification preferences at any time.
+                </div>
+            </div>
+            
+            <button class="save-button" id="saveButton" disabled>Save Settings</button>
+        </div>
+    </div>
+
+    <script>
+        const emailToggle = document.getElementById('emailToggle');
+        const pushToggle = document.getElementById('pushToggle');
+        const smsToggle = document.getElementById('smsToggle');
+        const digestSelect = document.getElementById('digestFrequency');
+        const termsCheckbox = document.getElementById('termsCheckbox');
+        const saveButton = document.getElementById('saveButton');
+
+        function updateSaveButton() {
+            const isFormChanged = true;
+            const termsAccepted = termsCheckbox.checked;
+            saveButton.disabled = !termsAccepted;
+        }
+
+        termsCheckbox.addEventListener('change', updateSaveButton);
+        emailToggle.addEventListener('change', updateSaveButton);
+        pushToggle.addEventListener('change', updateSaveButton);
+        smsToggle.addEventListener('change', updateSaveButton);
+        digestSelect.addEventListener('change', updateSaveButton);
+
+        saveButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (!termsCheckbox.checked) {
+                alert('Please accept the terms and conditions');
+                return;
+            }
+
+            const settings = {
+                emailNotifications: emailToggle.checked,
+                pushNotifications: pushToggle.checked,
+                smsNotifications: smsToggle.checked,
+                digestFrequency: digestSelect.value,
+                termsAccepted: termsCheckbox.checked
+            };
+
+            saveButton.textContent = 'Saving...';
+            saveButton.disabled = true;
+
+            setTimeout(() => {
+                console.log('Settings saved:', settings);
+                saveButton.textContent = 'Settings Saved!';
+                saveButton.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                
+                setTimeout(() => {
+                    saveButton.textContent = 'Save Settings';
+                    saveButton.style.background = 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)';
+                    saveButton.disabled = false;
+                }, 2000);
+            }, 800);
+        });
+
+        updateSaveButton();
+    </script>
+</body>
+</html>

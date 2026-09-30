@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Notification Settings</title>
+<style>
+  :root {
+    --bg: #f4f5f8;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-ring: rgba(79, 70, 229, 0.35);
+    --danger: #dc2626;
+    --success: #059669;
+    --track-off: #d1d5db;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0d12;
+      --card: #151922;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --border: #262c38;
+      --primary: #6366f1;
+      --primary-hover: #818cf8;
+      --primary-ring: rgba(129, 140, 248, 0.4);
+      --danger: #f87171;
+      --success: #34d399;
+      --track-off: #374151;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 12px 32px -12px rgba(0,0,0,.12);
+    overflow: hidden;
+  }
+  header { padding: 24px 24px 8px; }
+  h1 { margin: 0 0 4px; font-size: 1.25rem; font-weight: 650; letter-spacing: -0.01em; }
+  header p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.45; }
+
+  fieldset { border: 0; margin: 0; padding: 8px 24px; }
+  legend {
+    padding: 16px 0 8px;
+    font-size: .75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+  }
+
+  /* Switch rows */
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .row:first-of-type { border-top: 0; }
+  .row-text { display: flex; flex-direction: column; gap: 2px; }
+  .row-title { font-weight: 550; font-size: .95rem; }
+  .row-desc { color: var(--muted); font-size: .83rem; }
+
+  .switch { position: relative; flex-shrink: 0; width: 44px; height: 26px; }
+  .switch input {
+    position: absolute; inset: 0; margin: 0;
+    opacity: 0; cursor: pointer;
+  }
+  .switch .track {
+    position: absolute; inset: 0;
+    border-radius: 999px;
+    background: var(--track-off);
+    transition: background-color .2s ease;
+  }
+  .switch .thumb {
+    position: absolute; top: 3px; left: 3px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    transition: transform .2s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+  }
+  .switch input:checked ~ .track { background: var(--primary); }
+  .switch input:checked ~ .thumb { transform: translateX(18px); }
+  .switch input:focus-visible ~ .track { box-shadow: 0 0 0 3px var(--primary-ring); }
+
+  /* Select */
+  .field { display: flex; flex-direction: column; gap: 6px; padding-bottom: 8px; }
+  .field label { font-weight: 550; font-size: .95rem; }
+  .hint { color: var(--muted); font-size: .83rem; margin: 0; }
+  .select-wrap { position: relative; }
+  .select-wrap::after {
+    content: "";
+    position: absolute; right: 14px; top: 50%;
+    width: 8px; height: 8px;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+  select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 11px 40px 11px 12px;
+    font: inherit;
+    font-size: .95rem;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  select:hover { border-color: var(--muted); }
+  select:focus-visible { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-ring); }
+  select:disabled { opacity: .55; cursor: not-allowed; }
+
+  /* Checkbox */
+  .terms { padding: 16px 24px 0; }
+  .check {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: .9rem; line-height: 1.45; cursor: pointer;
+  }
+  .check input {
+    appearance: none; -webkit-appearance: none;
+    flex-shrink: 0;
+    width: 18px; height: 18px; margin: 2px 0 0;
+    border: 1.5px solid var(--muted);
+    border-radius: 5px;
+    background: var(--card);
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: background-color .15s, border-color .15s;
+  }
+  .check input::after {
+    content: "";
+    width: 5px; height: 9px;
+    border: solid #fff; border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    margin-top: -2px;
+    transition: transform .15s ease;
+  }
+  .check input:checked { background: var(--primary); border-color: var(--primary); }
+  .check input:checked::after { transform: rotate(45deg) scale(1); }
+  .check input:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--primary-ring); }
+  .check a { color: var(--primary); text-underline-offset: 2px; }
+  .terms.invalid .check input { border-color: var(--danger); }
+  .error {
+    color: var(--danger);
+    font-size: .83rem;
+    margin: 6px 0 0 28px;
+    min-height: 1.2em;
+  }
+
+  footer {
+    display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+    padding: 16px 24px 24px;
+  }
+  .status { margin-right: auto; font-size: .85rem; color: var(--success); opacity: 0; transition: opacity .25s; }
+  .status.show { opacity: 1; }
+  button {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px;
+    font: inherit; font-weight: 600; font-size: .95rem;
+    color: #fff;
+    background: var(--primary);
+    border: 0; border-radius: 10px;
+    cursor: pointer;
+    transition: background-color .15s, transform .05s, box-shadow .15s;
+  }
+  button:hover { background: var(--primary-hover); }
+  button:active { transform: translateY(1px); }
+  button:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--primary-ring); }
+  button[aria-busy="true"] { opacity: .8; cursor: progress; }
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    display: none;
+  }
+  button[aria-busy="true"] .spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation-duration: 1.5s !important; }
+  }
+</style>
+</head>
+<body>
+  <form class="card" id="settings" novalidate>
+    <header>
+      <h1>Notification settings</h1>
+      <p>Choose how and how often you'd like to hear from us.</p>
+    </header>
+
+    <fieldset>
+      <legend>Channels</legend>
+
+      <label class="row" for="email">
+        <span class="row-text">
+          <span class="row-title">Email</span>
+          <span class="row-desc">Updates and account activity sent to your inbox.</span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" role="switch" id="email" name="email" checked />
+          <span class="track"></span><span class="thumb"></span>
+        </span>
+      </label>
+
+      <label class="row" for="push">
+        <span class="row-text">
+          <span class="row-title">Push</span>
+          <span class="row-desc">Real-time alerts on your devices.</span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" role="switch" id="push" name="push" checked />
+          <span class="track"></span><span class="thumb"></span>
+        </span>
+      </label>
+
+      <label class="row" for="sms">
+        <span class="row-text">
+          <span class="row-title">SMS</span>
+          <span class="row-desc">Text messages for urgent notices only.</span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" role="switch" id="sms" name="sms" />
+          <span class="track"></span><span class="thumb"></span>
+        </span>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Digest</legend>
+      <div class="field">
+        <label for="frequency">Digest frequency</label>
+        <p class="hint" id="frequency-hint">A summary of activity, delivered by email.</p>
+        <div class="select-wrap">
+          <select id="frequency" name="frequency" aria-describedby="frequency-hint">
+            <option value="realtime">Real-time</option>
+            <option value="daily">Daily</option>
+            <option value="weekly" selected>Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="never">Never</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="terms" id="terms-group">
+      <label class="check">
+        <input type="checkbox" id="terms" name="terms" required aria-describedby="terms-error" />
+        <span>I agree to the <a href="#" onclick="event.preventDefault()">Terms of Service</a> and <a href="#" onclick="event.preventDefault()">Privacy Policy</a>.</span>
+      </label>
+      <p class="error" id="terms-error" aria-live="polite"></p>
+    </div>
+
+    <footer>
+      <span class="status" id="status" role="status" aria-live="polite"></span>
+      <button type="submit" id="save">
+        <span class="spinner" aria-hidden="true"></span>
+        <span class="label">Save</span>
+      </button>
+    </footer>
+  </form>
+
+<script>
+  const form = document.getElementById('settings');
+  const email = document.getElementById('email');
+  const frequency = document.getElementById('frequency');
+  const terms = document.getElementById('terms');
+  const termsGroup = document.getElementById('terms-group');
+  const termsError = document.getElementById('terms-error');
+  const saveBtn = document.getElementById('save');
+  const status = document.getElementById('status');
+  let statusTimer;
+
+  // Digest is delivered by email, so disable it when email is off.
+  function syncDigest() { frequency.disabled = !email.checked; }
+  email.addEventListener('change', syncDigest);
+  syncDigest();
+
+  terms.addEventListener('change', () => {
+    if (terms.checked) {
+      termsGroup.classList.remove('invalid');
+      terms.removeAttribute('aria-invalid');
+      termsError.textContent = '';
+    }
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (saveBtn.getAttribute('aria-busy') === 'true') return;
+
+    if (!terms.checked) {
+      termsGroup.classList.add('invalid');
+      terms.setAttribute('aria-invalid', 'true');
+      termsError.textContent = 'Please accept the terms to save your settings.';
+      terms.focus();
+      return;
+    }
+
+    const data = {
+      email: email.checked,
+      push: document.getElementById('push').checked,
+      sms: document.getElementById('sms').checked,
+      frequency: frequency.value,
+      termsAccepted: terms.checked
+    };
+
+    saveBtn.setAttribute('aria-busy', 'true');
+    saveBtn.querySelector('.label').textContent = 'Saving…';
+    status.classList.remove('show');
+
+    await new Promise(r => setTimeout(r, 900)); // simulate request
+    console.log('Saved settings:', data);
+
+    saveBtn.removeAttribute('aria-busy');
+    saveBtn.querySelector('.label').textContent = 'Save';
+    status.textContent = '✓ Settings saved';
+    status.classList.add('show');
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(() => status.classList.remove('show'), 3000);
+  });
+</script>
+</body>
+</html>

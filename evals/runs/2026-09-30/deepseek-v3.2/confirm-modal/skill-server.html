@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-pui-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Settings - Delete Confirmation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css">
+    <script type="module">
+        import "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/js/index.js";
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--pui-bg);
+            color: var(--pui-text);
+        }
+        .project-header {
+            margin-bottom: 2rem;
+        }
+        .danger-zone {
+            margin-top: 3rem;
+            border-top: 2px solid var(--pui-error);
+            padding-top: 1.5rem;
+        }
+        .danger-zone h2 {
+            color: var(--pui-error);
+        }
+        .danger-zone p {
+            color: var(--pui-text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="project-header">
+        <h1>Project: Analytics Dashboard</h1>
+        <p>Created on September 30, 2026 • Last updated today</p>
+    </div>
+
+    <section>
+        <h2>Project Settings</h2>
+        <div class="pui-card">
+            <div class="pui-card-content">
+                <div class="pui-field-group">
+                    <span>Project Name</span>
+                    <input class="pui-input" type="text" value="Analytics Dashboard">
+                    <small>Maximum 80 characters</small>
+                </div>
+                <div class="pui-field-group">
+                    <span>Project Description</span>
+                    <textarea class="pui-input" rows="3">A dashboard for tracking user analytics and engagement metrics across platforms.</textarea>
+                </div>
+                <div class="pui-field-group">
+                    <label>
+                        <input type="checkbox" class="pui-checkbox" checked>
+                        <span>Enable public access</span>
+                    </label>
+                </div>
+                <div class="pui-group-row">
+                    <button class="pui-btn pui-solid pui-theme">Save Changes</button>
+                    <button class="pui-btn pui-outline pui-surface">Discard</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="danger-zone">
+        <h2>Danger Zone</h2>
+        <div class="pui-card">
+            <div class="pui-card-content">
+                <h3>Delete Project</h3>
+                <p>Once you delete a project, there is no going back. All data and configurations will be permanently removed.</p>
+                <button class="pui-btn pui-solid pui-error" commandfor="deleteConfirm" command="show-modal">
+                    Delete Project
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <dialog class="pui-modal" id="deleteConfirm" closedby="any">
+        <div class="pui-card">
+            <div class="pui-card-header">Delete Project</div>
+            <div class="pui-card-content">
+                <h3>Are you absolutely sure?</h3>
+                <p>This action <strong>cannot</strong> be undone. This will permanently delete the "Analytics Dashboard" project and all of its data.</p>
+                <div class="pui-group-row">
+                    <button class="pui-btn pui-outline pui-surface" commandfor="deleteConfirm" command="close">
+                        Cancel
+                    </button>
+                    <button class="pui-btn pui-solid pui-error" commandfor="deleteConfirm" command="close">
+                        Delete Project
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+</body>
+</html>

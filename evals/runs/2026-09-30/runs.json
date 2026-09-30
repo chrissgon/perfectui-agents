@@ -1,0 +1,344 @@
+{
+  "date": "2026-09-30",
+  "models": {
+    "claude-opus-5-5": {
+      "id": "claude-opus-5-5",
+      "harness": "Claude Code 2.1.283 (claude -p) through the ai-workbench claude-code adapter run-prompt.sh",
+      "cost_source": "total_cost_usd reported by claude -p"
+    },
+    "deepseek-v3.2": {
+      "id": "openrouter/deepseek/deepseek-v3.2",
+      "harness": "OpenCode 1.18.32 (opencode run --pure --auto --format json) through the ai-workbench agents-dir adapter run-prompt.sh",
+      "cost_source": "sum of the step-finish costs in opencode's JSON events; the OpenRouter key's usage rose by 0.1238 over the same window"
+    }
+  },
+  "total_cost_usd_reported": 2.0842,
+  "openrouter_key_usage_delta_usd": 0.1238,
+  "total_cost_usd_measured": 2.1073,
+  "runs": [
+    {
+      "model": "claude-opus-5-5",
+      "case": "confirm-modal",
+      "variant": "baseline",
+      "cost_usd": 0.1655948,
+      "duration_ms": 42322,
+      "exit_code": 0,
+      "tools": [],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "confirm-modal",
+      "variant": "skill-server",
+      "cost_usd": 0.1951862,
+      "duration_ms": 21567,
+      "exit_code": 0,
+      "tools": [
+        "Skill(build-with-perfectui)",
+        "ToolSearch",
+        "mcp__perfectui__get_component",
+        "mcp__perfectui__check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "dark-mode",
+      "variant": "baseline",
+      "cost_usd": 0.1561388,
+      "duration_ms": 39640,
+      "exit_code": 0,
+      "tools": [],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "dark-mode",
+      "variant": "skill-server",
+      "cost_usd": 0.1682964,
+      "duration_ms": 20971,
+      "exit_code": 0,
+      "tools": [
+        "Skill(build-with-perfectui)",
+        "ToolSearch",
+        "mcp__perfectui__check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "login-card",
+      "variant": "baseline",
+      "cost_usd": 0.16756279999999998,
+      "duration_ms": 42412,
+      "exit_code": 0,
+      "tools": [],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "login-card",
+      "variant": "skill-server",
+      "cost_usd": 0.14749980000000001,
+      "duration_ms": 14810,
+      "exit_code": 0,
+      "tools": [
+        "Skill(build-with-perfectui)",
+        "ToolSearch",
+        "mcp__perfectui__check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "pricing",
+      "variant": "baseline",
+      "cost_usd": 0.19795079999999998,
+      "duration_ms": 51467,
+      "exit_code": 0,
+      "tools": [],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "pricing",
+      "variant": "skill-server",
+      "cost_usd": 0.1923662,
+      "duration_ms": 23867,
+      "exit_code": 0,
+      "tools": [
+        "Skill(build-with-perfectui)",
+        "ToolSearch",
+        "mcp__perfectui__get_component",
+        "mcp__perfectui__check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "settings-form",
+      "variant": "baseline",
+      "cost_usd": 0.1486748,
+      "duration_ms": 36153,
+      "exit_code": 0,
+      "tools": [],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "settings-form",
+      "variant": "skill-server",
+      "cost_usd": 0.1544756,
+      "duration_ms": 16503,
+      "exit_code": 0,
+      "tools": [
+        "Skill(build-with-perfectui)",
+        "ToolSearch",
+        "mcp__perfectui__check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "striped-table",
+      "variant": "baseline",
+      "cost_usd": 0.130828,
+      "duration_ms": 29369,
+      "exit_code": 0,
+      "tools": [
+        "Bash"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "claude-opus-5-5",
+      "case": "striped-table",
+      "variant": "skill-server",
+      "cost_usd": 0.158972,
+      "duration_ms": 18016,
+      "exit_code": 0,
+      "tools": [
+        "Skill(build-with-perfectui)",
+        "ToolSearch",
+        "mcp__perfectui__check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "confirm-modal",
+      "variant": "baseline",
+      "cost_usd": 0.002653,
+      "duration_ms": 59860,
+      "exit_code": 0,
+      "tools": [],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "confirm-modal",
+      "variant": "skill-server",
+      "cost_usd": 0.009323,
+      "duration_ms": 513273,
+      "exit_code": 0,
+      "tools": [
+        "skill",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "dark-mode",
+      "variant": "baseline",
+      "cost_usd": 0.00294,
+      "duration_ms": 59252,
+      "exit_code": 0,
+      "tools": [],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "dark-mode",
+      "variant": "skill-server",
+      "cost_usd": 0.016941,
+      "duration_ms": 392112,
+      "exit_code": 0,
+      "tools": [
+        "skill",
+        "perfectui_get_install",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "write",
+        "read",
+        "perfectui_check_markup"
+      ],
+      "html_source": "response (bare html)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "login-card",
+      "variant": "baseline",
+      "cost_usd": 0.007911,
+      "duration_ms": 215049,
+      "exit_code": 0,
+      "tools": [
+        "todowrite",
+        "write",
+        "todowrite"
+      ],
+      "html_source": "response (bare html)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "login-card",
+      "variant": "skill-server",
+      "cost_usd": 0.011393,
+      "duration_ms": 61683,
+      "exit_code": 0,
+      "tools": [
+        "skill",
+        "perfectui_get_install",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "write",
+        "perfectui_check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "pricing",
+      "variant": "baseline",
+      "cost_usd": 0.005457,
+      "duration_ms": 60149,
+      "exit_code": 0,
+      "tools": [
+        "write"
+      ],
+      "html_source": "file written by the model (pricing-page.html)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "pricing",
+      "variant": "skill-server",
+      "cost_usd": 0.011758,
+      "duration_ms": 1130737,
+      "exit_code": 0,
+      "tools": [
+        "skill",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "write",
+        "perfectui_check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "settings-form",
+      "variant": "baseline",
+      "cost_usd": 0.007406,
+      "duration_ms": 541077,
+      "exit_code": 0,
+      "tools": [
+        "write"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "settings-form",
+      "variant": "skill-server",
+      "cost_usd": 0.010862,
+      "duration_ms": 646875,
+      "exit_code": 0,
+      "tools": [
+        "skill",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "write",
+        "read",
+        "perfectui_check_markup"
+      ],
+      "html_source": "response (html code block)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "striped-table",
+      "variant": "baseline",
+      "cost_usd": 0.005539,
+      "duration_ms": 323061,
+      "exit_code": 0,
+      "tools": [
+        "write"
+      ],
+      "html_source": "file written by the model (team-members.html)"
+    },
+    {
+      "model": "deepseek-v3.2",
+      "case": "striped-table",
+      "variant": "skill-server",
+      "cost_usd": 0.008429,
+      "duration_ms": 110943,
+      "exit_code": 0,
+      "tools": [
+        "skill",
+        "perfectui_get_component",
+        "perfectui_get_component",
+        "perfectui_check_markup"
+      ],
+      "html_source": "response (html code block)"
+    }
+  ]
+}

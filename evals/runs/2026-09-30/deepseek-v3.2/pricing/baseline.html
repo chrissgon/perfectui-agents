@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Pricing Plans</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin:和新0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: ——1200px;
+            width: 100%;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card.pro {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            transform: scale(1.05);
+            box-shadow: 0 15px ABS35px rgba(102, 126, 234, 0.15);
+        }
+        
+        .card.pro:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .card.pro::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .plan-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .period {
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+        
+        .description {
+            color: #6b7280;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 40px;
+            flex-grow: 1;
+        }
+        
+        .features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .features i {
+            color: #10b981;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .features .xmark {
+            color: #ef4444;
+        }
+        
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 18px 0;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: auto;
+        }
+        
+        .free .btn {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .free .btn:hover {
+            background: #e5e7eb;
+        }
+        
+        .pro .btn {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .pro .btn:hover {
+            background: linear-gradient(45deg, #5a6fd8 0%, #6a4290 100%);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .team .btn {
+            background: #1f2937;
+            color: white;
+        }
+        
+        .team .btn:hover {
+            background: #111827;
+        }
+        
+        @media (max-width: 768px) {
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .card.pro {
+                transform: none;
+            }
+            
+            .card.pro:hover {
+                transform: translateY(-10px);
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Perfect Pricing Plans</h1>
+            <p>Choose the perfect plan for your needs. All plans include core features with flexible options for teams of all sizes.</p>
+        </div>
+        
+        <div class="pricing-cards">
+            <div class="card free">
+                <h2 class="plan-name">Free</h2>
+                <div class="price">$0<span>/month</span></div>
+                <div class="period">Perfect for getting started</div>
+                <p class="description">Start your journey with essential features at no cost.</p>
+                
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Up to 5 projects</li>
+                    <li><i class="fas fa-check"></i> Basic analytics</li>
+                    <li><i class="fas fa-check"></i> 1GB storage</li>
+                    <li><i class="fas fa-check"></i> Community support</li>
+                    <li><i class="fas fa-xmark xmark"></i> Advanced features</li>
+                    <li><i class="fas fa-xmark xmark"></i> Team collaboration</li>
+                    <li><i class="fas fa-xmark xmark"></i> Priority support</li>
+                </ul>
+                
+                <button class="btn">Get Started Free</button>
+            </div>
+            
+            <div class="card pro">
+                <h2 class="plan-name">Pro</h2>
+                <div class="price">$29<span>/month</span></div>
+                <div class="period">Most popular choice</div>
+                <p class="description">Perfect for professionals and growing businesses.</p>
+                
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Unlimited projects</li>
+                    <li><i class="fas fa-check"></i> Advanced analytics</li>
+                    <li><i class="fas fa-check"></i> 50GB storage</li>
+                    <li><i class="fas fa-check"></i> Priority email support</li>
+                    <li><i class="fas fa-check"></i> All advanced features</li>
+                    <li><i class="fas fa-check"></i> Team collaboration (up to 10)</li>
+                    <li><i class="fas fa-xmark xmark"></i> Enterprise features</li>
+                </ul>
+                
+                <button class="btn">Start Pro Trial</button>
+            </div>
+            
+            <div class="card team">
+                <h2 class="plan-name">Team</h2>
+                <div class="price">$79<span>/month</span></div>
+                <div class="period">Best for teams</div>
+                <p class="description">Everything you need for team collaboration at scale.</p>
+                
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Unlimited projects</li>
+                    <li><i class="fas fa-check"></i> Enterprise analytics</li>
+                    <li><i class="fas fa-check"></i> 500GB storage</li>
+                    <li><i class="fas fa-check"></i> 24/7 phone & email support</li>
+                    <li><i class="fas fa-check"></i> All Pro features</li>
+                    <li><i class="fas fa-check"></i> Team collaboration (unlimited)</li>
+                    <li><i class="fas fa-check"></i> All enterprise features</li>
+                </ul>
+                
+                <button class="btn">Contact Sales</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
