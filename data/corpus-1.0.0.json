@@ -1,0 +1,691 @@
+{
+  "version": "1.0.0",
+  "source": {
+    "library": "v1.0.0",
+    "package": "@chrissgon/perfectui@1.0.0",
+    "integrity": "sha512-YeS8y8aOJJOHtRi72CzNV/VDa9Jkbvz/xMaSxRCAosUfrFxaXHeKEnafi965ZpRQ+RRCstq93mRRKcoXsErS3A=="
+  },
+  "install": {
+    "package": "@chrissgon/perfectui",
+    "version": "1.0.0",
+    "npm": "npm i @chrissgon/perfectui@1.0.0",
+    "packageManagers": {
+      "npm": "npm i @chrissgon/perfectui@1.0.0",
+      "yarn": "yarn add @chrissgon/perfectui@1.0.0",
+      "pnpm": "pnpm add @chrissgon/perfectui@1.0.0",
+      "bun": "bun add @chrissgon/perfectui@1.0.0"
+    },
+    "cdn": {
+      "stylesheet": "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/perfectui.css",
+      "script": "https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@1.0.0/dist/js/index.js"
+    },
+    "imports": [
+      "import \"@chrissgon/perfectui/perfectui.css\";",
+      "import \"@chrissgon/perfectui/core.css\";",
+      "import \"@chrissgon/perfectui/components/button.css\";",
+      "import \"@chrissgon/perfectui/components/card.css\";",
+      "import \"@chrissgon/perfectui\";"
+    ],
+    "source": "docs/installation.md"
+  },
+  "components": [
+    {
+      "slug": "installation",
+      "title": "Installation",
+      "section": "Getting Started",
+      "file": "docs/installation.md",
+      "description": "Install Perfect UI from a CDN or a package manager, and load its small script only for the overlays.",
+      "markdown": "#### Getting Started\n\n# Installation\n\nInstall Perfect UI from a CDN or a package manager, and load its small script only for the overlays.\n\nAn exceptionally lightweight and highly customizable CSS and JavaScript library for crafting elegant user interfaces.\n\nPerfect UI ships **the bare minimum**. It has no runtime dependencies, imports no fonts, and applies no CSS reset: every rule it ships is attached to a `pui-` class, so it never touches your markup.\n\n### CDN\n\nPlace the `<link>` in the `<head>`. That is enough for every component that is pure CSS.\n\n```html\n<!doctype html>\n<html>\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n\n    <link\n      rel=\"stylesheet\"\n      href=\"https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/perfectui.css\"\n    />\n  </head>\n  <body>\n    <button class=\"pui-btn pui-solid pui-theme\">My button</button>\n  </body>\n</html>\n```\n\nPerfect UI is **ESM only**, so the JavaScript is loaded as a module. You only need it if you use the overlays or the checkbox `indeterminate` attribute — see [what the script does](#what-the-script-does).\n\n```html\n<script type=\"module\">\n  import \"https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/js/index.js\";\n</script>\n```\n\n> [!WARNING]\n>\n> Perfect UI no longer exposes anything on `window` or `document`. Everything is imported.\n\n### Install by package manager\n\n```bash\n# npm\nnpm i @chrissgon/perfectui\n\n# yarn\nyarn add @chrissgon/perfectui\n\n# pnpm\npnpm add @chrissgon/perfectui\n\n# bun\nbun add @chrissgon/perfectui\n```\n\nImport everything:\n\n```js\nimport \"@chrissgon/perfectui/perfectui.css\";\n```\n\nOr import only what you use. `core.css` carries the tokens, the styles and the colors, and every component file needs it:\n\n```js\nimport \"@chrissgon/perfectui/core.css\";\nimport \"@chrissgon/perfectui/components/button.css\";\nimport \"@chrissgon/perfectui/components/card.css\";\n```\n\n### What the script does\n\nThe script is a **loader**. It checks what your browser is missing and downloads only the fallback for that, nothing else. On a current browser that is a few hundred bytes, and on a browser that already has everything it downloads nothing at all.\n\n```js\nimport \"@chrissgon/perfectui\";\n```\n\nYou need it when you use the modal, the dropdown, the tooltip, or a checkbox with the `indeterminate` attribute. Everything else is CSS.\n\nIt is safe to import on the server: it does nothing when there is no DOM.\n\n### Writing your first component\n\nEvery element is made of up to three independent classes:\n\n| Piece     | Answers           | Examples                                                                                       |\n| --------- | ----------------- | ---------------------------------------------------------------------------------------------- |\n| **Shape** | what is it        | `pui-btn`, `pui-chip`, `pui-badge`, `pui-card`                                                 |\n| **Style** | how is it painted | `pui-solid`, `pui-soft`, `pui-outline`, `pui-link`                                             |\n| **Color** | which color       | `pui-theme`, `pui-success`, `pui-error`, `pui-warn`, `pui-muted`, `pui-surface`, `pui-inverse` |\n\n```html live\n<button class=\"pui-btn pui-solid pui-theme\">Save</button>\n<button class=\"pui-btn pui-outline pui-surface\">Cancel</button>\n<span class=\"pui-chip pui-soft pui-success\">Active</span>\n<span class=\"pui-badge pui-solid pui-error\">3</span>\n```\n\nMix them freely: every style works with every color, on every shape.\n",
+      "examples": [
+        "<!doctype html>\n<html>\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n\n    <link\n      rel=\"stylesheet\"\n      href=\"https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/perfectui.css\"\n    />\n  </head>\n  <body>\n    <button class=\"pui-btn pui-solid pui-theme\">My button</button>\n  </body>\n</html>",
+        "<script type=\"module\">\n  import \"https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/js/index.js\";\n</script>",
+        "<button class=\"pui-btn pui-solid pui-theme\">Save</button>\n<button class=\"pui-btn pui-outline pui-surface\">Cancel</button>\n<span class=\"pui-chip pui-soft pui-success\">Active</span>\n<span class=\"pui-badge pui-solid pui-error\">3</span>"
+      ],
+      "classes": [
+        "pui-badge",
+        "pui-btn",
+        "pui-chip",
+        "pui-error",
+        "pui-outline",
+        "pui-soft",
+        "pui-solid",
+        "pui-success",
+        "pui-surface",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "typescript",
+      "title": "TypeScript",
+      "section": "Getting Started",
+      "file": "docs/typescript.md",
+      "description": "Perfect UI ships its own type declarations. There is nothing to install.",
+      "markdown": "#### Getting Started\n\n# TypeScript\n\nPerfect UI ships its own type declarations. There is nothing to install.\n\n### Color mode\n\n```ts\nimport { setMode, getMode, type Mode } from \"@chrissgon/perfectui/mode\";\n\nconst mode: Mode = getMode(); // \"system\" | \"light\" | \"dark\"\n\nsetMode(\"dark\");\nsetMode(); // back to the system preference\n```\n\n### The fallback loader\n\nImporting the loader for its side effect is all most projects need:\n\n```ts\nimport \"@chrissgon/perfectui\";\n```\n\nThe registry is exported if you want to inspect what your browser is missing, or to drive the loading yourself:\n\n```ts\nimport { features, loadFallbacks, type Feature } from \"@chrissgon/perfectui\";\n\nfor (const feature of features) {\n  console.log(feature.name, feature.supported());\n}\n\n// Force every fallback, which is useful when testing the non-native path.\nloadFallbacks(\n  features.map((feature) => ({ ...feature, supported: () => false }))\n);\n```\n\nA single fallback can also be imported directly, if you know you need it:\n\n```ts\nimport \"@chrissgon/perfectui/fallbacks/interest-for\";\n```\n",
+      "examples": [],
+      "classes": []
+    },
+    {
+      "slug": "tailwind-css",
+      "title": "Tailwind CSS",
+      "section": "Getting Started",
+      "file": "docs/tailwindcss.md",
+      "description": "Perfect UI and Tailwind complement each other: Perfect UI gives you components, Tailwind gives you layout, spacing and typography utilities.",
+      "markdown": "#### Getting Started\n\n# Tailwind CSS\n\nPerfect UI and Tailwind complement each other: Perfect UI gives you components, Tailwind gives you layout, spacing and typography utilities.\n\nPerfect UI does **not** depend on Tailwind, and Tailwind is not required to use it.\n\n### How the cascade decides\n\nEvery rule Perfect UI ships lives inside a cascade layer, `@layer pui.*`. Two rules of the cascade decide who wins, before specificity is even compared:\n\n1. CSS outside any layer beats every layer.\n2. Between layers, the layer **declared last** wins. A layer is declared the first time its name appears, in an `@layer a, b, c;` statement or in an `@layer` block.\n\nYour own CSS, written outside any layer, always beats the library with no `!important`:\n\n```css\n.checkout-button {\n  border-radius: 0; /* beats pui-btn without !important */\n}\n```\n\nTailwind is different, and the version matters.\n\n### Tailwind v4: declare the layer order once\n\nTailwind v4 puts its own CSS in layers too: `theme`, `base` (Preflight, its reset), `components` and `utilities`. With two libraries in layers, the import order silently decides who wins, and both orders break something:\n\n| Import order                      | Preflight vs the library                           | Utilities vs the library                    |\n| --------------------------------- | -------------------------------------------------- | ------------------------------------------- |\n| Tailwind first, Perfect UI second | the library wins                                   | the library wins: `rounded-none` is ignored |\n| Perfect UI first, Tailwind second | Preflight wins: buttons lose their fill and radius | utilities win                               |\n\nDeclare the order yourself, as the first line of the stylesheet, and both problems disappear: Preflight sits below the library and utilities sit above it.\n\n```css\n/* app.css */\n@layer theme, base, pui, components, utilities;\n\n@import \"tailwindcss\";\n@import \"@chrissgon/perfectui/perfectui.css\";\n```\n\n`pui` in the list places every `pui.*` layer of the library at once, so its internal order is kept. Then utilities win as expected:\n\n```html live\n<!-- keeps the solid theme fill from Perfect UI; the corners and width come from Tailwind -->\n<button class=\"pui-btn pui-solid pui-theme rounded-none w-full\">Save</button>\n```\n\nIf you import the component stylesheets one by one (`core.css` plus `components/*.css`), the same line works, because every file of the library uses `pui.*` layers.\n\n### Tailwind v3: turn Preflight off\n\nTailwind v3 writes its CSS outside any layer. Its utilities therefore beat the library, which is what you want, but so does Preflight, which resets every `<button>` to a transparent background: a `pui-btn pui-solid` loses its fill.\n\nTurn Preflight off, since Perfect UI does not need it:\n\n```js\n// tailwind.config.js\nexport default {\n  corePlugins: { preflight: false }\n};\n```\n\nIf the rest of your page needs Preflight, keep it and restore, with your own unlayered rules, what it removes from the components you use: the fill of Perfect UI buttons, and `margin: auto` on `.pui-modal`, which centres the dialog. There is no layer order to declare in v3.\n\n### Dark mode\n\nPerfect UI switches modes with `data-pui-mode` on `<html>`. Point Tailwind's dark variant at the same attribute so both react together:\n\n```css\n/* Tailwind v4 */\n@import \"tailwindcss\";\n@custom-variant dark (&:where([data-pui-mode=\"dark\"], [data-pui-mode=\"dark\"] *));\n```\n\n```js\n// Tailwind v3\nexport default {\n  darkMode: [\"selector\", '[data-pui-mode=\"dark\"]']\n};\n```\n\nSee [Dark Mode](darkmode.md) for how the attribute is set and persisted.\n\n### Preflight\n\nPreflight is Tailwind's reset. Perfect UI ships no reset and styles no bare elements, but Preflight styles bare elements that Perfect UI components use, such as `<button>`, so it can remove a component's fill or radius when it wins the cascade. Preflight also zeroes browser defaults, such as the `margin: auto` that centres a modal `<dialog>`, so Perfect UI declares every property its components rely on, including those: in a lower layer, a reset cannot undo them. With Tailwind v4 the layer declaration above keeps it below the library; with Tailwind v3 turn it off. Measured with Tailwind 4.3.3 and 3.4.17 against Perfect UI 1.0.0-beta.1; the modal's margin against branch `v1` after it.\n",
+      "examples": [
+        "<!-- keeps the solid theme fill from Perfect UI; the corners and width come from Tailwind -->\n<button class=\"pui-btn pui-solid pui-theme rounded-none w-full\">Save</button>"
+      ],
+      "classes": [
+        "pui-btn",
+        "pui-solid",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "migrating-from-0-x",
+      "title": "Migrating from 0.x",
+      "section": "Getting Started",
+      "file": "MIGRATION.md",
+      "description": "`1.0.0` is a rewrite. The SCSS build is gone, every class is prefixed, and the components that used to be driven by Perfect UI's JavaScript are now driven by the browser.",
+      "markdown": "# Migrating from 0.x\n\n`1.0.0` is a rewrite. The SCSS build is gone, every class is prefixed, and the components that used to be driven by Perfect UI's JavaScript are now driven by the browser.\n\n<!-- site: tags: [guide, migration] -->\n<!-- site: from: 0.23.0 -->\n<!-- site: to: 1.0.0-beta.1 -->\n<!-- site: changed: \"1.0\" -->\n\nNothing here is guesswork on your side: the changes are mechanical, and this\npage lists every one of them.\n\n### Why\n\n`0.23.0` shipped a CSS reset, imported a font, styled bare elements like `ul`\nand `a`, used `!important`, and ran JavaScript on import that re-initialised the\nwhole DOM through a `MutationObserver`. That made it hard to drop into an\nexisting project, awkward with React and Vue, and unsuitable for server\nrendering.\n\n`1.0.0` touches nothing you did not ask for, ships less, and leans on the\nplatform for the behavior it used to implement itself.\n\n### 1. Update the imports\n\nThe package is **ESM only** and no longer puts anything on `window` or\n`document`.\n\n```diff\n-import \"@chrissgon/perfectui/dist/perfectui.css\";\n-import \"@chrissgon/perfectui\";\n+import \"@chrissgon/perfectui/perfectui.css\";\n+import \"@chrissgon/perfectui\"; // only for overlays and the indeterminate checkbox\n```\n\n```diff\n-<script src=\"https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/perfectui.js\"></script>\n+<script type=\"module\">\n+  import \"https://cdn.jsdelivr.net/npm/@chrissgon/perfectui@latest/dist/js/index.js\";\n+</script>\n```\n\nYou can now import only the components you use:\n\n```js\nimport \"@chrissgon/perfectui/core.css\";\nimport \"@chrissgon/perfectui/components/button.css\";\n```\n\n### 2. Add the prefix\n\nEvery class is prefixed with `pui-`, every custom property with `--pui-`.\n\n```diff\n-<button class=\"btn style-solid-primary\">Save</button>\n+<button class=\"pui-btn pui-solid pui-theme\">Save</button>\n```\n\n### 3. Split style from color\n\nA combined class like `style-solid-primary` became two independent classes: one\nfor **how** the color is applied, one for **which** color. Adding a color no\nlonger multiplies the number of classes.\n\n| `0.23.0`              | `1.0.0`                 |\n| --------------------- | ----------------------- |\n| `style-solid-primary` | `pui-solid pui-theme`   |\n| `style-soft-success`  | `pui-soft pui-success`  |\n| `style-outline-error` | `pui-outline pui-error` |\n| `style-link-warn`     | `pui-link pui-warn`     |\n| `style-*-secondary`   | `pui-<style> pui-muted` |\n| `style-white`         | `pui-solid pui-surface` |\n| `style-black`         | `pui-solid pui-inverse` |\n\n`secondary` is now `muted`, and the two page-relative colors have real names:\n`pui-surface` follows the page background, `pui-inverse` is its opposite.\n\n### 4. Components\n\n| `0.23.0`                                                                                                  | `1.0.0`                                                 |\n| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |\n| [`btn`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/button.md)                               | `pui-btn`                                               |\n| [`badge`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/badge.md)                              | `pui-badge`, plus the new `pui-chip`                    |\n| [`card`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/card.md), `card-header`, `card-content` | `pui-card`, `pui-card-header`, `pui-card-content`       |\n| [`list`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/list.md), `list-item`                   | `pui-list`, `pui-list-item`                             |\n| [`table`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/table.md)                              | `pui-table`                                             |\n| [`timeline`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/timeline.md), `checkpoint`          | `pui-timeline`, `pui-checkpoint`, `pui-checkpoint-icon` |\n| [`group-row`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/layout-group.md), `group-col`      | `pui-group-row`, `pui-group-col`                        |\n| `float`                                                                                                   | `pui-float`                                             |\n| [`input`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/input.md), `addon`, `input-group`      | `pui-input`, `pui-addon`, `pui-input-group`             |\n| [`checkbox`](https://github.com/chrissgon/perfectui/blob/v0.23.0/docs/checkbox.md), `radio`, `switch`     | `pui-checkbox`, `pui-radio`, `pui-switch`               |\n| `rounded`, `rounded-full`                                                                                 | `pui-rounded`, `pui-rounded-full`                       |\n\n#### Modal\n\n```diff\n-<button class=\"btn style-solid-primary\" data-modal=\"confirm\">Open</button>\n-<div class=\"modal\" id=\"confirm\">\n-  <div class=\"card\">…</div>\n-</div>\n+<button class=\"pui-btn pui-solid pui-theme\" commandfor=\"confirm\" command=\"show-modal\">Open</button>\n+<dialog class=\"pui-modal\" id=\"confirm\" closedby=\"any\">\n+  <div class=\"pui-card\">…</div>\n+</dialog>\n```\n\n- `data-autoclose` is now `commandfor=\"id\" command=\"close\"`.\n- `modal.static-backdrop` is now a `<dialog>` **without** `closedby`.\n\n#### Dropdown\n\n```diff\n-<button class=\"dropdown-trigger\">Menu</button>\n-<div class=\"dropdown\">…</div>\n+<button class=\"pui-btn pui-outline pui-surface\" popovertarget=\"menu\">Menu</button>\n+<div class=\"pui-dropdown\" id=\"menu\" popover>…</div>\n```\n\nThe `.ignore` class is gone: a click inside a popover does not close it.\n\n#### Tooltip\n\n```diff\n-<button class=\"tooltip\" data-tooltip=\"Help text\">?</button>\n+<button interestfor=\"help\">?</button>\n+<div class=\"pui-tooltip\" id=\"help\" popover=\"hint\">Help text</div>\n```\n\nThis is the change that fixes tooltips on touch screens.\n\n#### Accordion\n\n```diff\n-<div class=\"accordion\">\n-  <div class=\"accordion-item\">…</div>\n-</div>\n+<div class=\"pui-accordion\">\n+  <details class=\"pui-accordion-item\" name=\"faq\">\n+    <summary>Question</summary>\n+    <p>Answer</p>\n+  </details>\n+</div>\n```\n\nOne open at a time is the shared `name`, handled by the browser.\n\n#### Field group\n\nThe label and the message used to be data attributes rendered as pseudo\nelements. They are real elements now, which is what makes them announced by\nscreen readers, translatable and selectable.\n\n```diff\n-<div class=\"field-group field-group-error\" data-label=\"Email\" data-message=\"Invalid\">\n-  <input class=\"input\" />\n-</div>\n+<label class=\"pui-field-group\">\n+  <span>Email</span>\n+  <input class=\"pui-input\" aria-invalid=\"true\" aria-describedby=\"email-error\" />\n+  <small id=\"email-error\">Invalid</small>\n+</label>\n```\n\n`field-group-<state>` is gone: the state is `aria-invalid` on the control.\n\n### 5. Dark mode\n\n```diff\n-<html class=\"dark\">\n+<html data-pui-mode=\"dark\">\n```\n\n```diff\n-import { setMode } from \"@chrissgon/perfectui\";\n+import { setMode } from \"@chrissgon/perfectui/mode\";\n```\n\nWith no attribute at all the library follows the operating system, which it\ncould not do before. The choice is persisted in a cookie so a server can render\nit on the first paint.\n\n### 6. Theming\n\n`setThemeColor()` is gone. Theming is CSS:\n\n```diff\n-setThemeColor(\"#7c3aed\");\n+:root {\n+  --pui-theme: #7c3aed;\n+}\n```\n\nThe palettes went with it. `--theme50` … `--theme950`, `--gray*`, `--red*`,\n`--amber*` and `--green*` no longer exist: every tone is derived from one value\nwith `color-mix()`. The size scales are gone too — `--fontXS` … `--font9XL`,\n`--spacingXS` … `--spacingXL` — replaced by four base tokens that every\ncomponent derives from. See\n[Theme Color](docs/theme-color.md).\n\n### 7. Things that were removed with no replacement\n\n| Removed                                                                 | What to do instead                                                               |\n| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------- |\n| The CSS reset and the Poppins import                                    | Nothing: Perfect UI no longer touches your page                                  |\n| `.bg-*`, `.text-*`, `.border-*`, `.spacing-*`                           | Your own CSS, or Tailwind                                                        |\n| `overflow-hidden`, `hr.vertical`                                        | Your own CSS                                                                     |\n| `group-item` and the `[class*=\"item\"]` rule                             | Nothing: a group styles its direct children                                      |\n| `table-bordered`, `table-borderless`, `table-responsive`                | Recipes in the [Table](docs/table.md) docs                                       |\n| `list-bordered`, `unmarker`, `.active`                                  | Composition: `pui-outline pui-surface`, `list-style: none`, `pui-soft pui-theme` |\n| `float-right`, `float-top`                                              | One declaration, see [Float](docs/float.md)                                      |\n| `loadFunctions()`, `Accordion()`, `Dropdown()`, `Modal()`, `Checkbox()` | Nothing: the browser does it now                                                 |\n| `window.perfectui`, `document.perfectui`                                | ESM imports                                                                      |\n\n`table-striped`, `table-hoverable`, `list-striped` and `list-hoverable` survive\nas `pui-striped` and `pui-hoverable`.\n\n### 8. What you no longer have to do\n\n- No `loadFunctions()` after rendering. Components inserted at any time work,\n  because the library listens on `document` instead of scanning the DOM.\n- No overrides to undo the reset.\n- No `!important` to beat the library: every rule lives in a cascade layer, so\n  any plain CSS of yours already wins.\n- No guard for server rendering: importing the JavaScript does nothing without a\n  DOM.\n\n### Known trade-offs\n\n- In light mode, a solid `theme`, `success` or `warn` fill sits between 3.2:1\n  and 3.5:1 against its white label — above the 3:1 floor for interface\n  elements, below the 4.5:1 that WCAG AA asks for text. This keeps the\n  `0.23.0` palette. If you need AA, override the three tokens with a darker\n  tone.\n- `pui-soft pui-surface` has nothing to paint, since it tints the page\n  background over the page background. Use `pui-soft pui-muted` for a neutral\n  fill.\n",
+      "examples": [],
+      "classes": []
+    },
+    {
+      "slug": "license",
+      "title": "License",
+      "section": "Getting Started",
+      "file": "docs/license.md",
+      "description": "Perfect UI is released under the MIT license and is copyright 2024 Chrissgon.",
+      "markdown": "#### Getting Started\n\n# License\n\nPerfect UI is released under the MIT license and is copyright 2024 Chrissgon.\n\nBoiled down to smaller chunks, it can be described with the following conditions.\n\n### MIT License\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
+      "examples": [],
+      "classes": []
+    },
+    {
+      "slug": "dark-mode",
+      "title": "Dark Mode",
+      "section": "Customization",
+      "file": "docs/darkmode.md",
+      "description": "Perfect UI follows the operating system by default. There is nothing to configure and nothing to import.",
+      "markdown": "#### Customization\n\n# Dark Mode\n\nPerfect UI follows the operating system by default. There is nothing to configure and nothing to import.\n\nColors are declared with `light-dark()`, and the browser resolves them.\n\n### The switch\n\nAn explicit choice is a single attribute on `<html>`:\n\n```html\n<html data-pui-mode=\"dark\">\n  <!-- ... -->\n</html>\n```\n\n| Value        | Result             |\n| ------------ | ------------------ |\n| `light`      | always light       |\n| `dark`       | always dark        |\n| no attribute | follows the system |\n\n### Switching from JavaScript\n\n```js\nimport { setMode, getMode } from \"@chrissgon/perfectui/mode\";\n\nsetMode(\"dark\"); // sets the attribute and remembers the choice\nsetMode(\"light\");\nsetMode(); // clears both, back to the system preference\n\ngetMode(); // \"system\" | \"light\" | \"dark\"\n```\n\n`setMode` persists the choice in a cookie named `pui-mode`, not in `localStorage`. A cookie travels with the request, which is what lets a server render the right mode on the first paint.\n\n### Avoiding the flash\n\nIf the page is rendered by a server, read the cookie and render the attribute:\n\n```js\n// any server framework\nconst mode = cookies.get(\"pui-mode\"); // \"light\" | \"dark\" | undefined\n```\n\n```html\n<html data-pui-mode=\"{{ mode }}\"></html>\n```\n\nFor a static site, put this in the `<head>` **before** the stylesheet:\n\n```html\n<script>\n  (function (m) {\n    if (m) document.documentElement.setAttribute(\"data-pui-mode\", m[1]);\n  })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));\n</script>\n```\n\n> [!WARNING]\n>\n> Importing Perfect UI's CSS declares `color-scheme: light dark` on the page, which is what makes the system mode work. If your app is not ready for dark mode yet, render `<html data-pui-mode=\"light\">` and it will stay light.\n",
+      "examples": [
+        "<html data-pui-mode=\"dark\">\n  <!-- ... -->\n</html>",
+        "<html data-pui-mode=\"{{ mode }}\"></html>",
+        "<script>\n  (function (m) {\n    if (m) document.documentElement.setAttribute(\"data-pui-mode\", m[1]);\n  })(document.cookie.match(/(?:^|; )pui-mode=(light|dark)/));\n</script>"
+      ],
+      "classes": []
+    },
+    {
+      "slug": "theme-color",
+      "title": "Theme Color",
+      "section": "Customization",
+      "file": "docs/theme-color.md",
+      "description": "Theming is CSS. There is no JavaScript API: you override the custom properties you want, wherever you want.",
+      "markdown": "#### Customization\n\n# Theme Color\n\nTheming is CSS. There is no JavaScript API: you override the custom properties you want, wherever you want.\n\n```css\n:root {\n  --pui-theme: #7c3aed;\n}\n```\n\nThat single line repaints every component that uses the theme color, in both modes, including hover tones and the soft and outline variants — they are all derived from it with `color-mix()`.\n\n### The tokens\n\n```css\n:root {\n  /* surfaces */\n  --pui-bg: light-dark(#fff, #000);\n  --pui-bg-muted: light-dark(#f3f4f6, #111827);\n  --pui-bg-emphasis: light-dark(#e5e7eb, #1f2937);\n\n  /* text */\n  --pui-text: light-dark(#000, #fff);\n  --pui-text-muted: light-dark(#676d7b, #9ca3af);\n\n  /* border */\n  --pui-border: light-dark(#d1d5db, #374151);\n\n  /* state colors */\n  --pui-theme: light-dark(#0092cd, #07b6f0);\n  --pui-success: light-dark(#16a34a, #22c55e);\n  --pui-error: light-dark(#dc2626, #ef4444);\n  --pui-warn: light-dark(#d97706, #f59e0b);\n  --pui-muted: light-dark(#6b7280, #9ca3af);\n\n  /* everything that is not a color */\n  --pui-radius: 0.375rem;\n  --pui-space: 0.25rem;\n  --pui-font-size: 0.875rem;\n  --pui-border-width: 1px;\n}\n```\n\n### One value per mode\n\nUse `light-dark()` when the two modes need different values:\n\n```css\n:root {\n  --pui-theme: light-dark(#6d28d9, #a78bfa);\n}\n```\n\n### Rescaling the library\n\nOnly four tokens are not colors, and every component derives its size from them. Changing one rescales everything at once:\n\n```css\n:root {\n  --pui-radius: 0; /* square corners everywhere */\n  --pui-font-size: 1rem; /* a larger library */\n  --pui-space: 0.3rem; /* roomier components */\n}\n```\n\n### Theming one region\n\nThe tokens are ordinary custom properties, so they cascade:\n\n```html live\n<section style=\"--pui-theme: #059669\">\n  <button class=\"pui-btn pui-solid pui-theme\">Green in here only</button>\n</section>\n```\n\n### Overriding a dark brand color\n\nA solid fill puts the page background on top of your color as its label. If you replace a color with a **dark** one, set the label color too:\n\n```css\n.pui-theme {\n  --pui-color: #1e1b4b;\n  --pui-on-color: #fff;\n}\n```\n",
+      "examples": [
+        "<section style=\"--pui-theme: #059669\">\n  <button class=\"pui-btn pui-solid pui-theme\">Green in here only</button>\n</section>"
+      ],
+      "classes": [
+        "pui-btn",
+        "pui-solid",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "layout-group",
+      "title": "Layout Group",
+      "section": "General",
+      "file": "docs/layout-group.md",
+      "description": "Joins elements into a single control: the inner corners are squared off and the border between two neighbours becomes one line instead of two.",
+      "markdown": "#### General\n\n# Layout Group\n\nJoins elements into a single control: the inner corners are squared off and the border between two neighbours becomes one line instead of two.\n\n### How it works\n\nPut `pui-group-row` or `pui-group-col` on the container. The children need **no class of their own**.\n\n```html live\n<div class=\"pui-group-row\">\n  <button class=\"pui-btn pui-outline pui-surface\">Left</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Middle</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Right</button>\n</div>\n```\n\n```html live\n<div class=\"pui-group-col\">\n  <button class=\"pui-btn pui-outline pui-surface\">Profile</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Billing</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Sign out</button>\n</div>\n```\n\n### A segmented control\n\nBecause the pieces keep their own style and color classes, a selected item is just a different style:\n\n```html live\n<div class=\"pui-group-row\">\n  <button class=\"pui-btn pui-outline pui-surface\">Day</button>\n  <button class=\"pui-btn pui-solid pui-theme\">Week</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Month</button>\n</div>\n```\n\n### Mixing controls\n\nAnything can go in a group, in any order:\n\n```html live\n<div class=\"pui-group-row\">\n  <select class=\"pui-input\">\n    <option>All</option>\n  </select>\n  <input class=\"pui-input\" placeholder=\"Query\" />\n  <button class=\"pui-btn pui-solid pui-theme\">Search</button>\n</div>\n```\n\n### Responsive\n\n`pui-group-responsive` is a row on screens wider than `1024px` and a column below that.\n\n```html live\n<div class=\"pui-group-responsive\">\n  <button class=\"pui-btn pui-outline pui-surface\">Left</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Middle</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Right</button>\n</div>\n```\n\n### Other components\n\nA list of items joins the same way:\n\n```html live\n<ul class=\"pui-group-col\" style=\"list-style: none; padding: 0\">\n  <li class=\"pui-list-item pui-outline pui-surface\">First</li>\n  <li class=\"pui-list-item pui-outline pui-surface\">Second</li>\n</ul>\n```\n\nAn accordion needs nothing: it already joins its own items.\n\nAnd a timeline turns horizontal:\n\n```html live\n<figure class=\"pui-timeline pui-group-row\">\n  <!-- checkpoints -->\n</figure>\n```\n",
+      "examples": [
+        "<div class=\"pui-group-row\">\n  <button class=\"pui-btn pui-outline pui-surface\">Left</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Middle</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Right</button>\n</div>",
+        "<div class=\"pui-group-col\">\n  <button class=\"pui-btn pui-outline pui-surface\">Profile</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Billing</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Sign out</button>\n</div>",
+        "<div class=\"pui-group-row\">\n  <button class=\"pui-btn pui-outline pui-surface\">Day</button>\n  <button class=\"pui-btn pui-solid pui-theme\">Week</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Month</button>\n</div>",
+        "<div class=\"pui-group-row\">\n  <select class=\"pui-input\">\n    <option>All</option>\n  </select>\n  <input class=\"pui-input\" placeholder=\"Query\" />\n  <button class=\"pui-btn pui-solid pui-theme\">Search</button>\n</div>",
+        "<div class=\"pui-group-responsive\">\n  <button class=\"pui-btn pui-outline pui-surface\">Left</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Middle</button>\n  <button class=\"pui-btn pui-outline pui-surface\">Right</button>\n</div>",
+        "<ul class=\"pui-group-col\" style=\"list-style: none; padding: 0\">\n  <li class=\"pui-list-item pui-outline pui-surface\">First</li>\n  <li class=\"pui-list-item pui-outline pui-surface\">Second</li>\n</ul>",
+        "<figure class=\"pui-timeline pui-group-row\">\n  <!-- checkpoints -->\n</figure>"
+      ],
+      "classes": [
+        "pui-btn",
+        "pui-group-col",
+        "pui-group-responsive",
+        "pui-group-row",
+        "pui-input",
+        "pui-list-item",
+        "pui-outline",
+        "pui-solid",
+        "pui-surface",
+        "pui-theme",
+        "pui-timeline"
+      ]
+    },
+    {
+      "slug": "float",
+      "title": "Float",
+      "section": "General",
+      "file": "docs/float.md",
+      "description": "Pins an element to a corner of the viewport, for a floating action button or a persistent shortcut.",
+      "markdown": "#### General\n\n# Float\n\nPins an element to a corner of the viewport, for a floating action button or a persistent shortcut.\n\n```html live\n<button class=\"pui-btn pui-solid pui-theme pui-rounded-full pui-float\">\n  New post\n</button>\n```\n\nThe default corner is the bottom start one — bottom left in a left-to-right page, bottom right in a right-to-left one.\n\n### The other corners\n\nThere is no modifier class, because a corner is one declaration of your own CSS:\n\n```css\n/* bottom end */\n.pui-float {\n  inset-inline: auto 1.5rem;\n}\n\n/* top start */\n.pui-float {\n  inset-block: 1.5rem auto;\n}\n\n/* top end */\n.pui-float {\n  inset-block: 1.5rem auto;\n  inset-inline: auto 1.5rem;\n}\n```\n",
+      "examples": [
+        "<button class=\"pui-btn pui-solid pui-theme pui-rounded-full pui-float\">\n  New post\n</button>"
+      ],
+      "classes": [
+        "pui-btn",
+        "pui-float",
+        "pui-rounded-full",
+        "pui-solid",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "accordion",
+      "title": "Accordion",
+      "section": "Components",
+      "file": "docs/accordion.md",
+      "description": "Built on `<details>`. Opening, closing and keyboard support come from the browser: this component is pure CSS, with no script at all.",
+      "markdown": "#### Components\n\n# Accordion\n\nBuilt on `<details>`. Opening, closing and keyboard support come from the browser: this component is **pure CSS**, with no script at all.\n\n```html live name=basic\n<div class=\"pui-accordion\">\n  <details class=\"pui-accordion-item\">\n    <summary>What is Perfect UI?</summary>\n    <p>A lightweight CSS and JavaScript library.</p>\n  </details>\n  <details class=\"pui-accordion-item\">\n    <summary>Does it need JavaScript?</summary>\n    <p>Only to emulate what a browser is missing.</p>\n  </details>\n</div>\n```\n\n### One open at a time\n\nGive the items the same `name`. The browser closes the others for you:\n\n```html live\n<div class=\"pui-accordion\">\n  <details class=\"pui-accordion-item\" name=\"faq\">\n    <summary>First question</summary>\n    <p>First answer</p>\n  </details>\n  <details class=\"pui-accordion-item\" name=\"faq\">\n    <summary>Second question</summary>\n    <p>Second answer</p>\n  </details>\n</div>\n```\n\n### Open by default\n\n```html live\n<details class=\"pui-accordion-item\" name=\"faq\" open>\n  <summary>Open on load</summary>\n  <p>Content</p>\n</details>\n```\n\n### One block\n\nConsecutive items share the line between them, and only the outer corners stay round — an accordion reads as one block, not as a stack of cards. Nothing to add: this is what the first example already does. A lone item keeps all four corners, since it is both the first child and the last.\n\nSpacing them apart instead is two rules of your own:\n\n```css\n.accordion-spaced {\n  gap: var(--pui-space);\n}\n.accordion-spaced > .pui-accordion-item {\n  margin-block-start: 0;\n  border-radius: var(--pui-radius);\n}\n```\n\n### Marking the open item\n\n`pui-highlighted` on the container gives the expanded item the same background as a card header, so a long list shows where you are. It replaces v0's `accordion-accented`:\n\n```html live\n<div class=\"pui-accordion pui-highlighted\">\n  <details class=\"pui-accordion-item\" name=\"faq\" open>\n    <summary>Expanded</summary>\n    <p>This item carries the band.</p>\n  </details>\n  <details class=\"pui-accordion-item\" name=\"faq\">\n    <summary>Collapsed</summary>\n    <p>This one does not.</p>\n  </details>\n</div>\n```\n\nFor a different tone, one rule of your own is enough — `--pui-bg-emphasis` is there for a third level:\n\n```css\n.pui-accordion.pui-highlighted > .pui-accordion-item[open] {\n  background-color: var(--pui-bg-emphasis);\n}\n```\n\n### Your own icon\n\nPut an element with `pui-accordion-icon` in the summary and the drawn chevron\nsteps aside. Placement and the rotation on open stay with the library:\n\n```html live\n<details class=\"pui-accordion-item\">\n  <summary>\n    Question\n    <i class=\"pui-accordion-icon bi-chevron-down\"></i>\n  </summary>\n  <p>Answer</p>\n</details>\n```\n\nAnything works — an icon font, an inline `<svg>`, or a character.\n\n### Reacting to it\n\n`<details>` fires a `toggle` event, and `open` is a property:\n\n```js\ndocument\n  .querySelector(\".pui-accordion-item\")\n  .addEventListener(\"toggle\", (event) => {\n    console.log(event.target.open);\n  });\n```\n",
+      "examples": [
+        "<div class=\"pui-accordion\">\n  <details class=\"pui-accordion-item\">\n    <summary>What is Perfect UI?</summary>\n    <p>A lightweight CSS and JavaScript library.</p>\n  </details>\n  <details class=\"pui-accordion-item\">\n    <summary>Does it need JavaScript?</summary>\n    <p>Only to emulate what a browser is missing.</p>\n  </details>\n</div>",
+        "<div class=\"pui-accordion\">\n  <details class=\"pui-accordion-item\" name=\"faq\">\n    <summary>First question</summary>\n    <p>First answer</p>\n  </details>\n  <details class=\"pui-accordion-item\" name=\"faq\">\n    <summary>Second question</summary>\n    <p>Second answer</p>\n  </details>\n</div>",
+        "<details class=\"pui-accordion-item\" name=\"faq\" open>\n  <summary>Open on load</summary>\n  <p>Content</p>\n</details>",
+        "<div class=\"pui-accordion pui-highlighted\">\n  <details class=\"pui-accordion-item\" name=\"faq\" open>\n    <summary>Expanded</summary>\n    <p>This item carries the band.</p>\n  </details>\n  <details class=\"pui-accordion-item\" name=\"faq\">\n    <summary>Collapsed</summary>\n    <p>This one does not.</p>\n  </details>\n</div>",
+        "<details class=\"pui-accordion-item\">\n  <summary>\n    Question\n    <i class=\"pui-accordion-icon bi-chevron-down\"></i>\n  </summary>\n  <p>Answer</p>\n</details>"
+      ],
+      "classes": [
+        "pui-accordion",
+        "pui-accordion-icon",
+        "pui-accordion-item",
+        "pui-highlighted"
+      ]
+    },
+    {
+      "slug": "badge",
+      "title": "Badge",
+      "section": "Components",
+      "file": "docs/badge.md",
+      "description": "The smallest shape in the library: a count or a short status.",
+      "markdown": "#### Components\n\n# Badge\n\nThe smallest shape in the library: a count or a short status.\n\n```html live\n<span class=\"pui-badge pui-solid pui-error\">3</span>\n<span class=\"pui-badge pui-soft pui-success\">active</span>\n```\n\n### Styles and colors\n\nA badge takes the same styles and colors as everything else:\n\n```html live\n<span class=\"pui-badge pui-solid pui-theme\">Solid</span>\n<span class=\"pui-badge pui-soft pui-theme\">Soft</span>\n<span class=\"pui-badge pui-outline pui-theme\">Outline</span>\n```\n\n### Rounded\n\n```html live\n<span class=\"pui-badge pui-solid pui-error pui-rounded-full\">9</span>\n```\n\n### Inside other components\n\n```html live\n<button class=\"pui-btn pui-outline pui-surface\">\n  Inbox\n  <span class=\"pui-badge pui-solid pui-theme pui-rounded-full\">12</span>\n</button>\n```\n",
+      "examples": [
+        "<span class=\"pui-badge pui-solid pui-error\">3</span>\n<span class=\"pui-badge pui-soft pui-success\">active</span>",
+        "<span class=\"pui-badge pui-solid pui-theme\">Solid</span>\n<span class=\"pui-badge pui-soft pui-theme\">Soft</span>\n<span class=\"pui-badge pui-outline pui-theme\">Outline</span>",
+        "<span class=\"pui-badge pui-solid pui-error pui-rounded-full\">9</span>",
+        "<button class=\"pui-btn pui-outline pui-surface\">\n  Inbox\n  <span class=\"pui-badge pui-solid pui-theme pui-rounded-full\">12</span>\n</button>"
+      ],
+      "classes": [
+        "pui-badge",
+        "pui-btn",
+        "pui-error",
+        "pui-outline",
+        "pui-rounded-full",
+        "pui-soft",
+        "pui-solid",
+        "pui-success",
+        "pui-surface",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "button",
+      "title": "Button",
+      "section": "Components",
+      "file": "docs/button.md",
+      "description": "The `pui-btn` class turns a `<button>` or an `<a>` into a button. It brings the shape only: pair it with a style and a color.",
+      "markdown": "#### Components\n\n# Button\n\nThe `pui-btn` class turns a `<button>` or an `<a>` into a button. It brings the shape only: pair it with a style and a color.\n\n```html live\n<button class=\"pui-btn pui-solid pui-theme\">Save</button>\n<a class=\"pui-btn pui-solid pui-theme\" href=\"#\">A link that looks like one</a>\n```\n\n### Styles\n\n```html live\n<button class=\"pui-btn pui-solid pui-theme\">Solid</button>\n<button class=\"pui-btn pui-soft pui-theme\">Soft</button>\n<button class=\"pui-btn pui-outline pui-theme\">Outline</button>\n<button class=\"pui-btn pui-link pui-theme\">Link</button>\n```\n\n### Colors\n\n```html live\n<button class=\"pui-btn pui-solid pui-theme\">Theme</button>\n<button class=\"pui-btn pui-solid pui-success\">Success</button>\n<button class=\"pui-btn pui-solid pui-error\">Error</button>\n<button class=\"pui-btn pui-solid pui-warn\">Warn</button>\n<button class=\"pui-btn pui-solid pui-muted\">Muted</button>\n```\n\nTwo colors are defined against the page rather than against a palette:\n\n```html live\n<!-- aligned with the page background: the usual secondary button -->\n<button class=\"pui-btn pui-outline pui-surface\">Cancel</button>\n<!-- the opposite of the page background -->\n<button class=\"pui-btn pui-solid pui-inverse\">Continue</button>\n```\n\n### Rounded\n\n```html live\n<button class=\"pui-btn pui-solid pui-theme pui-rounded-full\">Pill</button>\n```\n\n`pui-rounded` is the other half of the pair: it puts the default radius back on\nan element that lost it, which is what a group does to the pieces inside it.\n\n```html live\n<div class=\"pui-group-row\">\n  <button class=\"pui-btn pui-outline pui-surface\">Left</button>\n  <button class=\"pui-btn pui-outline pui-surface pui-rounded\">Detached</button>\n</div>\n```\n\n### Disabled\n\n```html live\n<button class=\"pui-btn pui-solid pui-theme\" disabled>Disabled</button>\n```\n\nFor an element that is not a `<button>`, use `aria-disabled=\"true\"`, which looks the same and is announced correctly.\n\n### With an icon\n\n`pui-btn` is a flex container with a gap, so an icon and a label line up on their own:\n\n```html\n<button class=\"pui-btn pui-solid pui-theme\">\n  <svg width=\"16\" height=\"16\"><!-- ... --></svg>\n  Save\n</button>\n```\n\n### Grouping\n\nSee [Layout Group](layout-group.md).\n",
+      "examples": [
+        "<button class=\"pui-btn pui-solid pui-theme\">Save</button>\n<a class=\"pui-btn pui-solid pui-theme\" href=\"#\">A link that looks like one</a>",
+        "<button class=\"pui-btn pui-solid pui-theme\">Solid</button>\n<button class=\"pui-btn pui-soft pui-theme\">Soft</button>\n<button class=\"pui-btn pui-outline pui-theme\">Outline</button>\n<button class=\"pui-btn pui-link pui-theme\">Link</button>",
+        "<button class=\"pui-btn pui-solid pui-theme\">Theme</button>\n<button class=\"pui-btn pui-solid pui-success\">Success</button>\n<button class=\"pui-btn pui-solid pui-error\">Error</button>\n<button class=\"pui-btn pui-solid pui-warn\">Warn</button>\n<button class=\"pui-btn pui-solid pui-muted\">Muted</button>",
+        "<!-- aligned with the page background: the usual secondary button -->\n<button class=\"pui-btn pui-outline pui-surface\">Cancel</button>\n<!-- the opposite of the page background -->\n<button class=\"pui-btn pui-solid pui-inverse\">Continue</button>",
+        "<button class=\"pui-btn pui-solid pui-theme pui-rounded-full\">Pill</button>",
+        "<div class=\"pui-group-row\">\n  <button class=\"pui-btn pui-outline pui-surface\">Left</button>\n  <button class=\"pui-btn pui-outline pui-surface pui-rounded\">Detached</button>\n</div>",
+        "<button class=\"pui-btn pui-solid pui-theme\" disabled>Disabled</button>",
+        "<button class=\"pui-btn pui-solid pui-theme\">\n  <svg width=\"16\" height=\"16\"><!-- ... --></svg>\n  Save\n</button>"
+      ],
+      "classes": [
+        "pui-btn",
+        "pui-error",
+        "pui-group-row",
+        "pui-inverse",
+        "pui-link",
+        "pui-muted",
+        "pui-outline",
+        "pui-rounded",
+        "pui-rounded-full",
+        "pui-soft",
+        "pui-solid",
+        "pui-success",
+        "pui-surface",
+        "pui-theme",
+        "pui-warn"
+      ]
+    },
+    {
+      "slug": "card",
+      "title": "Card",
+      "section": "Components",
+      "file": "docs/card.md",
+      "description": "A container with a border and a rounded frame. A card is a surface: it already looks right with no style or color class.",
+      "markdown": "#### Components\n\n# Card\n\nA container with a border and a rounded frame. A card is a **surface**: it already looks right with no style or color class.\n\n```html live\n<div class=\"pui-card\">\n  <div class=\"pui-card-header\">Card header</div>\n  <div class=\"pui-card-content\">\n    <span>Content goes here.</span>\n  </div>\n</div>\n```\n\n| Class              | Role                                          |\n| ------------------ | --------------------------------------------- |\n| `pui-card`         | the frame: border, radius, clipping           |\n| `pui-card-header`  | a muted band at the top                       |\n| `pui-card-content` | the body, a grid so children space themselves |\n\n### Content spacing\n\n`pui-card-content` is a grid with a gap, so children do not need margins:\n\n```html live\n<div class=\"pui-card\">\n  <div class=\"pui-card-content\">\n    <h3>Delete project</h3>\n    <p>This cannot be undone.</p>\n    <div class=\"pui-group-row\">\n      <button class=\"pui-btn pui-outline pui-surface\">Cancel</button>\n      <button class=\"pui-btn pui-solid pui-error\">Delete</button>\n    </div>\n  </div>\n</div>\n```\n\n### Recoloring a card\n\nA style class still wins over the card's own surface:\n\n```html live\n<div class=\"pui-card pui-soft pui-warn\">\n  <div class=\"pui-card-content\">Careful with this one.</div>\n</div>\n```\n\n### A card as a container\n\nA table sits flush inside a card: the card draws the outer border, the table draws the rules between rows.\n\n```html\n<div class=\"pui-card\">\n  <div class=\"pui-card-header\">Users</div>\n  <table class=\"pui-table pui-striped\">\n    <!-- ... -->\n  </table>\n</div>\n```\n",
+      "examples": [
+        "<div class=\"pui-card\">\n  <div class=\"pui-card-header\">Card header</div>\n  <div class=\"pui-card-content\">\n    <span>Content goes here.</span>\n  </div>\n</div>",
+        "<div class=\"pui-card\">\n  <div class=\"pui-card-content\">\n    <h3>Delete project</h3>\n    <p>This cannot be undone.</p>\n    <div class=\"pui-group-row\">\n      <button class=\"pui-btn pui-outline pui-surface\">Cancel</button>\n      <button class=\"pui-btn pui-solid pui-error\">Delete</button>\n    </div>\n  </div>\n</div>",
+        "<div class=\"pui-card pui-soft pui-warn\">\n  <div class=\"pui-card-content\">Careful with this one.</div>\n</div>",
+        "<div class=\"pui-card\">\n  <div class=\"pui-card-header\">Users</div>\n  <table class=\"pui-table pui-striped\">\n    <!-- ... -->\n  </table>\n</div>"
+      ],
+      "classes": [
+        "pui-btn",
+        "pui-card",
+        "pui-card-content",
+        "pui-card-header",
+        "pui-error",
+        "pui-group-row",
+        "pui-outline",
+        "pui-soft",
+        "pui-solid",
+        "pui-striped",
+        "pui-surface",
+        "pui-table",
+        "pui-warn"
+      ]
+    },
+    {
+      "slug": "chip",
+      "title": "Chip",
+      "section": "Components",
+      "file": "docs/chip.md",
+      "description": "A chip is a button-sized label: smaller than `pui-btn`, larger than `pui-badge`. Use it for filters, tags and selections.",
+      "markdown": "#### Components\n\n# Chip\n\nA chip is a button-sized label: smaller than `pui-btn`, larger than `pui-badge`. Use it for filters, tags and selections.\n\n```html live\n<span class=\"pui-chip pui-soft pui-success\">Active</span>\n<span class=\"pui-chip pui-outline pui-muted\">Draft</span>\n```\n\n### Sizing\n\nPerfect UI has no size modifiers. Size is expressed by choosing the component:\n\n```html live\n<button class=\"pui-btn pui-solid pui-theme\">Button</button>\n<span class=\"pui-chip pui-solid pui-theme\">Chip</span>\n<span class=\"pui-badge pui-solid pui-theme\">Badge</span>\n```\n\n### Rounded\n\n```html live\n<span class=\"pui-chip pui-soft pui-theme pui-rounded-full\">Pill</span>\n```\n\n### Interactive\n\nA chip can be a `<button>` when it does something:\n\n```html live\n<button class=\"pui-chip pui-outline pui-muted\">\n  TypeScript\n  <span aria-hidden=\"true\">&times;</span>\n</button>\n```\n",
+      "examples": [
+        "<span class=\"pui-chip pui-soft pui-success\">Active</span>\n<span class=\"pui-chip pui-outline pui-muted\">Draft</span>",
+        "<button class=\"pui-btn pui-solid pui-theme\">Button</button>\n<span class=\"pui-chip pui-solid pui-theme\">Chip</span>\n<span class=\"pui-badge pui-solid pui-theme\">Badge</span>",
+        "<span class=\"pui-chip pui-soft pui-theme pui-rounded-full\">Pill</span>",
+        "<button class=\"pui-chip pui-outline pui-muted\">\n  TypeScript\n  <span aria-hidden=\"true\">&times;</span>\n</button>"
+      ],
+      "classes": [
+        "pui-badge",
+        "pui-btn",
+        "pui-chip",
+        "pui-muted",
+        "pui-outline",
+        "pui-rounded-full",
+        "pui-soft",
+        "pui-solid",
+        "pui-success",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "dropdown",
+      "title": "Dropdown",
+      "section": "Components",
+      "file": "docs/dropdown.md",
+      "description": "Built on the popover API. The browser handles the top layer, closing on an outside click, and closing on escape.",
+      "markdown": "#### Components\n\n# Dropdown\n\nBuilt on the popover API. The browser handles the top layer, closing on an outside click, and closing on escape.\n\n```html live name=basic\n<button class=\"pui-btn pui-outline pui-surface\" popovertarget=\"menu\">\n  Menu\n</button>\n\n<div class=\"pui-dropdown\" id=\"menu\" popover>\n  <ul class=\"pui-list pui-hoverable\" style=\"list-style: none\">\n    <li class=\"pui-list-item\">Profile</li>\n    <li class=\"pui-list-item\">Billing</li>\n    <li class=\"pui-list-item\">Sign out</li>\n  </ul>\n</div>\n```\n\n`popovertarget` on the trigger, `popover` on the panel. There is no script and no wiring.\n\n### Placement\n\nThe panel is placed under its trigger, aligned to its starting edge, and flips above when there is no room below.\n\nThree classes move it elsewhere:\n\n```html\n<div class=\"pui-dropdown pui-top\" id=\"menu\" popover>Above the trigger</div>\n<div class=\"pui-dropdown pui-start\" id=\"menu\" popover>Before the trigger</div>\n<div class=\"pui-dropdown pui-end\" id=\"menu\" popover>After the trigger</div>\n```\n\n| Class       | Where it goes                    |\n| ----------- | -------------------------------- |\n| _(none)_    | below                            |\n| `pui-top`   | above                            |\n| `pui-start` | to the left, or the right in RTL |\n| `pui-end`   | to the right, or the left in RTL |\n\nEach one flips to the opposite side when the preferred one does not fit, so a menu never opens off screen.\n\n### Alignment\n\nA panel that opens above or below lines up with the trigger's starting edge. Two classes move it along that axis:\n\n```html\n<div class=\"pui-dropdown pui-align-center\" id=\"menu\" popover>Centered</div>\n<div class=\"pui-dropdown pui-align-end\" id=\"menu\" popover>\n  Aligned to the end\n</div>\n```\n\n| Class              | Where it lines up                |\n| ------------------ | -------------------------------- |\n| _(none)_           | with the trigger's starting edge |\n| `pui-align-center` | centered on the trigger          |\n| `pui-align-end`    | with the trigger's ending edge   |\n\n`pui-align-end` is what a menu at the end of a header wants, so it opens inward instead of running off the page.\n\nPlacement uses CSS anchor positioning. Browsers that do not have it yet get the same placement, including the direction classes, from the fallback in the script. Either way the panel is placed against the viewport, so a menu opened from a sticky header or a fixed bar stays next to its trigger while the page scrolls, and flips only when the screen has no room.\n\n### Anything can go inside\n\nThe panel is a container, not a menu. A list is the common case, but a form or a card work just as well:\n\n```html\n<div class=\"pui-dropdown\" id=\"filters\" popover>\n  <label class=\"pui-field-group\">\n    <span>Search</span>\n    <input class=\"pui-input\" />\n  </label>\n</div>\n```\n\n### Closing from inside\n\n```html\n<div class=\"pui-dropdown\" id=\"menu\" popover>\n  <button\n    class=\"pui-btn pui-link pui-theme\"\n    popovertarget=\"menu\"\n    popovertargetaction=\"hide\"\n  >\n    Close\n  </button>\n</div>\n```\n\n> [!WARNING]\n>\n> Clicking inside a popover does not close it, so the old `.ignore` class is gone.\n\n### From JavaScript\n\n```js\nconst menu = document.getElementById(\"menu\");\nmenu.showPopover();\nmenu.hidePopover();\nmenu.togglePopover();\n```\n",
+      "examples": [
+        "<button class=\"pui-btn pui-outline pui-surface\" popovertarget=\"menu\">\n  Menu\n</button>\n\n<div class=\"pui-dropdown\" id=\"menu\" popover>\n  <ul class=\"pui-list pui-hoverable\" style=\"list-style: none\">\n    <li class=\"pui-list-item\">Profile</li>\n    <li class=\"pui-list-item\">Billing</li>\n    <li class=\"pui-list-item\">Sign out</li>\n  </ul>\n</div>",
+        "<div class=\"pui-dropdown pui-top\" id=\"menu\" popover>Above the trigger</div>\n<div class=\"pui-dropdown pui-start\" id=\"menu\" popover>Before the trigger</div>\n<div class=\"pui-dropdown pui-end\" id=\"menu\" popover>After the trigger</div>",
+        "<div class=\"pui-dropdown pui-align-center\" id=\"menu\" popover>Centered</div>\n<div class=\"pui-dropdown pui-align-end\" id=\"menu\" popover>\n  Aligned to the end\n</div>",
+        "<div class=\"pui-dropdown\" id=\"filters\" popover>\n  <label class=\"pui-field-group\">\n    <span>Search</span>\n    <input class=\"pui-input\" />\n  </label>\n</div>",
+        "<div class=\"pui-dropdown\" id=\"menu\" popover>\n  <button\n    class=\"pui-btn pui-link pui-theme\"\n    popovertarget=\"menu\"\n    popovertargetaction=\"hide\"\n  >\n    Close\n  </button>\n</div>"
+      ],
+      "classes": [
+        "pui-align-center",
+        "pui-align-end",
+        "pui-btn",
+        "pui-dropdown",
+        "pui-end",
+        "pui-field-group",
+        "pui-hoverable",
+        "pui-input",
+        "pui-link",
+        "pui-list",
+        "pui-list-item",
+        "pui-outline",
+        "pui-start",
+        "pui-surface",
+        "pui-theme",
+        "pui-top"
+      ]
+    },
+    {
+      "slug": "list",
+      "title": "List",
+      "section": "Components",
+      "file": "docs/list.md",
+      "description": "Styles `<ul>` and `<ol>` without touching either element globally: the class carries everything, including the reset of the browser's own indentation.",
+      "markdown": "#### Components\n\n# List\n\nStyles `<ul>` and `<ol>` without touching either element globally: the class carries everything, including the reset of the browser's own indentation.\n\n```html live\n<ul class=\"pui-list\">\n  <li class=\"pui-list-item\">Now this is a story all about how</li>\n  <li class=\"pui-list-item\">my life got flipped turned upside down</li>\n  <li class=\"pui-list-item\">and I would like to take a minute</li>\n</ul>\n```\n\nOrdered lists work the same way:\n\n```html live\n<ol class=\"pui-list\">\n  <li class=\"pui-list-item\">First</li>\n  <li class=\"pui-list-item\">Second</li>\n</ol>\n```\n\n### No markers\n\nThere is no class for this, because it is one declaration:\n\n```html live\n<ul class=\"pui-list\" style=\"list-style: none\">\n  <li class=\"pui-list-item\">No bullet</li>\n</ul>\n```\n\n### Selected and bordered items\n\nAn item is an ordinary colorable element, so a selection is a style plus a color — the same classes you use everywhere else:\n\n```html live\n<ul class=\"pui-list\" style=\"list-style: none\">\n  <li class=\"pui-list-item\">Plain</li>\n  <li class=\"pui-list-item pui-soft pui-theme\">Selected</li>\n  <li class=\"pui-list-item pui-outline pui-surface\">Bordered</li>\n</ul>\n```\n\n### Striped and hoverable\n\nThese two need a structural selector, so they ship as modifiers on the list itself:\n\n```html live\n<ul class=\"pui-list pui-striped pui-hoverable\">\n  <li class=\"pui-list-item\">One</li>\n  <li class=\"pui-list-item\">Two</li>\n  <li class=\"pui-list-item\">Three</li>\n</ul>\n```\n\n### As a menu\n\nA list inside a dropdown is the usual menu:\n\n```html\n<div class=\"pui-dropdown\" id=\"menu\" popover>\n  <ul class=\"pui-list pui-hoverable\" style=\"list-style: none\">\n    <li class=\"pui-list-item\">Profile</li>\n    <li class=\"pui-list-item\">Billing</li>\n    <li class=\"pui-list-item\">Sign out</li>\n  </ul>\n</div>\n```\n",
+      "examples": [
+        "<ul class=\"pui-list\">\n  <li class=\"pui-list-item\">Now this is a story all about how</li>\n  <li class=\"pui-list-item\">my life got flipped turned upside down</li>\n  <li class=\"pui-list-item\">and I would like to take a minute</li>\n</ul>",
+        "<ol class=\"pui-list\">\n  <li class=\"pui-list-item\">First</li>\n  <li class=\"pui-list-item\">Second</li>\n</ol>",
+        "<ul class=\"pui-list\" style=\"list-style: none\">\n  <li class=\"pui-list-item\">No bullet</li>\n</ul>",
+        "<ul class=\"pui-list\" style=\"list-style: none\">\n  <li class=\"pui-list-item\">Plain</li>\n  <li class=\"pui-list-item pui-soft pui-theme\">Selected</li>\n  <li class=\"pui-list-item pui-outline pui-surface\">Bordered</li>\n</ul>",
+        "<ul class=\"pui-list pui-striped pui-hoverable\">\n  <li class=\"pui-list-item\">One</li>\n  <li class=\"pui-list-item\">Two</li>\n  <li class=\"pui-list-item\">Three</li>\n</ul>",
+        "<div class=\"pui-dropdown\" id=\"menu\" popover>\n  <ul class=\"pui-list pui-hoverable\" style=\"list-style: none\">\n    <li class=\"pui-list-item\">Profile</li>\n    <li class=\"pui-list-item\">Billing</li>\n    <li class=\"pui-list-item\">Sign out</li>\n  </ul>\n</div>"
+      ],
+      "classes": [
+        "pui-dropdown",
+        "pui-hoverable",
+        "pui-list",
+        "pui-list-item",
+        "pui-outline",
+        "pui-soft",
+        "pui-striped",
+        "pui-surface",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "modal",
+      "title": "Modal",
+      "section": "Components",
+      "file": "docs/modal.md",
+      "description": "Built on `<dialog>`. The browser handles the top layer, the backdrop, focus trapping and the escape key.",
+      "markdown": "#### Components\n\n# Modal\n\nBuilt on `<dialog>`. The browser handles the top layer, the backdrop, focus trapping and the escape key.\n\n```html live name=basic\n<button\n  class=\"pui-btn pui-solid pui-theme\"\n  commandfor=\"confirm\"\n  command=\"show-modal\"\n>\n  Delete project\n</button>\n\n<dialog class=\"pui-modal\" id=\"confirm\" closedby=\"any\">\n  <div class=\"pui-card\">\n    <div class=\"pui-card-header\">Delete project</div>\n    <div class=\"pui-card-content\">\n      <span>This cannot be undone.</span>\n      <div class=\"pui-group-row\">\n        <button\n          class=\"pui-btn pui-outline pui-surface\"\n          commandfor=\"confirm\"\n          command=\"close\"\n        >\n          Cancel\n        </button>\n        <button\n          class=\"pui-btn pui-solid pui-error\"\n          commandfor=\"confirm\"\n          command=\"close\"\n        >\n          Delete\n        </button>\n      </div>\n    </div>\n  </div>\n</dialog>\n```\n\nNo script is written above. `commandfor` names the dialog and `command` says what to do with it.\n\n| Attribute              | Meaning                         |\n| ---------------------- | ------------------------------- |\n| `command=\"show-modal\"` | open it as a modal              |\n| `command=\"close\"`      | close it                        |\n| `closedby=\"any\"`       | clicking the backdrop closes it |\n| no `closedby`          | only the escape key closes it   |\n\n> [!WARNING]\n>\n> Import the script for the modal. Browsers that do not have `commandfor` or `closedby` yet get a fallback, and browsers that do download nothing.\n\n### The surface comes from a card\n\n`pui-modal` is only a frame: it centers the dialog, sizes it and dims the page. What it looks like is whatever you put inside, which is usually a card. A modal is composed from pieces you already know.\n\n### A static backdrop\n\nLeave `closedby` off and the backdrop stops dismissing the dialog:\n\n```html\n<dialog class=\"pui-modal\" id=\"terms\">\n  <!-- ... -->\n</dialog>\n```\n\n### From JavaScript\n\nThe element is a plain `<dialog>`:\n\n```js\nconst modal = document.getElementById(\"confirm\");\nmodal.showModal();\nmodal.close();\nmodal.addEventListener(\"close\", () => console.log(\"closed\"));\n```\n\n### Moving between two modals\n\nA button carries one command, so opening the next modal leaves the one you are\nin open behind it, and closing the new one reveals the old. Close it on the\nsame click and you get a swap, which is what a multi-step flow wants:\n\n```html\n<dialog class=\"pui-modal\" id=\"first\" closedby=\"any\">\n  <div class=\"pui-card\">\n    <div class=\"pui-card-content\">\n      <button\n        class=\"pui-btn pui-solid pui-theme\"\n        commandfor=\"second\"\n        command=\"show-modal\"\n        onclick=\"this.closest('dialog').close()\"\n      >\n        Continue\n      </button>\n    </div>\n  </div>\n</dialog>\n```\n\nStacking is the browser's own behavior, not something the library adds, so this\nis the line that turns it into a swap.\n\nIf inline handlers are not allowed by your content security policy, the same\nthing written once for the whole page, which makes swapping the default\neverywhere:\n\n```js\ndocument.addEventListener(\"click\", (event) => {\n  const button = event.target.closest('[command=\"show-modal\"][commandfor]');\n  if (button) button.closest(\"dialog\")?.close();\n});\n```\n\n### Long content\n\nThe dialog scrolls on its own once it reaches the height of the viewport.\n",
+      "examples": [
+        "<button\n  class=\"pui-btn pui-solid pui-theme\"\n  commandfor=\"confirm\"\n  command=\"show-modal\"\n>\n  Delete project\n</button>\n\n<dialog class=\"pui-modal\" id=\"confirm\" closedby=\"any\">\n  <div class=\"pui-card\">\n    <div class=\"pui-card-header\">Delete project</div>\n    <div class=\"pui-card-content\">\n      <span>This cannot be undone.</span>\n      <div class=\"pui-group-row\">\n        <button\n          class=\"pui-btn pui-outline pui-surface\"\n          commandfor=\"confirm\"\n          command=\"close\"\n        >\n          Cancel\n        </button>\n        <button\n          class=\"pui-btn pui-solid pui-error\"\n          commandfor=\"confirm\"\n          command=\"close\"\n        >\n          Delete\n        </button>\n      </div>\n    </div>\n  </div>\n</dialog>",
+        "<dialog class=\"pui-modal\" id=\"terms\">\n  <!-- ... -->\n</dialog>",
+        "<dialog class=\"pui-modal\" id=\"first\" closedby=\"any\">\n  <div class=\"pui-card\">\n    <div class=\"pui-card-content\">\n      <button\n        class=\"pui-btn pui-solid pui-theme\"\n        commandfor=\"second\"\n        command=\"show-modal\"\n        onclick=\"this.closest('dialog').close()\"\n      >\n        Continue\n      </button>\n    </div>\n  </div>\n</dialog>"
+      ],
+      "classes": [
+        "pui-btn",
+        "pui-card",
+        "pui-card-content",
+        "pui-card-header",
+        "pui-error",
+        "pui-group-row",
+        "pui-modal",
+        "pui-outline",
+        "pui-solid",
+        "pui-surface",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "table",
+      "title": "Table",
+      "section": "Components",
+      "file": "docs/table.md",
+      "description": "One class on the `<table>`. The cells are styled from there, so no class goes on a `<th>` or a `<td>`.",
+      "markdown": "#### Components\n\n# Table\n\nOne class on the `<table>`. The cells are styled from there, so no class goes on a `<th>` or a `<td>`.\n\n```html live\n<table class=\"pui-table\">\n  <thead>\n    <tr>\n      <th>#</th>\n      <th>Name</th>\n      <th>Role</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>1</td>\n      <td>Mark</td>\n      <td>Owner</td>\n    </tr>\n    <tr>\n      <td>2</td>\n      <td>Jacob</td>\n      <td>Editor</td>\n    </tr>\n  </tbody>\n</table>\n```\n\nThe last row of the table never draws a rule, so a table can sit flush inside a card.\n\n### Striped and hoverable\n\n```html\n<table class=\"pui-table pui-striped\">\n  <!-- ... -->\n</table>\n\n<table class=\"pui-table pui-hoverable\">\n  <!-- ... -->\n</table>\n\n<table class=\"pui-table pui-striped pui-hoverable\">\n  <!-- ... -->\n</table>\n```\n\n### A footer\n\nA `<tfoot>` is rendered as a summary band, so a total reads as part of the table:\n\n```html live\n<table class=\"pui-table\">\n  <tbody>\n    <tr>\n      <td>Licence</td>\n      <td>120.00</td>\n    </tr>\n  </tbody>\n  <tfoot>\n    <tr>\n      <th>Total</th>\n      <th>160.00</th>\n    </tr>\n  </tfoot>\n</table>\n```\n\n### Components in cells\n\n```html\n<td><span class=\"pui-badge pui-soft pui-success\">active</span></td>\n<td><button class=\"pui-btn pui-link pui-theme\">Edit</button></td>\n```\n\n### Coloring a row\n\nA `<tr>` takes a style and a color like anything else, and wins over the stripe:\n\n```html\n<tr class=\"pui-soft pui-error\">\n  <td>2</td>\n  <td>Jacob</td>\n  <td>failed</td>\n</tr>\n```\n\n### Recipes\n\nThese used to be modifier classes. They are one or two rules of your own CSS, which keeps them out of everyone else's bundle.\n\n**Responsive** — the scroll container is the parent, not the table:\n\n```css\n.table-wrapper {\n  overflow-x: auto;\n}\n```\n\n```html\n<div class=\"table-wrapper\">\n  <table class=\"pui-table\">\n    <!-- ... -->\n  </table>\n</div>\n```\n\n**Bordered** — grid lines on every cell:\n\n```css\n.table-bordered {\n  border: var(--pui-border-width) solid var(--pui-border);\n  border-radius: var(--pui-radius);\n  overflow: hidden;\n}\n.table-bordered :is(th, td) {\n  border: var(--pui-border-width) solid var(--pui-border);\n}\n```\n\n**Borderless**:\n\n```css\n.table-borderless :is(th, td) {\n  border: none;\n}\n```\n\n**Compact rows**:\n\n```css\n.table-compact :is(th, td) {\n  padding-block: var(--pui-space);\n}\n```\n\n**Numbers aligned to the end**:\n\n```css\n.table-numeric :is(th, td):last-child {\n  text-align: end;\n  font-variant-numeric: tabular-nums;\n}\n```\n",
+      "examples": [
+        "<table class=\"pui-table\">\n  <thead>\n    <tr>\n      <th>#</th>\n      <th>Name</th>\n      <th>Role</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>1</td>\n      <td>Mark</td>\n      <td>Owner</td>\n    </tr>\n    <tr>\n      <td>2</td>\n      <td>Jacob</td>\n      <td>Editor</td>\n    </tr>\n  </tbody>\n</table>",
+        "<table class=\"pui-table pui-striped\">\n  <!-- ... -->\n</table>\n\n<table class=\"pui-table pui-hoverable\">\n  <!-- ... -->\n</table>\n\n<table class=\"pui-table pui-striped pui-hoverable\">\n  <!-- ... -->\n</table>",
+        "<table class=\"pui-table\">\n  <tbody>\n    <tr>\n      <td>Licence</td>\n      <td>120.00</td>\n    </tr>\n  </tbody>\n  <tfoot>\n    <tr>\n      <th>Total</th>\n      <th>160.00</th>\n    </tr>\n  </tfoot>\n</table>",
+        "<td><span class=\"pui-badge pui-soft pui-success\">active</span></td>\n<td><button class=\"pui-btn pui-link pui-theme\">Edit</button></td>",
+        "<tr class=\"pui-soft pui-error\">\n  <td>2</td>\n  <td>Jacob</td>\n  <td>failed</td>\n</tr>",
+        "<div class=\"table-wrapper\">\n  <table class=\"pui-table\">\n    <!-- ... -->\n  </table>\n</div>"
+      ],
+      "classes": [
+        "pui-badge",
+        "pui-btn",
+        "pui-error",
+        "pui-hoverable",
+        "pui-link",
+        "pui-soft",
+        "pui-striped",
+        "pui-success",
+        "pui-table",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "timeline",
+      "title": "Timeline",
+      "section": "Components",
+      "file": "docs/timeline.md",
+      "description": "Events in order, with a rule connecting them. Each checkpoint draws its own segment, so a timeline is a sequence of checkpoints with nothing in between.",
+      "markdown": "#### Components\n\n# Timeline\n\nEvents in order, with a rule connecting them. Each checkpoint draws its own segment, so a timeline is a sequence of checkpoints with nothing in between.\n\n```html live\n<figure class=\"pui-timeline\">\n  <figcaption class=\"pui-checkpoint\">\n    <i class=\"pui-checkpoint-icon pui-solid pui-success\">&check;</i>\n    <article>\n      <strong>Released v1.0.0</strong>\n      <p>Shipped this morning.</p>\n    </article>\n  </figcaption>\n\n  <figcaption class=\"pui-checkpoint\">\n    <i class=\"pui-checkpoint-icon pui-solid pui-error\">!</i>\n    <article>\n      <strong>Quick bug fix</strong>\n    </article>\n  </figcaption>\n</figure>\n```\n\n| Class                 | Role                                    |\n| --------------------- | --------------------------------------- |\n| `pui-timeline`        | the container                           |\n| `pui-checkpoint`      | one event, and the rule to the next one |\n| `pui-checkpoint-icon` | the marker on the rule                  |\n\n### The icon\n\nThe icon is an ordinary colorable element, so its appearance is the same style and color pair used everywhere:\n\n```html live\n<i class=\"pui-checkpoint-icon pui-solid pui-success\">&check;</i>\n<i class=\"pui-checkpoint-icon pui-outline pui-muted\">3</i>\n<i class=\"pui-checkpoint-icon pui-soft pui-theme\">i</i>\n```\n\nAnything fits inside it — a character, a number, or an icon font.\n\n### Horizontal\n\nCombine with `pui-group-row`:\n\n```html live\n<figure class=\"pui-timeline pui-group-row\">\n  <figcaption class=\"pui-checkpoint\">\n    <i class=\"pui-checkpoint-icon pui-solid pui-success\">&check;</i>\n    <span>Released</span>\n  </figcaption>\n  <figcaption class=\"pui-checkpoint\">\n    <i class=\"pui-checkpoint-icon pui-outline pui-muted\">2</i>\n    <span>Planning</span>\n  </figcaption>\n</figure>\n```\n",
+      "examples": [
+        "<figure class=\"pui-timeline\">\n  <figcaption class=\"pui-checkpoint\">\n    <i class=\"pui-checkpoint-icon pui-solid pui-success\">&check;</i>\n    <article>\n      <strong>Released v1.0.0</strong>\n      <p>Shipped this morning.</p>\n    </article>\n  </figcaption>\n\n  <figcaption class=\"pui-checkpoint\">\n    <i class=\"pui-checkpoint-icon pui-solid pui-error\">!</i>\n    <article>\n      <strong>Quick bug fix</strong>\n    </article>\n  </figcaption>\n</figure>",
+        "<i class=\"pui-checkpoint-icon pui-solid pui-success\">&check;</i>\n<i class=\"pui-checkpoint-icon pui-outline pui-muted\">3</i>\n<i class=\"pui-checkpoint-icon pui-soft pui-theme\">i</i>",
+        "<figure class=\"pui-timeline pui-group-row\">\n  <figcaption class=\"pui-checkpoint\">\n    <i class=\"pui-checkpoint-icon pui-solid pui-success\">&check;</i>\n    <span>Released</span>\n  </figcaption>\n  <figcaption class=\"pui-checkpoint\">\n    <i class=\"pui-checkpoint-icon pui-outline pui-muted\">2</i>\n    <span>Planning</span>\n  </figcaption>\n</figure>"
+      ],
+      "classes": [
+        "pui-checkpoint",
+        "pui-checkpoint-icon",
+        "pui-error",
+        "pui-group-row",
+        "pui-muted",
+        "pui-outline",
+        "pui-soft",
+        "pui-solid",
+        "pui-success",
+        "pui-theme",
+        "pui-timeline"
+      ]
+    },
+    {
+      "slug": "tooltip",
+      "title": "Tooltip",
+      "section": "Components",
+      "file": "docs/tooltip.md",
+      "description": "Built on `interestfor` and `popover=\"hint\"`. It appears on hover, on keyboard focus, and on a long press — which is what makes it work on touch screens, unlike the old tooltip.",
+      "markdown": "#### Components\n\n# Tooltip\n\nBuilt on `interestfor` and `popover=\"hint\"`. It appears on hover, on keyboard focus, and on a long press — which is what makes it work on touch screens, unlike the old tooltip.\n\n```html live name=basic\n<button class=\"pui-btn pui-outline pui-surface\" interestfor=\"help\">?</button>\n\n<div class=\"pui-tooltip\" id=\"help\" popover=\"hint\">\n  We never share your email.\n</div>\n```\n\n`interestfor` names the tooltip, and that is the whole API.\n\n> [!WARNING]\n>\n> This is the component that most needs the script today: `interestfor` is only in Chromium so far, so everywhere else the fallback provides the hover, focus and long press behavior.\n\n### Placement\n\nThe tooltip sits above its trigger and flips below when there is no room. Three classes move it elsewhere:\n\n```html\n<div class=\"pui-tooltip pui-bottom\" id=\"help\" popover=\"hint\">Below</div>\n<div class=\"pui-tooltip pui-start\" id=\"help\" popover=\"hint\">Before</div>\n<div class=\"pui-tooltip pui-end\" id=\"help\" popover=\"hint\">After</div>\n```\n\n| Class        | Where it goes                    |\n| ------------ | -------------------------------- |\n| _(none)_     | above                            |\n| `pui-bottom` | below                            |\n| `pui-start`  | to the left, or the right in RTL |\n| `pui-end`    | to the right, or the left in RTL |\n\n### Styles\n\nA tooltip is an ordinary colorable element, so it takes any style and color pair:\n\n```html\n<div class=\"pui-tooltip pui-solid pui-inverse\" popover=\"hint\">Dark</div>\n<div class=\"pui-tooltip pui-solid pui-theme\" popover=\"hint\">Theme</div>\n<div class=\"pui-tooltip pui-soft pui-warn\" popover=\"hint\">A warning</div>\n```\n\n### On any element\n\n```html live\n<span interestfor=\"definition\" tabindex=\"0\">CLS</span>\n<div class=\"pui-tooltip\" id=\"definition\" popover=\"hint\">\n  Cumulative Layout Shift\n</div>\n```\n\n> [!WARNING]\n>\n> A tooltip has to be reachable by keyboard. If the trigger is not already focusable, give it `tabindex=\"0\"`.\n\n### Why `popover=\"hint\"`\n\nA hint can appear while a menu is open without closing it, which a regular popover cannot do. Where the browser does not know the value yet it behaves as a normal popover, so the tooltip still works.\n",
+      "examples": [
+        "<button class=\"pui-btn pui-outline pui-surface\" interestfor=\"help\">?</button>\n\n<div class=\"pui-tooltip\" id=\"help\" popover=\"hint\">\n  We never share your email.\n</div>",
+        "<div class=\"pui-tooltip pui-bottom\" id=\"help\" popover=\"hint\">Below</div>\n<div class=\"pui-tooltip pui-start\" id=\"help\" popover=\"hint\">Before</div>\n<div class=\"pui-tooltip pui-end\" id=\"help\" popover=\"hint\">After</div>",
+        "<div class=\"pui-tooltip pui-solid pui-inverse\" popover=\"hint\">Dark</div>\n<div class=\"pui-tooltip pui-solid pui-theme\" popover=\"hint\">Theme</div>\n<div class=\"pui-tooltip pui-soft pui-warn\" popover=\"hint\">A warning</div>",
+        "<span interestfor=\"definition\" tabindex=\"0\">CLS</span>\n<div class=\"pui-tooltip\" id=\"definition\" popover=\"hint\">\n  Cumulative Layout Shift\n</div>"
+      ],
+      "classes": [
+        "pui-bottom",
+        "pui-btn",
+        "pui-end",
+        "pui-inverse",
+        "pui-outline",
+        "pui-soft",
+        "pui-solid",
+        "pui-start",
+        "pui-surface",
+        "pui-theme",
+        "pui-tooltip",
+        "pui-warn"
+      ]
+    },
+    {
+      "slug": "field-group",
+      "title": "Field Group",
+      "section": "Forms",
+      "file": "docs/field-group.md",
+      "description": "Wraps a control with its label and its message. Both are real elements, so screen readers announce them, browsers translate them, and users can select the text.",
+      "markdown": "#### Forms\n\n# Field Group\n\nWraps a control with its label and its message. Both are **real elements**, so screen readers announce them, browsers translate them, and users can select the text.\n\n```html live\n<label class=\"pui-field-group\">\n  <span>Email</span>\n  <input class=\"pui-input\" type=\"email\" aria-describedby=\"email-help\" />\n  <small id=\"email-help\">We never share it.</small>\n</label>\n```\n\n| Element     | Role                              |\n| ----------- | --------------------------------- |\n| `<span>`    | the label                         |\n| the control | `pui-input`, a checkbox, anything |\n| `<small>`   | the message, help text or error   |\n\nNo class goes on the children: they are matched by their tag. The `<label>` wrapper is what makes clicking the label focus the control.\n\n### Errors\n\nThe error state is `aria-invalid` on the control. There is no error class:\n\n```html live\n<label class=\"pui-field-group\">\n  <span>Password</span>\n  <input\n    class=\"pui-input\"\n    type=\"password\"\n    aria-invalid=\"true\"\n    aria-describedby=\"password-error\"\n  />\n  <small id=\"password-error\">Must be at least 8 characters.</small>\n</label>\n```\n\nThe control's border turns red and the message follows it. Because the state lives on the control, a screen reader announces the field as invalid — a class could never do that.\n\n```js\ninput.setAttribute(\"aria-invalid\", \"true\");\ninput.removeAttribute(\"aria-invalid\");\n```\n\n> [!WARNING]\n>\n> `aria-describedby` is what ties the message to the control. Without it the message is visible but never announced.\n\n### Any control\n\n```html live\n<label class=\"pui-field-group\">\n  <span>Role</span>\n  <select class=\"pui-input\">\n    <option>Owner</option>\n    <option>Editor</option>\n  </select>\n</label>\n\n<label class=\"pui-field-group\">\n  <span>Notes</span>\n  <textarea class=\"pui-input\" rows=\"3\"></textarea>\n</label>\n```\n",
+      "examples": [
+        "<label class=\"pui-field-group\">\n  <span>Email</span>\n  <input class=\"pui-input\" type=\"email\" aria-describedby=\"email-help\" />\n  <small id=\"email-help\">We never share it.</small>\n</label>",
+        "<label class=\"pui-field-group\">\n  <span>Password</span>\n  <input\n    class=\"pui-input\"\n    type=\"password\"\n    aria-invalid=\"true\"\n    aria-describedby=\"password-error\"\n  />\n  <small id=\"password-error\">Must be at least 8 characters.</small>\n</label>",
+        "<label class=\"pui-field-group\">\n  <span>Role</span>\n  <select class=\"pui-input\">\n    <option>Owner</option>\n    <option>Editor</option>\n  </select>\n</label>\n\n<label class=\"pui-field-group\">\n  <span>Notes</span>\n  <textarea class=\"pui-input\" rows=\"3\"></textarea>\n</label>"
+      ],
+      "classes": [
+        "pui-field-group",
+        "pui-input"
+      ]
+    },
+    {
+      "slug": "input",
+      "title": "Input",
+      "section": "Forms",
+      "file": "docs/input.md",
+      "description": "One class for every text control: `<input>`, `<textarea>` and `<select>`.",
+      "markdown": "#### Forms\n\n# Input\n\nOne class for every text control: `<input>`, `<textarea>` and `<select>`.\n\n```html live\n<input class=\"pui-input\" type=\"text\" placeholder=\"Your name\" />\n```\n\n### Types\n\nEvery native type works, and each keeps its own keyboard and picker:\n\n```html live\n<input class=\"pui-input\" type=\"email\" placeholder=\"you@example.com\" />\n<input class=\"pui-input\" type=\"password\" />\n<input class=\"pui-input\" type=\"number\" />\n<input class=\"pui-input\" type=\"date\" />\n<input class=\"pui-input\" type=\"search\" />\n```\n\n### With a label\n\nSee [Field Group](field-group.md).\n\n### States\n\n```html live\n<input class=\"pui-input\" disabled value=\"Disabled\" />\n<input class=\"pui-input\" readonly value=\"Read only\" />\n<input class=\"pui-input\" aria-invalid=\"true\" value=\"Invalid\" />\n```\n\n### Full width\n\nInputs size themselves to their content box, so width is yours to decide:\n\n```html live\n<input class=\"pui-input\" style=\"width: 100%\" />\n```\n",
+      "examples": [
+        "<input class=\"pui-input\" type=\"text\" placeholder=\"Your name\" />",
+        "<input class=\"pui-input\" type=\"email\" placeholder=\"you@example.com\" />\n<input class=\"pui-input\" type=\"password\" />\n<input class=\"pui-input\" type=\"number\" />\n<input class=\"pui-input\" type=\"date\" />\n<input class=\"pui-input\" type=\"search\" />",
+        "<input class=\"pui-input\" disabled value=\"Disabled\" />\n<input class=\"pui-input\" readonly value=\"Read only\" />\n<input class=\"pui-input\" aria-invalid=\"true\" value=\"Invalid\" />",
+        "<input class=\"pui-input\" style=\"width: 100%\" />"
+      ],
+      "classes": [
+        "pui-input"
+      ]
+    },
+    {
+      "slug": "input-group",
+      "title": "Input Group",
+      "section": "Forms",
+      "file": "docs/input-group.md",
+      "description": "Joins a control with an addon into a single field: one border, one radius, one focus ring.",
+      "markdown": "#### Forms\n\n# Input Group\n\nJoins a control with an addon into a single field: one border, one radius, one focus ring.\n\n```html live\n<div class=\"pui-input-group\">\n  <span class=\"pui-addon\">https://</span>\n  <input class=\"pui-input\" value=\"perfectui.dev\" />\n</div>\n```\n\nThe addon can sit on either side, or on both:\n\n```html live\n<div class=\"pui-input-group\">\n  <input class=\"pui-input\" placeholder=\"Amount\" />\n  <span class=\"pui-addon\">BRL</span>\n</div>\n\n<div class=\"pui-input-group\">\n  <span class=\"pui-addon\">R$</span>\n  <input class=\"pui-input\" />\n  <span class=\"pui-addon\">,00</span>\n</div>\n```\n\n### With a button\n\nAnything dropped into the group gives up its own frame, so a button needs no extra markup:\n\n```html live\n<div class=\"pui-input-group\">\n  <input class=\"pui-input\" placeholder=\"Search\" />\n  <button class=\"pui-btn pui-solid pui-theme\">Go</button>\n</div>\n```\n\n### Errors\n\n`aria-invalid` on the group colors the whole field:\n\n```html live\n<div class=\"pui-input-group\" aria-invalid=\"true\">\n  <span class=\"pui-addon\">@</span>\n  <input class=\"pui-input\" value=\"not an email\" />\n</div>\n```\n\n### Inside a field group\n\n```html live\n<label class=\"pui-field-group\">\n  <span>Website</span>\n  <div class=\"pui-input-group\">\n    <span class=\"pui-addon\">https://</span>\n    <input class=\"pui-input\" />\n  </div>\n  <small>Without the protocol.</small>\n</label>\n```\n",
+      "examples": [
+        "<div class=\"pui-input-group\">\n  <span class=\"pui-addon\">https://</span>\n  <input class=\"pui-input\" value=\"perfectui.dev\" />\n</div>",
+        "<div class=\"pui-input-group\">\n  <input class=\"pui-input\" placeholder=\"Amount\" />\n  <span class=\"pui-addon\">BRL</span>\n</div>\n\n<div class=\"pui-input-group\">\n  <span class=\"pui-addon\">R$</span>\n  <input class=\"pui-input\" />\n  <span class=\"pui-addon\">,00</span>\n</div>",
+        "<div class=\"pui-input-group\">\n  <input class=\"pui-input\" placeholder=\"Search\" />\n  <button class=\"pui-btn pui-solid pui-theme\">Go</button>\n</div>",
+        "<div class=\"pui-input-group\" aria-invalid=\"true\">\n  <span class=\"pui-addon\">@</span>\n  <input class=\"pui-input\" value=\"not an email\" />\n</div>",
+        "<label class=\"pui-field-group\">\n  <span>Website</span>\n  <div class=\"pui-input-group\">\n    <span class=\"pui-addon\">https://</span>\n    <input class=\"pui-input\" />\n  </div>\n  <small>Without the protocol.</small>\n</label>"
+      ],
+      "classes": [
+        "pui-addon",
+        "pui-btn",
+        "pui-field-group",
+        "pui-input",
+        "pui-input-group",
+        "pui-solid",
+        "pui-theme"
+      ]
+    },
+    {
+      "slug": "textarea",
+      "title": "Textarea",
+      "section": "Forms",
+      "file": "docs/textarea.md",
+      "description": "The same `pui-input` class, on a `<textarea>`.",
+      "markdown": "#### Forms\n\n# Textarea\n\nThe same `pui-input` class, on a `<textarea>`.\n\n```html live\n<textarea class=\"pui-input\" rows=\"3\" placeholder=\"Your message\"></textarea>\n```\n\nIt resizes vertically only, so a textarea cannot break the layout sideways.\n\n### With a label\n\n```html live\n<label class=\"pui-field-group\">\n  <span>Notes</span>\n  <textarea class=\"pui-input\" rows=\"4\" aria-describedby=\"notes-help\"></textarea>\n  <small id=\"notes-help\">Markdown is supported.</small>\n</label>\n```\n\n### Growing with its content\n\nBrowsers can size a textarea to its text, no script needed:\n\n```css\n.pui-input {\n  field-sizing: content;\n}\n```\n",
+      "examples": [
+        "<textarea class=\"pui-input\" rows=\"3\" placeholder=\"Your message\"></textarea>",
+        "<label class=\"pui-field-group\">\n  <span>Notes</span>\n  <textarea class=\"pui-input\" rows=\"4\" aria-describedby=\"notes-help\"></textarea>\n  <small id=\"notes-help\">Markdown is supported.</small>\n</label>"
+      ],
+      "classes": [
+        "pui-field-group",
+        "pui-input"
+      ]
+    },
+    {
+      "slug": "select",
+      "title": "Select",
+      "section": "Forms",
+      "file": "docs/select.md",
+      "description": "The same `pui-input` class, on a `<select>`.",
+      "markdown": "#### Forms\n\n# Select\n\nThe same `pui-input` class, on a `<select>`.\n\n```html live\n<select class=\"pui-input\">\n  <option>Owner</option>\n  <option>Editor</option>\n  <option>Viewer</option>\n</select>\n```\n\nThe arrow is drawn in CSS from the current text color, so it follows your theme and the color mode without shipping an image.\n\n### With a label\n\n```html live\n<label class=\"pui-field-group\">\n  <span>Role</span>\n  <select class=\"pui-input\">\n    <option value=\"\">Choose one</option>\n    <option value=\"owner\">Owner</option>\n  </select>\n</label>\n```\n\n### Multiple and grouped\n\n```html live\n<select class=\"pui-input\" multiple size=\"4\">\n  <optgroup label=\"Admins\">\n    <option>Mark</option>\n  </optgroup>\n  <optgroup label=\"Members\">\n    <option>Jacob</option>\n  </optgroup>\n</select>\n```\n\n### Dark mode\n\nThe dropdown list and its options are drawn by the operating system. Perfect UI declares `color-scheme`, so they follow the page mode on their own.\n",
+      "examples": [
+        "<select class=\"pui-input\">\n  <option>Owner</option>\n  <option>Editor</option>\n  <option>Viewer</option>\n</select>",
+        "<label class=\"pui-field-group\">\n  <span>Role</span>\n  <select class=\"pui-input\">\n    <option value=\"\">Choose one</option>\n    <option value=\"owner\">Owner</option>\n  </select>\n</label>",
+        "<select class=\"pui-input\" multiple size=\"4\">\n  <optgroup label=\"Admins\">\n    <option>Mark</option>\n  </optgroup>\n  <optgroup label=\"Members\">\n    <option>Jacob</option>\n  </optgroup>\n</select>"
+      ],
+      "classes": [
+        "pui-field-group",
+        "pui-input"
+      ]
+    },
+    {
+      "slug": "checkbox",
+      "title": "Checkbox",
+      "section": "Forms",
+      "file": "docs/checkbox.md",
+      "description": "A native `<input type=\"checkbox\">` with the `pui-checkbox` class.",
+      "markdown": "#### Forms\n\n# Checkbox\n\nA native `<input type=\"checkbox\">` with the `pui-checkbox` class.\n\n```html live\n<label>\n  <input type=\"checkbox\" class=\"pui-checkbox\" />\n  Accept the terms\n</label>\n```\n\n### Checked\n\n```html live\n<input type=\"checkbox\" class=\"pui-checkbox\" checked />\n```\n\n### Colors\n\nA color class paints the checked state, the same classes used everywhere else:\n\n```html live\n<input type=\"checkbox\" class=\"pui-checkbox\" checked />\n<input type=\"checkbox\" class=\"pui-checkbox pui-success\" checked />\n<input type=\"checkbox\" class=\"pui-checkbox pui-error\" checked />\n```\n\nWithout a color class it uses the theme color.\n\n### Indeterminate\n\nThe third state — neither checked nor unchecked — is normally a JavaScript property, which makes it impossible to express in markup. Perfect UI accepts it as an attribute:\n\n```html live\n<input type=\"checkbox\" class=\"pui-checkbox\" indeterminate />\n```\n\n> [!WARNING]\n>\n> This is the one case that always needs the script, because no browser has this attribute natively. The attribute is removed as soon as the user clicks the checkbox.\n\nIt works on checkboxes rendered at any time, by a framework or a client-side route, with nothing to call. One exception: if your page turns animations off everywhere (`* { animation: none !important }`) or animates this checkbox itself, a checkbox rendered after the page loaded shows the mixed state from the reader's first click or focus on the page instead.\n\nThe property keeps working as usual:\n\n```js\ninput.indeterminate = true;\n```\n\n### Disabled\n\n```html live\n<input type=\"checkbox\" class=\"pui-checkbox\" checked disabled />\n```\n\n### With a label and a message\n\n```html live\n<label class=\"pui-field-group\">\n  <span>Newsletter</span>\n  <input type=\"checkbox\" class=\"pui-checkbox\" aria-describedby=\"news-help\" />\n  <small id=\"news-help\">One email a month, no more.</small>\n</label>\n```\n",
+      "examples": [
+        "<label>\n  <input type=\"checkbox\" class=\"pui-checkbox\" />\n  Accept the terms\n</label>",
+        "<input type=\"checkbox\" class=\"pui-checkbox\" checked />",
+        "<input type=\"checkbox\" class=\"pui-checkbox\" checked />\n<input type=\"checkbox\" class=\"pui-checkbox pui-success\" checked />\n<input type=\"checkbox\" class=\"pui-checkbox pui-error\" checked />",
+        "<input type=\"checkbox\" class=\"pui-checkbox\" indeterminate />",
+        "<input type=\"checkbox\" class=\"pui-checkbox\" checked disabled />",
+        "<label class=\"pui-field-group\">\n  <span>Newsletter</span>\n  <input type=\"checkbox\" class=\"pui-checkbox\" aria-describedby=\"news-help\" />\n  <small id=\"news-help\">One email a month, no more.</small>\n</label>"
+      ],
+      "classes": [
+        "pui-checkbox",
+        "pui-error",
+        "pui-field-group",
+        "pui-success"
+      ]
+    },
+    {
+      "slug": "radio",
+      "title": "Radio",
+      "section": "Forms",
+      "file": "docs/radio.md",
+      "description": "A native `<input type=\"radio\">` with the `pui-radio` class. Grouping, arrow-key navigation and the one-of-many behavior all come from the `name` attribute.",
+      "markdown": "#### Forms\n\n# Radio\n\nA native `<input type=\"radio\">` with the `pui-radio` class. Grouping, arrow-key navigation and the one-of-many behavior all come from the `name` attribute.\n\n```html live\n<label>\n  <input type=\"radio\" name=\"plan\" class=\"pui-radio\" checked />\n  Free\n</label>\n<label>\n  <input type=\"radio\" name=\"plan\" class=\"pui-radio\" />\n  Pro\n</label>\n```\n\n### Colors\n\n```html live\n<input type=\"radio\" name=\"color\" class=\"pui-radio\" checked />\n<input type=\"radio\" name=\"color\" class=\"pui-radio pui-success\" checked />\n<input type=\"radio\" name=\"color\" class=\"pui-radio pui-warn\" checked />\n```\n\n### Disabled\n\n```html live\n<input type=\"radio\" name=\"plan\" class=\"pui-radio\" checked disabled />\n```\n\n### A group of options\n\n```html live\n<fieldset>\n  <legend>Plan</legend>\n  <label><input type=\"radio\" name=\"plan\" class=\"pui-radio\" /> Free</label>\n  <label><input type=\"radio\" name=\"plan\" class=\"pui-radio\" /> Pro</label>\n  <label><input type=\"radio\" name=\"plan\" class=\"pui-radio\" /> Team</label>\n</fieldset>\n```\n\n> [!WARNING]\n>\n> A `<fieldset>` with a `<legend>` is what tells a screen reader that the options belong together. Perfect UI does not style either element, so they look like your page.\n",
+      "examples": [
+        "<label>\n  <input type=\"radio\" name=\"plan\" class=\"pui-radio\" checked />\n  Free\n</label>\n<label>\n  <input type=\"radio\" name=\"plan\" class=\"pui-radio\" />\n  Pro\n</label>",
+        "<input type=\"radio\" name=\"color\" class=\"pui-radio\" checked />\n<input type=\"radio\" name=\"color\" class=\"pui-radio pui-success\" checked />\n<input type=\"radio\" name=\"color\" class=\"pui-radio pui-warn\" checked />",
+        "<input type=\"radio\" name=\"plan\" class=\"pui-radio\" checked disabled />",
+        "<fieldset>\n  <legend>Plan</legend>\n  <label><input type=\"radio\" name=\"plan\" class=\"pui-radio\" /> Free</label>\n  <label><input type=\"radio\" name=\"plan\" class=\"pui-radio\" /> Pro</label>\n  <label><input type=\"radio\" name=\"plan\" class=\"pui-radio\" /> Team</label>\n</fieldset>"
+      ],
+      "classes": [
+        "pui-radio",
+        "pui-success",
+        "pui-warn"
+      ]
+    },
+    {
+      "slug": "switch",
+      "title": "Switch",
+      "section": "Forms",
+      "file": "docs/switch.md",
+      "description": "A switch is a checkbox that reads as on or off. It is the same native element, with the `pui-switch` class.",
+      "markdown": "#### Forms\n\n# Switch\n\nA switch is a checkbox that reads as on or off. It is the same native element, with the `pui-switch` class.\n\n```html live\n<label>\n  <input type=\"checkbox\" class=\"pui-switch\" />\n  Email notifications\n</label>\n```\n\n### On\n\n```html live\n<input type=\"checkbox\" class=\"pui-switch\" checked />\n```\n\n### Colors\n\n```html live\n<input type=\"checkbox\" class=\"pui-switch\" checked />\n<input type=\"checkbox\" class=\"pui-switch pui-success\" checked />\n<input type=\"checkbox\" class=\"pui-switch pui-error\" checked />\n```\n\n### Disabled\n\n```html live\n<input type=\"checkbox\" class=\"pui-switch\" checked disabled />\n```\n\n### Checkbox or switch?\n\nBoth submit the same value. Use a checkbox when the choice is part of a form that gets submitted, and a switch when the change takes effect immediately.\n\nThe knob slides between the two states, and stays still for anyone who asked their system to reduce motion.\n",
+      "examples": [
+        "<label>\n  <input type=\"checkbox\" class=\"pui-switch\" />\n  Email notifications\n</label>",
+        "<input type=\"checkbox\" class=\"pui-switch\" checked />",
+        "<input type=\"checkbox\" class=\"pui-switch\" checked />\n<input type=\"checkbox\" class=\"pui-switch pui-success\" checked />\n<input type=\"checkbox\" class=\"pui-switch pui-error\" checked />",
+        "<input type=\"checkbox\" class=\"pui-switch\" checked disabled />"
+      ],
+      "classes": [
+        "pui-error",
+        "pui-success",
+        "pui-switch"
+      ]
+    }
+  ],
+  "classes": [
+    "pui-accordion",
+    "pui-accordion-icon",
+    "pui-accordion-item",
+    "pui-addon",
+    "pui-align-center",
+    "pui-align-end",
+    "pui-badge",
+    "pui-bottom",
+    "pui-btn",
+    "pui-card",
+    "pui-card-content",
+    "pui-card-header",
+    "pui-checkbox",
+    "pui-checkpoint",
+    "pui-checkpoint-icon",
+    "pui-chip",
+    "pui-dropdown",
+    "pui-end",
+    "pui-error",
+    "pui-field-group",
+    "pui-float",
+    "pui-group-col",
+    "pui-group-responsive",
+    "pui-group-row",
+    "pui-highlighted",
+    "pui-hoverable",
+    "pui-input",
+    "pui-input-group",
+    "pui-inverse",
+    "pui-link",
+    "pui-list",
+    "pui-list-item",
+    "pui-modal",
+    "pui-muted",
+    "pui-outline",
+    "pui-radio",
+    "pui-rounded",
+    "pui-rounded-full",
+    "pui-soft",
+    "pui-solid",
+    "pui-start",
+    "pui-striped",
+    "pui-success",
+    "pui-surface",
+    "pui-switch",
+    "pui-table",
+    "pui-theme",
+    "pui-timeline",
+    "pui-tooltip",
+    "pui-top",
+    "pui-warn"
+  ]
+}
