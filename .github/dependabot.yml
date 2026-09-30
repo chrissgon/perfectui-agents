@@ -9,3 +9,7 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # @types/node follows the Node major the project runs on (CI: node-version 24), not the newest Node.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
