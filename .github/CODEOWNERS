@@ -2,7 +2,8 @@
 /AGENTS.md                  @chrissgon
 /.github/                   @chrissgon
 /.github/workflows/publish.yml @chrissgon
-/.githooks/                 @chrissgon
+/.husky/                    @chrissgon
+/commitlint.config.js       @chrissgon
 /scripts/secret-scan/       @chrissgon
 /.secret-scan-allow         @chrissgon
 /package.json               @chrissgon

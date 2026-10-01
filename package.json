@@ -46,7 +46,10 @@
     "typecheck": "tsc -p tsconfig.scripts.json",
     "corpus": "tsx scripts/build-corpus.ts",
     "start": "node dist/server.js",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "changelog": "changelogen --noAuthors --no-output",
+    "release:prepare": "changelogen --bump --noAuthors --output CHANGELOG.md",
+    "prepare": "husky"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.31.0",
@@ -54,8 +57,12 @@
     "zod": "4.6.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
     "@modelcontextprotocol/inspector": "2.8.0",
     "@types/node": "24.19.0",
+    "changelogen": "0.6.2",
+    "husky": "9.1.7",
     "tsx": "4.23.15",
     "typescript": "7.0.2",
     "vitest": "5.0.2"

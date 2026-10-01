@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# The commit message follows Conventional Commits (commitlint.config.js). The same rule checks each pull
+# request title in CI (.github/workflows/pr-title.yml).
+npx --no -- commitlint --edit "$1"
