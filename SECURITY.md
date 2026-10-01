@@ -9,5 +9,5 @@ Include what is affected, how to reproduce it, and what an attacker gains. You w
 ## What the repository already does
 
 - Every push and pull request runs the project's checks (install, types, tests, build) and a secret scan of the working tree and the whole history (`.github/workflows/checks.yml`).
-- A pre-commit hook runs the same checks before each commit (`.githooks/pre-commit`, enabled per clone with `git config core.hooksPath .githooks`).
+- A pre-commit hook runs the same checks before each commit (`.husky/pre-commit`, installed by husky on `npm install`), and a commit-msg hook checks the commit convention.
 - Dependency alerts and version updates are on (`.github/dependabot.yml`).

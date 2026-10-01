@@ -1,5 +1,5 @@
 # The project's checks and a secret scan, on every push to main and every pull request.
-# The same checks run in the pre-commit hook (.githooks/pre-commit). Actions are pinned to a commit
+# The same checks run in the pre-commit hook (.husky/pre-commit). Actions are pinned to a commit
 # (a tag can be moved); Dependabot proposes updates. Read-only permissions.
 name: checks
 

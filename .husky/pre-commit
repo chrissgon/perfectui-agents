@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Pre-commit checks: the same as the CI workflow (.github/workflows/checks.yml), except the install.
-# Enable them once per clone: git config core.hooksPath .githooks
+# Installed by husky on `npm install` (package.json: "prepare": "husky"); nothing to enable by hand.
 # 1. The secret scan of the working tree (scripts/secret-scan/secret_scan.py).
 # 2. Types, tests and the build.
 # Skipping the hook (git commit --no-verify) is the user's decision, never an agent's.
